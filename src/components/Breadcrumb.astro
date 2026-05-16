@@ -1,0 +1,32 @@
+---
+export interface Props {
+  items: Array<{ label: string; href?: string }>;
+}
+
+const { items } = Astro.props;
+const breadcrumbLD = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.label,
+    item: item.href ? `https://toolzen.com${item.href}` : undefined,
+  })),
+});
+---
+
+<nav class="flex items-center gap-2 text-sm text-gray-400 mb-6" aria-label="Breadcrumb">
+  {items.map((item, i) => (
+    <>
+      {i > 0 && <span>/</span>}
+      {item.href ? (
+        <a href={item.href} class="hover:text-gray-600 transition-colors no-underline">{item.label}</a>
+      ) : (
+        <span class="text-gray-700">{item.label}</span>
+      )}
+    </>
+  ))}
+</nav>
+
+<script type="application/ld+json" set:html={breadcrumbLD}></script>

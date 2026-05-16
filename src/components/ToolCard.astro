@@ -1,0 +1,13 @@
+---
+export interface Props {
+  slug: string;
+  title: string;
+  description: string;
+}
+const { slug, title, description } = Astro.props;
+---
+
+<a href={`/${slug}/`} class="block p-4 rounded-xl border border-gray-100 hover:border-zen-200 hover:bg-zen-50/30 transition-all no-underline group" data-tool-card={title}>
+  <h3 class="font-semibold text-gray-900 group-hover:text-zen-500 transition-colors">{title}</h3>
+  <p class="text-sm text-gray-500 mt-1">{description.slice(0, 80)}...</p>
+</a>

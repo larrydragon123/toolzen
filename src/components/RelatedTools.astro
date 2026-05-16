@@ -1,0 +1,21 @@
+---
+import { getRelatedTools } from '../utils/tools';
+import ToolCard from './ToolCard.astro';
+
+export interface Props {
+  current: string;
+}
+const { current } = Astro.props;
+const related = getRelatedTools(current, 4);
+---
+
+{related.length > 0 && (
+  <section class="mt-12 pt-8 border-t border-gray-100">
+    <h2 class="text-lg font-semibold text-gray-900 mb-4">相关工具</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      {related.map(tool => (
+        <ToolCard slug={tool.slug} title={tool.title} description={tool.description} />
+      ))}
+    </div>
+  </section>
+)}
