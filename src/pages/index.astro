@@ -1,15 +1,87 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ToolCard from '../components/ToolCard.astro';
+import CategoryCard from '../components/CategoryCard.astro';
+import SearchBar from '../components/SearchBar.astro';
+import { TOOLS, CATEGORIES } from '../utils/tools';
 
-const pageTitle = 'ToolZen - 在线开发者工具箱';
-const pageDescription = '免费在线开发者工具集合，所有工具均在浏览器本地运行，保护你的隐私。';
+const popularSlugs = ['json-formatter', 'base64', 'qr-code', 'image-compress', 'uuid-generator', 'word-counter'];
+const popularTools = popularSlugs.map(s => TOOLS.find(t => t.slug === s)!).filter(Boolean);
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="max-w-6xl mx-auto px-4 py-16">
-    <h1 class="text-4xl font-bold text-gray-900 mb-4">ToolZen</h1>
-    <p class="text-lg text-gray-600 max-w-2xl">
-      免费在线开发者工具箱。所有工具均在浏览器本地运行，无需上传文件，保护你的数据隐私。
+<BaseLayout
+  title="ToolZen - 免费在线工具 | 隐私优先，无需上传"
+  description="ToolZen提供JSON格式化、Base64编解码、二维码生成、图片压缩等11+免费在线工具。所有工具在浏览器端运行，数据不上传，隐私安全。"
+>
+  <!-- Hero -->
+  <section class="max-w-4xl mx-auto px-4 pt-16 pb-12 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+      工具之道，<span class="text-zen-500">简即是多</span>
+    </h1>
+    <p class="text-lg text-gray-500 mb-8 max-w-xl mx-auto">
+      11+ 免费在线工具。隐私优先，无需上传。所有处理在浏览器端完成。
     </p>
+    <SearchBar />
+  </section>
+
+  <!-- Popular Tools -->
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-xl font-semibold text-gray-900 mb-6">⭐ 热门工具</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+      {popularTools.map(tool => (
+        <ToolCard slug={tool.slug} title={tool.title} description={tool.description} />
+      ))}
+    </div>
+  </section>
+
+  <!-- All Categories -->
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-xl font-semibold text-gray-900 mb-6">📂 全部分类</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {CATEGORIES.map(cat => (
+        <CategoryCard slug={cat.slug} title={cat.title} icon={cat.icon} description={cat.description} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Why ToolZen -->
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-xl font-semibold text-gray-900 mb-6 text-center">为什么选择 ToolZen？</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="text-center">
+        <div class="text-3xl mb-3">🔒</div>
+        <h3 class="font-semibold text-gray-900 mb-2">隐私优先</h3>
+        <p class="text-sm text-gray-500">所有工具在您的浏览器本地运行，数据绝不会上传到任何服务器。</p>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl mb-3">⚡</div>
+        <h3 class="font-semibold text-gray-900 mb-2">极速响应</h3>
+        <p class="text-sm text-gray-500">纯静态页面，全球CDN加速，输入即输出，无需等待。</p>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl mb-3">🆓</div>
+        <h3 class="font-semibold text-gray-900 mb-2">完全免费</h3>
+        <p class="text-sm text-gray-500">所有工具永久免费使用，无隐藏收费，无功能限制。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ for SEO -->
+  <section class="max-w-4xl mx-auto px-4 py-12 border-t border-gray-100">
+    <h2 class="text-xl font-semibold text-gray-900 mb-6">常见问题</h2>
+    <div class="space-y-4">
+      <div>
+        <h3 class="font-medium text-gray-800">ToolZen的工具真的免费吗？</h3>
+        <p class="text-gray-600 text-sm mt-1">是的，所有工具永久免费。我们的收入来自广告（未来），不会向用户收费。</p>
+      </div>
+      <div>
+        <h3 class="font-medium text-gray-800">我的数据安全吗？</h3>
+        <p class="text-gray-600 text-sm mt-1">绝对安全。所有数据处理都在您的浏览器中完成，数据不会离开您的设备。</p>
+      </div>
+      <div>
+        <h3 class="font-medium text-gray-800">需要注册账号吗？</h3>
+        <p class="text-gray-600 text-sm mt-1">不需要。所有工具无需注册即可直接使用。</p>
+      </div>
+    </div>
   </section>
 </BaseLayout>
