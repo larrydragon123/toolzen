@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { getTool } from '../utils/tools';
+import { generateToolSEOMeta } from '../utils/seo';
+import DateCalculator from '../islands/DateCalculator';
+
+const tool = getTool('date-calculator')!;
+const seo = generateToolSEOMeta(tool);
+---
+
+<BaseLayout title={seo.title} description={tool.description}>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb items={[
+      { label: 'Home', href: '/' },
+      { label: '计算器', href: '/category/calculators/' },
+      { label: tool.title },
+    ]} />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">在线{tool.title}工具</h1>
+    <p class="text-gray-500 mb-8">{tool.description}</p>
+
+    <DateCalculator client:load />
+
+    <section class="mt-12 prose max-w-none">
+      <h2 class="text-xl font-semibold text-gray-900">如何使用{tool.title}工具</h2>
+      <p class="text-gray-600">日期计算器支持两种计算模式：<strong>日期差值模式</strong>可计算两个日期之间的总天数、工作日和周末天数，适合项目排期、合同期限等场景；<strong>日期推算模式</strong>可计算从某天起N天后的日期和期间的工作日数，适合预测交付日期、截止日期等场景。所有计算均在浏览器本地完成，无需上传数据。</p>
+
+      <h3 class="text-lg font-semibold text-gray-900 mt-6">功能特点</h3>
+      <ul class="text-gray-600 space-y-1">
+        <li>可视化日历选择器，轻松选择开始和结束日期</li>
+        <li>自动计算自然日（包含起始日和结束日）</li>
+        <li>精确计算工作日（周一至周五，不含周末）</li>
+        <li>分别统计周末天数（周六和周日）</li>
+        <li>支持从任意日期往后推算，实时显示目标日期</li>
+      </ul>
+
+      <h3 class="text-lg font-semibold text-gray-900 mt-6">常见问题</h3>
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-medium text-gray-800">工作日的计算包含节假日吗？</h4>
+          <p class="text-gray-600">本工具的工作日计算仅排除周末（周六和周日），不包含法定节假日。如需精确的工作日计算（如中国法定节假日），建议结合具体日历手动调整。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">日期推算最多支持多少天？</h4>
+          <p class="text-gray-600">日期推算功能最多支持36500天（约100年）。输入框可自定义天数，工具会实时显示推算结果，包括目标日期和期间的工作日统计。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">为什么总天数和天数差不一样？</h4>
+          <p class="text-gray-600">本工具的"总天数"采用包含首日计算方式。例如1月1日到1月3日，总共3天（含首尾），而非2天的差值。这种方式更符合日常习惯，如"请假3天"即含开始日和结束日。</p>
+        </div>
+      </div>
+    </section>
+
+    <RelatedTools current="date-calculator" />
+  </div>
+
+  {seo.script.map(s => <script type={s.type} set:html={s.innerHTML}></script>)}
+</BaseLayout>

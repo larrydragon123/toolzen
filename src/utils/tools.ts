@@ -127,6 +127,30 @@ export const TOOLS: Tool[] = [
     keywords: ['BMI计算器', '身体质量指数', '体重指数', '在线BMI', '健康体重'],
     complexity: 'low',
   },
+  {
+    slug: 'date-calculator',
+    title: '日期计算器',
+    description: '在线日期计算器。可视化日历选择，计算两个日期之间的天数、工作日数，支持日期加减推算。',
+    category: 'calculators',
+    keywords: ['日期计算', '天数计算', '工作日计算', '日期推算', '日历计算', '在线日期'],
+    complexity: 'low',
+  },
+  {
+    slug: 'case-converter',
+    title: '大小写转换',
+    description: '在线中英文大小写和繁简体转换工具。支持英文大写、小写、首字母大写，中文简体和繁体互转。',
+    category: 'text',
+    keywords: ['大小写转换', '英文大写', '英文小写', '简体转繁体', '繁体转简体', '文本转换'],
+    complexity: 'low',
+  },
+  {
+    slug: 'timezone-converter',
+    title: '时区转换器',
+    description: '在线时区时间转换工具。同时显示多个时区的当前时间和日期，轻松对比不同地区的时间差异。',
+    category: 'calculators',
+    keywords: ['时区转换', '世界时间', '时差计算', 'UTC转换', '国际时间', 'TimeZone'],
+    complexity: 'low',
+  },
 ];
 
 export function getTool(slug: string): Tool | undefined {
