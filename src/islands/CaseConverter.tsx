@@ -37,6 +37,34 @@ function t2s(text: string): string {
   return text.split('').map(c => T2S_MAP[c] || c).join('');
 }
 
+// Chinese numeral conversion maps
+const SIMPLE_DIGITS = '零一二三四五六七八九';
+const FORMAL_DIGITS = '零壹贰叁肆伍陆柒捌玖';
+const SIMPLE_UNITS: Record<string, string> = { '十': '拾', '百': '佰', '千': '仟', '万': '萬', '亿': '億', '两': '兩' };
+const FORMAL_UNITS: Record<string, string> = { '拾': '十', '佰': '百', '仟': '千', '萬': '万', '億': '亿', '兩': '两' };
+
+const DIGIT_S2F: Record<string, string> = {};
+for (let i = 0; i < SIMPLE_DIGITS.length; i++) DIGIT_S2F[SIMPLE_DIGITS[i]] = FORMAL_DIGITS[i];
+
+const DIGIT_F2S: Record<string, string> = {};
+for (let i = 0; i < FORMAL_DIGITS.length; i++) DIGIT_F2S[FORMAL_DIGITS[i]] = SIMPLE_DIGITS[i];
+
+function numSimpleToFormal(text: string): string {
+  return text.split('').map(c => {
+    if (DIGIT_S2F[c]) return DIGIT_S2F[c];
+    if (SIMPLE_UNITS[c]) return SIMPLE_UNITS[c];
+    return c;
+  }).join('');
+}
+
+function numFormalToSimple(text: string): string {
+  return text.split('').map(c => {
+    if (DIGIT_F2S[c]) return DIGIT_F2S[c];
+    if (FORMAL_UNITS[c]) return FORMAL_UNITS[c];
+    return c;
+  }).join('');
+}
+
 export default function CaseConverter() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
@@ -45,9 +73,10 @@ export default function CaseConverter() {
     { label: '英文大写', fn: () => setOutput(input.toUpperCase()) },
     { label: '英文小写', fn: () => setOutput(input.toLowerCase()) },
     { label: '首字母大写', fn: () => setOutput(input.replace(/\b\w/g, c => c.toUpperCase())) },
-    { label: '每个单词首字母', fn: () => setOutput(input.replace(/\b\w/g, c => c.toUpperCase())) },
     { label: '简体→繁体', fn: () => setOutput(s2t(input)) },
     { label: '繁体→简体', fn: () => setOutput(t2s(input)) },
+    { label: '中文小写→大写', fn: () => setOutput(numSimpleToFormal(input)) },
+    { label: '中文大写→小写', fn: () => setOutput(numFormalToSimple(input)) },
     { label: '反转大小写', fn: () => setOutput(input.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('')) },
   ];
 
