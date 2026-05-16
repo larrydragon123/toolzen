@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { getTool } from '../utils/tools';
+import { generateToolSEOMeta } from '../utils/seo';
+import ColorPicker from '../islands/ColorPicker';
+
+const tool = getTool('color-picker')!;
+const seo = generateToolSEOMeta(tool);
+---
+
+<BaseLayout title={seo.title} description={tool.description}>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb items={[
+      { label: 'Home', href: '/' },
+      { label: 'Developer Tools', href: '/category/dev/' },
+      { label: tool.title },
+    ]} />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">在线{tool.title}工具</h1>
+    <p class="text-gray-500 mb-8">{tool.description}</p>
+
+    <ColorPicker client:load />
+
+    <section class="mt-12 prose max-w-none">
+      <h2 class="text-xl font-semibold text-gray-900">如何使用{tool.title}工具</h2>
+      <p class="text-gray-600">使用圆形颜色面板直观选择颜色，或在下方的文本框中直接输入HEX色值（如#2563eb）。工具会实时显示HEX、RGB和HSL三种格式的颜色值，每种格式旁边都有独立的复制按钮，方便直接粘贴到CSS代码或设计软件中使用。所有转换在浏览器本地计算。</p>
+
+      <h3 class="text-lg font-semibold text-gray-900 mt-6">常见问题</h3>
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-medium text-gray-800">HEX、RGB和HSL有什么区别？</h4>
+          <p class="text-gray-600">HEX是十六进制颜色表示法（如#FF0000），常用于网页设计；RGB通过红绿蓝三通道值表示颜色（如rgb(255,0,0)），直观易懂；HSL通过色相、饱和度和亮度描述颜色（如hsl(0,100%,50%)），更适合设计师理解和调整。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">数据会上传到服务器吗？</h4>
+          <p class="text-gray-600">不会。ToolZen所有工具都在浏览器本地运行，您的数据始终保留在您的设备上。颜色计算和格式转换全部在本地完成。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">可以输入RGB或HSL值来转换为HEX吗？</h4>
+          <p class="text-gray-600">当前版本主要支持HEX作为输入源来显示RGB和HSL值。如果您需要RGB转HEX等功能，可以直接在文本框中输入HEX格式的色值，工具会自动计算对应的RGB和HSL值。</p>
+        </div>
+      </div>
+    </section>
+
+    <RelatedTools current="color-picker" />
+  </div>
+
+  {seo.script.map(s => <script type={s.type} set:html={s.innerHTML}></script>)}
+</BaseLayout>

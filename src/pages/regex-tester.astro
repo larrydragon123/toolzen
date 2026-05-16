@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { getTool } from '../utils/tools';
+import { generateToolSEOMeta } from '../utils/seo';
+import RegexTester from '../islands/RegexTester';
+
+const tool = getTool('regex-tester')!;
+const seo = generateToolSEOMeta(tool);
+---
+
+<BaseLayout title={seo.title} description={tool.description}>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb items={[
+      { label: 'Home', href: '/' },
+      { label: 'Developer Tools', href: '/category/dev/' },
+      { label: tool.title },
+    ]} />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">在线{tool.title}工具</h1>
+    <p class="text-gray-500 mb-8">{tool.description}</p>
+
+    <RegexTester client:load />
+
+    <section class="mt-12 prose max-w-none">
+      <h2 class="text-xl font-semibold text-gray-900">如何使用{tool.title}工具</h2>
+      <p class="text-gray-600">在"Pattern"输入框中编写正则表达式，设置匹配标志（如g全局匹配、i忽略大小写），将待搜索文本粘贴到下方文本区域，点击"Match"即可查看所有匹配结果。工具还内置了Email、URL、手机号和IP地址等常用正则预设，点击即可快速使用。正则匹配在浏览器本地执行，无需联网。</p>
+
+      <h3 class="text-lg font-semibold text-gray-900 mt-6">常见问题</h3>
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-medium text-gray-800">正则表达式有哪些常用标志？</h4>
+          <p class="text-gray-600">常用标志包括：g（全局匹配，查找所有匹配项而非在第一个匹配后停止）、i（忽略大小写）、m（多行模式，^和$匹配每行的开始和结束）、s（dotAll模式，点号也匹配换行符）。您可以在Flags输入框中自由组合。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">数据会上传到服务器吗？</h4>
+          <p class="text-gray-600">不会。ToolZen所有工具都在浏览器本地运行，您的数据始终保留在您的设备上。正则表达式匹配使用JavaScript内置引擎，全部在客户端执行。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">如何验证正则表达式是否正确？</h4>
+          <p class="text-gray-600">如果正则表达式语法有误，工具会显示红色的错误信息提示具体问题。您可以根据错误提示调整表达式。建议从预设模式开始学习，逐步修改以掌握正则语法。</p>
+        </div>
+      </div>
+    </section>
+
+    <RelatedTools current="regex-tester" />
+  </div>
+
+  {seo.script.map(s => <script type={s.type} set:html={s.innerHTML}></script>)}
+</BaseLayout>

@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { getTool } from '../utils/tools';
+import { generateToolSEOMeta } from '../utils/seo';
+import WordCounter from '../islands/WordCounter';
+
+const tool = getTool('word-counter')!;
+const seo = generateToolSEOMeta(tool);
+---
+
+<BaseLayout title={seo.title} description={tool.description}>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb items={[
+      { label: 'Home', href: '/' },
+      { label: '文本工具', href: '/category/text/' },
+      { label: tool.title },
+    ]} />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">在线{tool.title}工具</h1>
+    <p class="text-gray-500 mb-8">{tool.description}</p>
+
+    <WordCounter client:load />
+
+    <section class="mt-12 prose max-w-none">
+      <h2 class="text-xl font-semibold text-gray-900">如何使用{tool.title}工具</h2>
+      <p class="text-gray-600">直接在文本框中输入或粘贴您的内容，顶部的统计面板会实时显示字符数（含空格和不含空格）、单词数、行数和字节数。适用于写作、翻译、代码审查等场景的字数控制需求。文本分析完全在浏览器本地进行，不会保存或上传任何内容。</p>
+
+      <h3 class="text-lg font-semibold text-gray-900 mt-6">常见问题</h3>
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-medium text-gray-800">中文字数如何统计？</h4>
+          <p class="text-gray-600">中文每个汉字计为1个字符。对于中英文混合文本，本工具按字符数量统计，适合中文内容创作场景。单词统计基于空格分隔，中文文本的单词数可能较低，建议主要参考字符数指标。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">数据会上传到服务器吗？</h4>
+          <p class="text-gray-600">不会。ToolZen所有工具都在浏览器本地运行，您的数据始终保留在您的设备上。文本统计完全在您的浏览器中实时计算，无需任何网络请求。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">字符数和字节数有什么区别？</h4>
+          <p class="text-gray-600">字符数是文本长度（包括空格和标点），字节数是文本在UTF-8编码下的存储大小。中文字符通常占3个字节，英文字母占1个字节。在进行数据库存储或网络传输时，字节数更有参考价值。</p>
+        </div>
+      </div>
+    </section>
+
+    <RelatedTools current="word-counter" />
+  </div>
+
+  {seo.script.map(s => <script type={s.type} set:html={s.innerHTML}></script>)}
+</BaseLayout>

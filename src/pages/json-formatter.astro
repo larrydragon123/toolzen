@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { getTool } from '../utils/tools';
+import { generateToolSEOMeta } from '../utils/seo';
+import JsonFormatter from '../islands/JsonFormatter';
+
+const tool = getTool('json-formatter')!;
+const seo = generateToolSEOMeta(tool);
+---
+
+<BaseLayout title={seo.title} description={tool.description}>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb items={[
+      { label: 'Home', href: '/' },
+      { label: 'Developer Tools', href: '/category/dev/' },
+      { label: tool.title },
+    ]} />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">在线{tool.title}工具</h1>
+    <p class="text-gray-500 mb-8">{tool.description}</p>
+
+    <JsonFormatter client:load />
+
+    <section class="mt-12 prose max-w-none">
+      <h2 class="text-xl font-semibold text-gray-900">如何使用{tool.title}工具</h2>
+      <p class="text-gray-600">将需要处理的JSON数据粘贴到输入框中，点击"Format"按钮即可自动美化排版。支持压缩JSON为单行格式、验证JSON语法正确性，以及一键复制结果。所有处理均在浏览器本地完成，您的数据不会上传到任何服务器，安全可靠。</p>
+
+      <h3 class="text-lg font-semibold text-gray-900 mt-6">常见问题</h3>
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-medium text-gray-800">JSON格式化有什么用？</h4>
+          <p class="text-gray-600">JSON格式化可以将压缩的JSON数据美化为带缩进的易读格式，方便开发者阅读和调试。无论是API返回的数据还是配置文件，格式化后都能快速理解数据结构。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">数据会上传到服务器吗？</h4>
+          <p class="text-gray-600">不会。ToolZen所有工具都在浏览器本地运行，您的数据始终保留在您的设备上。我们不会收集、存储或传输您输入的任何内容。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">支持多大的JSON文件？</h4>
+          <p class="text-gray-600">JSON格式化工具在浏览器中运行，理论上可处理数MB的JSON数据。但对于超大文件，建议先进行拆分处理以确保浏览器性能。验证功能可帮助您在格式化前确认JSON语法是否正确。</p>
+        </div>
+      </div>
+    </section>
+
+    <RelatedTools current="json-formatter" />
+  </div>
+
+  {seo.script.map(s => <script type={s.type} set:html={s.innerHTML}></script>)}
+</BaseLayout>

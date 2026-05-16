@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { getTool } from '../utils/tools';
+import { generateToolSEOMeta } from '../utils/seo';
+import HashGenerator from '../islands/HashGenerator';
+
+const tool = getTool('md5-hash')!;
+const seo = generateToolSEOMeta(tool);
+---
+
+<BaseLayout title={seo.title} description={tool.description}>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb items={[
+      { label: 'Home', href: '/' },
+      { label: '编码加密', href: '/category/crypto/' },
+      { label: tool.title },
+    ]} />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">在线{tool.title}工具</h1>
+    <p class="text-gray-500 mb-8">{tool.description}</p>
+
+    <HashGenerator client:load />
+
+    <section class="mt-12 prose max-w-none">
+      <h2 class="text-xl font-semibold text-gray-900">如何使用{tool.title}工具</h2>
+      <p class="text-gray-600">在输入框中输入任意文本内容，点击"Generate Hash"按钮即可同时生成SHA-256和SHA-1两种哈希值。哈希计算使用浏览器内置的Web Crypto API，所有计算均在本地完成，数据不会上传到任何服务器，安全可靠。适合用于文件完整性校验、密码哈希等场景。</p>
+
+      <h3 class="text-lg font-semibold text-gray-900 mt-6">常见问题</h3>
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-medium text-gray-800">SHA-256和SHA-1有什么区别？</h4>
+          <p class="text-gray-600">SHA-256生成256位（64个十六进制字符）哈希值，安全性较高，是当前推荐使用的哈希算法。SHA-1生成160位（40个十六进制字符）哈希值，已被认为不够安全，不应用于安全敏感场景，但仍广泛用于文件校验。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">数据会上传到服务器吗？</h4>
+          <p class="text-gray-600">不会。ToolZen所有工具都在浏览器本地运行，您的数据始终保留在您的设备上。哈希计算使用浏览器内置的Web Crypto API，完全不依赖网络通信。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">可以用MD5吗？</h4>
+          <p class="text-gray-600">Web Crypto API不支持MD5算法，因为MD5已被证实存在严重安全漏洞，不推荐在安全场景中使用。本工具提供SHA-256和SHA-1两种更安全的哈希算法。如需MD5计算，建议使用专门的MD5工具或编程语言的标准库。</p>
+        </div>
+      </div>
+    </section>
+
+    <RelatedTools current="md5-hash" />
+  </div>
+
+  {seo.script.map(s => <script type={s.type} set:html={s.innerHTML}></script>)}
+</BaseLayout>

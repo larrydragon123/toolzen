@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { getTool } from '../utils/tools';
+import { generateToolSEOMeta } from '../utils/seo';
+import UuidGenerator from '../islands/UuidGenerator';
+
+const tool = getTool('uuid-generator')!;
+const seo = generateToolSEOMeta(tool);
+---
+
+<BaseLayout title={seo.title} description={tool.description}>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb items={[
+      { label: 'Home', href: '/' },
+      { label: 'Developer Tools', href: '/category/dev/' },
+      { label: tool.title },
+    ]} />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">在线{tool.title}工具</h1>
+    <p class="text-gray-500 mb-8">{tool.description}</p>
+
+    <UuidGenerator client:load />
+
+    <section class="mt-12 prose max-w-none">
+      <h2 class="text-xl font-semibold text-gray-900">如何使用{tool.title}工具</h2>
+      <p class="text-gray-600">设置需要生成的UUID数量（1-100个），点击"Generate"按钮即可批量生成符合RFC 4122标准的UUID v4标识符。生成后可通过"Copy All"一键复制所有UUID，每行一个，方便粘贴到代码或文档中使用。UUID在浏览器本地生成，无需网络请求。</p>
+
+      <h3 class="text-lg font-semibold text-gray-900 mt-6">常见问题</h3>
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-medium text-gray-800">UUID v4是什么？</h4>
+          <p class="text-gray-600">UUID v4是基于随机数生成的通用唯一标识符，格式为8-4-4-4-12的36个字符。UUID v4的碰撞概率极低（约2^122分之一），适合作为数据库主键、文件名或分布式系统中的唯一ID。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">数据会上传到服务器吗？</h4>
+          <p class="text-gray-600">不会。ToolZen所有工具都在浏览器本地运行，您的数据始终保留在您的设备上。UUID生成使用的是浏览器内置的crypto.randomUUID()方法，完全在本地完成。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">UUID和GUID有什么区别？</h4>
+          <p class="text-gray-600">UUID和GUID本质上是相同的。UUID是通用唯一标识符的通用标准，而GUID是微软对UUID的实现称呼。在实际使用中，两者可以互换，格式完全一致。</p>
+        </div>
+      </div>
+    </section>
+
+    <RelatedTools current="uuid-generator" />
+  </div>
+
+  {seo.script.map(s => <script type={s.type} set:html={s.innerHTML}></script>)}
+</BaseLayout>
