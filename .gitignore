@@ -2,3 +2,5 @@ node_modules/
 .astro/
 dist/
 .superpowers/brainstorm/*/state/
+
+.vercel

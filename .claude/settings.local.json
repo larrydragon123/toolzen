@@ -21,7 +21,12 @@
       "Bash(curl -s http://localhost:4321)",
       "Bash(curl *)",
       "Bash(pkill -f \"astro dev\")",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(node -e \"const QRCode = require\\('qrcode'\\); console.log\\(Object.keys\\(QRCode\\)\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(npm ls *)",
+      "Bash(npx vercel *)",
+      "WebFetch(domain:toolzen-dqtah4coy-larrydragon.vercel.app)"
     ]
   }
 }
