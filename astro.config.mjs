@@ -1,9 +1,12 @@
 import { defineConfig } from 'astro/config';
 import preact from '@astrojs/preact';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  integrations: [preact(), tailwind()],
+  integrations: [preact()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   site: 'https://toolzen.com',
   output: 'static',
   trailingSlash: 'always'
