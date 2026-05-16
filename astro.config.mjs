@@ -7,7 +7,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: 'https://toolzen-dqtah4coy-larrydragon.vercel.app',
+  site: 'https://toolzen-he0h9rbaf-larrydragon.vercel.app',
   output: 'static',
   trailingSlash: 'always'
 });
