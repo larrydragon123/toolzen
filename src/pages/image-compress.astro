@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { getTool } from '../utils/tools';
+import { generateToolSEOMeta } from '../utils/seo';
+import ImageCompress from '../islands/ImageCompress';
+
+const tool = getTool('image-compress')!;
+const seo = generateToolSEOMeta(tool);
+---
+
+<BaseLayout title={seo.title} description={tool.description}>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb items={[
+      { label: 'Home', href: '/' },
+      { label: '图片工具', href: '/category/image/' },
+      { label: tool.title },
+    ]} />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">在线{tool.title}工具 - 免费无损图片压缩</h1>
+    <p class="text-gray-500 mb-8">{tool.description}</p>
+
+    <ImageCompress client:visible />
+
+    <section class="mt-12 prose max-w-none">
+      <h2 class="text-xl font-semibold text-gray-900">如何使用{tool.title}工具</h2>
+      <p class="text-gray-600">选择需要压缩的图片文件（支持JPG、PNG、WebP等常见格式），调整压缩质量滑块（数值越高画质越好，文件越大），选择合适的输出格式，然后点击"Compress"按钮即可。压缩完成后可预览效果并下载压缩后的图片。所有处理均在浏览器本地完成，您的图片不会上传到任何服务器。</p>
+
+      <h3 class="text-lg font-semibold text-gray-900 mt-6">核心功能</h3>
+      <div class="space-y-3">
+        <div>
+          <h4 class="font-medium text-gray-800">多格式支持</h4>
+          <p class="text-gray-600">支持JPEG、PNG、WebP三种主流图片格式的压缩和相互转换。JPEG适合照片类图片，PNG适合需要透明通道的图形，WebP则提供更优的压缩比。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">可调压缩质量</h4>
+          <p class="text-gray-600">通过质量滑块自由调节10%至100%的压缩质量，实时对比原图和压缩后的文件大小，找到画质与文件大小的最佳平衡点。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">实时预览对比</h4>
+          <p class="text-gray-600">左右对比显示原图和压缩后的图片，清晰展示压缩前后的文件大小变化和节省的存储空间百分比，让压缩效果一目了然。</p>
+        </div>
+      </div>
+
+      <h3 class="text-lg font-semibold text-gray-900 mt-6">常见问题</h3>
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-medium text-gray-800">图片压缩会损失画质吗？</h4>
+          <p class="text-gray-600">JPEG和WebP格式采用有损压缩，降低质量会减少文件大小但也会损失部分画质。您可以通过质量滑块在画质和文件大小之间找到合适的平衡。PNG格式为无损压缩，压缩后画质不变但文件大小减少有限。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">图片会上传到服务器吗？</h4>
+          <p class="text-gray-600">不会。ToolZen所有工具都在浏览器本地运行，压缩过程使用HTML5 Canvas API在您的设备上完成。您的图片始终保留在本地，我们不会收集、存储或传输您的任何文件。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">支持多大的图片文件？</h4>
+          <p class="text-gray-600">浏览器端压缩受设备内存限制，一般可处理10MB以内的图片。对于超大尺寸图片，建议先适当缩小尺寸再压缩，或使用专业桌面软件处理。Canvas API在处理超大分辨率图片时可能受限于浏览器内存上限。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">WebP格式有什么优势？</h4>
+          <p class="text-gray-600">WebP是Google开发的现代图片格式，在同等画质下比JPEG小25-35%，比PNG小26%左右。目前主流浏览器均已支持WebP，非常适合用于网站优化，可显著提升页面加载速度。</p>
+        </div>
+      </div>
+    </section>
+
+    <RelatedTools current="image-compress" />
+  </div>
+
+  {seo.meta.map(m => <meta {...m} />)}
+  {seo.script.map(s => <script type={s.type} set:html={s.innerHTML}></script>)}
+</BaseLayout>
