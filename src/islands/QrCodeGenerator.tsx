@@ -10,12 +10,16 @@ export default function QrCodeGenerator() {
   const generate = async () => {
     if (!text.trim()) return;
     const QRCode = (await import('qrcode')).default;
-    const canvas = document.createElement('canvas');
-    await QRCode.toCanvas(canvas, text, {
-      width: size,
-      color: { dark: fgColor, light: bgColor },
-    });
-    setQrDataUrl(canvas.toDataURL('image/png'));
+    try {
+      const dataUrl = await QRCode.toDataURL(text, {
+        width: size,
+        color: { dark: fgColor, light: bgColor },
+        margin: 2,
+      });
+      setQrDataUrl(dataUrl);
+    } catch (e) {
+      console.error('QR generation failed:', e);
+    }
   };
 
   const download = () => {

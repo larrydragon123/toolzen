@@ -26,9 +26,17 @@ function hexToHsl(hex: string) {
 
 export default function ColorPicker() {
   const [hex, setHex] = useState('#2563eb');
+  const [copied, setCopied] = useState('');
+
   const rgb = hexToRgb(hex);
   const hsl = hexToHsl(hex);
-  const copy = (text: string) => navigator.clipboard.writeText(text);
+
+  const copy = (text: string, label: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(label);
+      setTimeout(() => setCopied(''), 1500);
+    }).catch(() => {});
+  };
 
   return (
     <div class="space-y-4">
@@ -41,17 +49,23 @@ export default function ColorPicker() {
           <div class="flex items-center gap-2">
             <span class="text-sm text-gray-500 w-8">HEX</span>
             <code class="px-2 py-1 bg-gray-50 rounded text-sm">{hex}</code>
-            <button onClick={() => copy(hex)} class="text-xs text-zen-500 hover:text-zen-600">Copy</button>
+            <button onClick={() => copy(hex, 'HEX')} class="text-xs text-zen-500 hover:text-zen-600">
+              {copied === 'HEX' ? 'Copied!' : 'Copy'}
+            </button>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-sm text-gray-500 w-8">RGB</span>
             <code class="px-2 py-1 bg-gray-50 rounded text-sm">rgb({rgb.r}, {rgb.g}, {rgb.b})</code>
-            <button onClick={() => copy(`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`)} class="text-xs text-zen-500 hover:text-zen-600">Copy</button>
+            <button onClick={() => copy(`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`, 'RGB')} class="text-xs text-zen-500 hover:text-zen-600">
+              {copied === 'RGB' ? 'Copied!' : 'Copy'}
+            </button>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-sm text-gray-500 w-8">HSL</span>
             <code class="px-2 py-1 bg-gray-50 rounded text-sm">hsl({hsl.h}, {hsl.s}%, {hsl.l}%)</code>
-            <button onClick={() => copy(`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`)} class="text-xs text-zen-500 hover:text-zen-600">Copy</button>
+            <button onClick={() => copy(`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`, 'HSL')} class="text-xs text-zen-500 hover:text-zen-600">
+              {copied === 'HSL' ? 'Copied!' : 'Copy'}
+            </button>
           </div>
         </div>
       </div>

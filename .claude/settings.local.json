@@ -10,7 +10,18 @@
       "Bash(curl -s http://localhost:3000/)",
       "Bash(taskkill //F //IM node.exe)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(npm view *)",
+      "Bash(echo \".superpowers/brainstorm/*/state/\")",
+      "Bash(git rm *)",
+      "Bash(npx tsc *)",
+      "Bash(npx --yes @astrojs/check --version)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(npx -p typescript tsc --noEmit)",
+      "Bash(curl -s http://localhost:4321)",
+      "Bash(curl *)",
+      "Bash(pkill -f \"astro dev\")",
+      "Bash(npm run *)"
     ]
   }
 }

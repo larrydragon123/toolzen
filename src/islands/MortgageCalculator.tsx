@@ -65,12 +65,9 @@ export default function MortgageCalculator() {
         </div>
         <div>
           <label class="block text-sm text-gray-500 mb-1">贷款年限</label>
-          <select value={years} onChange={(e) => setYears(Number((e.target as HTMLSelectElement).value))}
-            class="w-full p-2 border border-gray-200 rounded-lg text-sm">
-            <option value={10}>10 年</option>
-            <option value={20}>20 年</option>
-            <option value={30}>30 年</option>
-          </select>
+          <input type="number" value={years} onInput={(e) => setYears(Number((e.target as HTMLInputElement).value) || 30)}
+            min="1" max="50"
+            class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-zen-500 outline-none" />
         </div>
         <div>
           <label class="block text-sm text-gray-500 mb-1">还款方式</label>
