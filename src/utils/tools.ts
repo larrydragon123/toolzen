@@ -111,6 +111,22 @@ export const TOOLS: Tool[] = [
     keywords: ['URL编码', 'URL解码', 'encodeURI', 'decodeURI', 'URL转义'],
     complexity: 'low',
   },
+  {
+    slug: 'mortgage-calculator',
+    title: '房贷计算器',
+    description: '在线房贷计算器。支持等额本息和等额本金两种还款方式，输入贷款金额、年利率和期限即可计算月供和总利息。',
+    category: 'calculators',
+    keywords: ['房贷计算器', '月供计算', '等额本息', '等额本金', '贷款利率计算'],
+    complexity: 'low',
+  },
+  {
+    slug: 'bmi-calculator',
+    title: 'BMI 计算器',
+    description: '在线BMI身体质量指数计算器。输入身高和体重，自动计算BMI值和健康状态评估。',
+    category: 'calculators',
+    keywords: ['BMI计算器', '身体质量指数', '体重指数', '在线BMI', '健康体重'],
+    complexity: 'low',
+  },
 ];
 
 export function getTool(slug: string): Tool | undefined {

@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { getTool } from '../utils/tools';
+import { generateToolSEOMeta } from '../utils/seo';
+import BmiCalculator from '../islands/BmiCalculator';
+
+const tool = getTool('bmi-calculator')!;
+const seo = generateToolSEOMeta(tool);
+---
+
+<BaseLayout title={seo.title} description={tool.description}>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb items={[
+      { label: 'Home', href: '/' },
+      { label: '计算器', href: '/category/calculators/' },
+      { label: tool.title },
+    ]} />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">在线{tool.title}工具</h1>
+    <p class="text-gray-500 mb-8">{tool.description}</p>
+
+    <BmiCalculator client:load />
+
+    <section class="mt-12 prose max-w-none">
+      <h2 class="text-xl font-semibold text-gray-900">如何使用{tool.title}工具</h2>
+      <p class="text-gray-600">通过滑动条或直接输入您的身高（厘米）和体重（公斤），工具会实时自动计算您的BMI指数并给出健康状态评估。BMI（Body Mass Index，身体质量指数）是国际上常用的衡量人体胖瘦程度的标准，计算公式为：BMI = 体重(kg) / 身高(m)²。所有计算均在浏览器本地完成，您的数据不会上传到任何服务器。</p>
+
+      <h3 class="text-lg font-semibold text-gray-900 mt-6">中国BMI标准参考</h3>
+      <ul class="text-gray-600 space-y-1">
+        <li>偏瘦：BMI &lt; 18.5</li>
+        <li>正常：18.5 &le; BMI &lt; 24</li>
+        <li>偏胖：24 &le; BMI &lt; 28</li>
+        <li>肥胖：BMI &ge; 28</li>
+      </ul>
+
+      <h3 class="text-lg font-semibold text-gray-900 mt-6">常见问题</h3>
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-medium text-gray-800">BMI值能完全代表健康状况吗？</h4>
+          <p class="text-gray-600">BMI是一个有用的参考指标，但不能完全代表个人健康状况。运动员和健身爱好者由于肌肉含量较高，BMI可能偏高但不代表肥胖。建议将BMI与其他指标（如体脂率、腰围等）结合使用，以获得更全面的健康评估。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">儿童和青少年可以使用这个计算器吗？</h4>
+          <p class="text-gray-600">本计算器采用的是成人BMI标准（适用于18岁及以上）。儿童和青少年的BMI评估需要参考年龄和性别的百分位曲线，建议咨询儿科医生获取专业评估。</p>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-800">如何维持健康的BMI？</h4>
+          <p class="text-gray-600">保持健康BMI的关键是均衡饮食和规律运动。建议每周进行至少150分钟的中等强度有氧运动，搭配合理的膳食结构。如需专业的饮食和运动指导，建议咨询营养师或医生。</p>
+        </div>
+      </div>
+    </section>
+
+    <RelatedTools current="bmi-calculator" />
+  </div>
+
+  {seo.script.map(s => <script type={s.type} set:html={s.innerHTML}></script>)}
+</BaseLayout>
