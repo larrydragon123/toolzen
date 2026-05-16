@@ -1,1 +1,15 @@
-<html><body><h1>ToolZen</h1></body></html>
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pageTitle = 'ToolZen - 在线开发者工具箱';
+const pageDescription = '免费在线开发者工具集合，所有工具均在浏览器本地运行，保护你的隐私。';
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="max-w-6xl mx-auto px-4 py-16">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">ToolZen</h1>
+    <p class="text-lg text-gray-600 max-w-2xl">
+      免费在线开发者工具箱。所有工具均在浏览器本地运行，无需上传文件，保护你的数据隐私。
+    </p>
+  </section>
+</BaseLayout>
