@@ -1,0 +1,91 @@
+<h2>站点结构 & 导航设计</h2>
+<p class="subtitle">决定页面层级、内部链接策略和用户浏览路径</p>
+
+<div class="section">
+  <h3>🧭 全局导航 (所有页面统一)</h3>
+  <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:12px 16px;display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+    <div style="font-weight:700;font-size:1.1rem;">🔧 站名Logo</div>
+    <div style="flex:1;"></div>
+    <div style="color:#6b7280;font-size:0.85rem;">JSON工具</div>
+    <div style="color:#6b7280;font-size:0.85rem;">文本工具</div>
+    <div style="color:#6b7280;font-size:0.85rem;">图片工具</div>
+    <div style="color:#6b7280;font-size:0.85rem;">计算器</div>
+    <div style="color:#6b7280;font-size:0.85rem;">博客</div>
+    <div style="background:#2563eb;color:#fff;border-radius:6px;padding:6px 12px;font-size:0.85rem;">搜索 🔍</div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>📂 页面层级结构</h3>
+  <div style="background:#f9fafb;border-radius:8px;padding:20px;font-family:monospace;font-size:0.85rem;line-height:2.2;">
+    <div>├── <strong>/</strong> <span style="color:#9ca3af;">首页 — 分类网格 + 搜索</span></div>
+    <div>│   ├── 搜索栏 (顶部Hero区)</div>
+    <div>│   ├── 热门工具区 (6-8个最常用)</div>
+    <div>│   └── 分类卡片区 (按类别展示全部工具)</div>
+    <div>│</div>
+    <div>├── <strong>/json-formatter/</strong> <span style="color:#9ca3af;">JSON格式化验证</span></div>
+    <div>├── <strong>/base64/</strong> <span style="color:#9ca3af;">Base64编解码</span></div>
+    <div>├── <strong>/uuid-generator/</strong> <span style="color:#9ca3af;">UUID生成器</span></div>
+    <div>├── <strong>/qr-code/</strong> <span style="color:#9ca3af;">二维码生成</span></div>
+    <div>├── <strong>/image-compress/</strong> <span style="color:#9ca3af;">图片压缩</span></div>
+    <div>├── <strong>/text-diff/</strong> <span style="color:#9ca3af;">文本对比</span></div>
+    <div>├── <strong>/word-counter/</strong> <span style="color:#9ca3af;">字数统计</span></div>
+    <div>├── <strong>/regex-tester/</strong> <span style="color:#9ca3af;">正则测试器</span></div>
+    <div>├── <strong>/color-picker/</strong> <span style="color:#9ca3af;">颜色选择器</span></div>
+    <div>├── <strong>/md5-hash/</strong> <span style="color:#9ca3af;">MD5/SHA哈希</span></div>
+    <div>├── <strong>/url-encode/</strong> <span style="color:#9ca3af;">URL编解码</span></div>
+    <div>│</div>
+    <div>├── <strong>/category/json/</strong> <span style="color:#9ca3af;">分类聚合页 — JSON工具集</span></div>
+    <div>├── <strong>/category/text/</strong> <span style="color:#9ca3af;">文本工具集</span></div>
+    <div>├── <strong>/category/image/</strong> <span style="color:#9ca3af;">图片工具集</span></div>
+    <div>├── <strong>/category/dev/</strong> <span style="color:#9ca3af;">开发者工具集</span></div>
+    <div>├── <strong>/category/calculators/</strong> <span style="color:#9ca3af;">计算器集</span></div>
+    <div>│</div>
+    <div>├── <strong>/blog/</strong> <span style="color:#9ca3af;">博客列表页</span></div>
+    <div>│   └── <strong>/blog/how-to-use-json-formatter/</strong></div>
+    <div>│</div>
+    <div>└── <strong>/about/</strong> <span style="color:#9ca3af;">关于页 (E-E-A-T信号)</span></div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>🔗 内部链接策略 (SEO核心)</h3>
+  <div style="background:#f0f9ff;border-left:3px solid #2563eb;border-radius:4px;padding:12px 16px;margin-bottom:12px;">
+    <strong>每个工具页底部</strong> 都有 "相关工具" 区块，链接到 3-5 个相关工具，形成内链网络
+  </div>
+  <div style="background:#f0f9ff;border-left:3px solid #2563eb;border-radius:4px;padding:12px 16px;margin-bottom:12px;">
+    <strong>分类页</strong> 聚合该类别下所有工具，作为二级枢纽页，增强主题权威性
+  </div>
+  <div style="background:#f0f9ff;border-left:3px solid #2563eb;border-radius:4px;padding:12px 16px;">
+    <strong>面包屑导航</strong> 首页 > 分类 > 工具页，增强结构化数据信号
+  </div>
+</div>
+
+<div class="section">
+  <h3>⚙️ 变现策略选择</h3>
+  <p>你需要先决定变现方式，因为这会影响页面布局（广告位预留）</p>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="adsense" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>纯AdSense广告 (推荐起步)</h3>
+      <p>流量驱动型。每个工具页嵌入1-2个广告位。月5万访客约$500-1500。零维护成本，真正的被动收入</p>
+    </div>
+  </div>
+  <div class="option" data-choice="hybrid" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>广告 + 赞助 + 联盟 混合</h3>
+      <p>AdSense打底，工具页顶部放赞助位($200-500/月/位)，计算器页放联盟链接。收入更高但需主动销售</p>
+    </div>
+  </div>
+  <div class="option" data-choice="freemium" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>免费工具 + 高级功能付费</h3>
+      <p>基础功能免费，高级功能(批量处理、API接口、去广告)按月收费$5-10。需用户系统，开发量最大</p>
+    </div>
+  </div>
+</div>

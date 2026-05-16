@@ -1,0 +1,91 @@
+<h2>首页布局方案</h2>
+<p class="subtitle">首页是流量分发枢纽，决定了用户能否快速找到所需工具，也直接影响SEO</p>
+
+<div class="options">
+  <div class="option" data-choice="grid-categories" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>分类网格 + 顶部搜索 (推荐)</h3>
+      <div style="background:#f9fafb;border-radius:8px;padding:16px;margin-top:8px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#e5e7eb;"></div><div style="width:40px;height:8px;background:#e5e7eb;border-radius:4px;"></div>
+          <div style="flex:1;height:32px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+          <div style="background:#fff;border-radius:8px;padding:16px;text-align:center;border:1px solid #e5e7eb;"><div style="height:6px;background:#e5e7eb;border-radius:3px;margin-bottom:8px;"></div><div style="height:4px;background:#f3f4f6;border-radius:2px;"></div></div>
+          <div style="background:#fff;border-radius:8px;padding:16px;text-align:center;border:1px solid #e5e7eb;"><div style="height:6px;background:#e5e7eb;border-radius:3px;margin-bottom:8px;"></div><div style="height:4px;background:#f3f4f6;border-radius:2px;"></div></div>
+          <div style="background:#fff;border-radius:8px;padding:16px;text-align:center;border:1px solid #e5e7eb;"><div style="height:6px;background:#e5e7eb;border-radius:3px;margin-bottom:8px;"></div><div style="height:4px;background:#f3f4f6;border-radius:2px;"></div></div>
+          <div style="background:#fff;border-radius:8px;padding:16px;text-align:center;border:1px solid #e5e7eb;"><div style="height:6px;background:#e5e7eb;border-radius:3px;margin-bottom:8px;"></div><div style="height:4px;background:#f3f4f6;border-radius:2px;"></div></div>
+          <div style="background:#fff;border-radius:8px;padding:16px;text-align:center;border:1px solid #e5e7eb;"><div style="height:6px;background:#e5e7eb;border-radius:3px;margin-bottom:8px;"></div><div style="height:4px;background:#f3f4f6;border-radius:2px;"></div></div>
+          <div style="background:#fff;border-radius:8px;padding:16px;text-align:center;border:1px solid #e5e7eb;"><div style="height:6px;background:#e5e7eb;border-radius:3px;margin-bottom:8px;"></div><div style="height:4px;background:#f3f4f6;border-radius:2px;"></div></div>
+        </div>
+      </div>
+      <p style="margin-top:8px;">搜索栏 + 分类卡片 + 热门工具单独入口。每个工具独立页面，URL结构 /tools/json-formatter</p>
+    </div>
+  </div>
+  <div class="option" data-choice="single-page" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>单页All-in-One (SPA工具集)</h3>
+      <div style="background:#f9fafb;border-radius:8px;padding:16px;margin-top:8px;">
+        <div style="display:flex;gap:8px;">
+          <div style="width:100px;background:#fff;border-radius:8px;padding:8px;border:1px solid #e5e7eb;">
+            <div style="height:4px;background:#e5e7eb;border-radius:2px;margin-bottom:4px;"></div>
+            <div style="height:4px;background:#f3f4f6;border-radius:2px;margin-bottom:4px;"></div>
+            <div style="height:4px;background:#f3f4f6;border-radius:2px;"></div>
+          </div>
+          <div style="flex:1;background:#fff;border-radius:8px;padding:16px;border:1px solid #e5e7eb;">
+            <div style="height:60px;background:#f9fafb;border-radius:4px;margin-bottom:8px;"></div>
+            <div style="height:6px;background:#e5e7eb;border-radius:3px;width:60%;"></div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:8px;">左侧工具列表，右侧为当前工具面板。所有工具在一个页面内切换。对SEO不友好(只有一个URL)</p>
+    </div>
+  </div>
+  <div class="option" data-choice="blog-hybrid" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>工具+BLOG混合站</h3>
+      <div style="background:#f9fafb;border-radius:8px;padding:16px;margin-top:8px;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:#e5e7eb;"></div><div style="width:60px;height:8px;background:#e5e7eb;border-radius:4px;"></div>
+            <div style="flex:1;"></div>
+            <div style="width:40px;height:8px;background:#e5e7eb;border-radius:4px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;">
+            <div>
+              <div style="background:#fff;border-radius:8px;padding:12px;border:1px solid #e5e7eb;margin-bottom:8px;">
+                <div style="height:6px;background:#e5e7eb;border-radius:3px;width:70%;margin-bottom:4px;"></div>
+                <div style="height:4px;background:#f3f4f6;border-radius:2px;"></div>
+              </div>
+              <div style="background:#fff;border-radius:8px;padding:12px;border:1px solid #e5e7eb;">
+                <div style="height:6px;background:#e5e7eb;border-radius:3px;width:60%;margin-bottom:4px;"></div>
+                <div style="height:4px;background:#f3f4f6;border-radius:2px;"></div>
+              </div>
+            </div>
+            <div style="background:#fff;border-radius:8px;padding:12px;border:1px solid #e5e7eb;">
+              <div style="height:4px;background:#e5e7eb;border-radius:2px;margin-bottom:4px;"></div>
+              <div style="height:4px;background:#f3f4f6;border-radius:2px;margin-bottom:4px;"></div>
+              <div style="height:4px;background:#f3f4f6;border-radius:2px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:8px;">工具页 + 博客文章(SEO教程、工具使用指南)，用内容带动工具流量</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>URL 结构设计 (SEO关键)</h3>
+  <div style="background:#f9fafb;border-radius:8px;padding:16px;font-family:monospace;font-size:0.9rem;line-height:2;">
+    <div>/ <span style="color:#9ca3af;">← 首页 (分类网格)</span></div>
+    <div>/json-formatter/ <span style="color:#9ca3af;">← JSON格式化工具</span></div>
+    <div>/base64-encode-decode/ <span style="color:#9ca3af;">← Base64编解码</span></div>
+    <div>/mortgage-calculator/ <span style="color:#9ca3af;">← 房贷计算器</span></div>
+    <div>/blog/seo-basics-2026/ <span style="color:#9ca3af;">← 博客文章 (模块3时添加)</span></div>
+    <div>/compare/vscode-vs-cursor/ <span style="color:#9ca3af;">← 工具对比页 (模块3)</span></div>
+  </div>
+</div>

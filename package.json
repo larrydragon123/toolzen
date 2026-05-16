@@ -1,0 +1,16 @@
+{
+  "name": "toolzen",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/preact": "^5.1.3",
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^6.3.3",
+    "preact": "^10.29.1"
+  }
+}

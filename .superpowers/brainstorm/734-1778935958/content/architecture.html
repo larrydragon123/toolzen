@@ -1,0 +1,101 @@
+<h2>SEO工具站 - 整体架构方案</h2>
+<p class="subtitle">"组合拳"策略：浏览器工具 + 利基计算器 + 程序化SEO页面</p>
+
+<div class="section">
+  <h3>🏗️ 三大模块架构</h3>
+</div>
+
+<div class="cards">
+  <div class="card" data-choice="all" onclick="toggleSelect(this)">
+    <div class="card-body">
+      <h3>模块1：浏览器端工具 (核心流量池)</h3>
+      <p>JSON格式化、Base64编解码、UUID生成、正则测试器、颜色选择器、文本对比、二维码生成、MD5/SHA哈希等</p>
+      <p style="color:#10b981;font-size:0.85rem;">优势：零服务器成本、隐私优先、ChatGPT流量红利</p>
+    </div>
+  </div>
+  <div class="card" data-choice="all" onclick="toggleSelect(this)">
+    <div class="card-body">
+      <h3>模块2：利基计算器 (外链磁铁)</h3>
+      <p>贷款/房贷计算器、SaaS ROI计算器、freelancer费率、BMI计算器、太阳能节省估算、碳排放计算器</p>
+      <p style="color:#10b981;font-size:0.85rem;">优势：天然获取反向链接、搜索意图明确、长尾关键词</p>
+    </div>
+  </div>
+  <div class="card" data-choice="all" onclick="toggleSelect(this)">
+    <div class="card-body">
+      <h3>模块3：工具对比页 (程序化SEO)</h3>
+      <p>"工具A vs 工具B" 对比矩阵，自动生成数百个对比页面，捕获长尾"vs"搜索意图</p>
+      <p style="color:#10b981;font-size:0.85rem;">优势：高转化率(购买意向强)、可自动化扩展</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>📋 第一批工具优先级</h3>
+</div>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">🔴 高优先级 (搜索量最大)</div>
+    <div class="mockup-body">
+      <ul style="margin:0;padding-left:1.2em;line-height:2;">
+        <li>JSON格式化/验证器</li>
+        <li>图片压缩/裁剪</li>
+        <li>Base64编解码</li>
+        <li>二维码生成器</li>
+        <li>字数统计/文本工具</li>
+        <li>MD5/SHA哈希生成</li>
+        <li>房贷计算器</li>
+      </ul>
+    </div>
+  </div>
+  <div class="mockup">
+    <div class="mockup-header">🟡 中优先级 (差异化工具)</div>
+    <div class="mockup-body">
+      <ul style="margin:0;padding-left:1.2em;line-height:2;">
+        <li>正则表达式测试器</li>
+        <li>UUID/ULID生成器</li>
+        <li>文本Diff对比</li>
+        <li>颜色选择器/调色板</li>
+        <li>URL编解码</li>
+        <li>BMI计算器</li>
+        <li>SaaS ROI计算器</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>🤔 第一个问题：技术栈偏好</h3>
+  <p>这会影响开发速度和SEO效果。你有偏好吗？</p>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="nextjs" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Next.js 静态导出</h3>
+      <p>React生态，静态站点SEO最佳，Vercel免费托管，Toolkiya同款方案</p>
+    </div>
+  </div>
+  <div class="option" data-choice="plain-html" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>纯HTML/CSS/JS (Vanilla)</h3>
+      <p>零依赖，最简部署，极速加载，但工具多了之后维护成本高</p>
+    </div>
+  </div>
+  <div class="option" data-choice="vue-nuxt" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Vue/Nuxt 静态站点</h3>
+      <p>Vue生态，Nuxt Content支持，SSG模式对SEO友好</p>
+    </div>
+  </div>
+  <div class="option" data-choice="astro" onclick="toggleSelect(this)">
+    <div class="letter">D</div>
+    <div class="content">
+      <h3>Astro (推荐)</h3>
+      <p>专为内容站设计，零JS默认输出，多框架组件混用，Core Web Vitals满分</p>
+    </div>
+  </div>
+</div>

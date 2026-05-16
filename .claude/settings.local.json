@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(bash *)",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(npm install *)",
+      "Bash(npx astro *)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  }
+}
