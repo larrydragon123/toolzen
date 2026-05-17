@@ -1,7 +1,9 @@
 import { useState, useRef } from 'preact/hooks';
 import qrcode from 'qrcode-generator';
+import { useLanguage } from '../hooks/useLanguage';
 
 export default function QrCodeGenerator() {
+  const { t } = useLanguage();
   const [text, setText] = useState('');
   const [qrDataUrl, setQrDataUrl] = useState('');
   const [size, setSize] = useState(256);
@@ -13,7 +15,7 @@ export default function QrCodeGenerator() {
   const generate = () => {
     const val = text.trim();
     if (!val) {
-      setError('请输入内容');
+      setError(t.ui.enterContent);
       return;
     }
     setError('');
@@ -52,7 +54,7 @@ export default function QrCodeGenerator() {
 
       setQrDataUrl(canvas.toDataURL('image/png'));
     } catch (e: any) {
-      setError('生成失败: ' + (e?.message || '未知错误'));
+      setError(t.ui.generateFailed + ': ' + (e?.message || ''));
     }
   };
 
@@ -68,13 +70,13 @@ export default function QrCodeGenerator() {
     <div class="space-y-4">
       <div class="flex gap-2 flex-wrap items-end">
         <div class="flex-1 min-w-48">
-          <label class="block text-sm text-gray-500 mb-1">内容 (URL / 文本)</label>
+          <label class="block text-sm text-gray-500 mb-1">{t.ui.content}</label>
           <input value={text} onInput={(e) => setText((e.target as HTMLInputElement).value)}
             placeholder="https://example.com"
             class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-zen-500 outline-none" />
         </div>
         <div>
-          <label class="block text-sm text-gray-500 mb-1">尺寸</label>
+          <label class="block text-sm text-gray-500 mb-1">{t.ui.size}</label>
           <select value={size} onChange={(e) => setSize(Number((e.target as HTMLSelectElement).value))}
             class="p-2 border border-gray-200 rounded-lg text-sm">
             <option value={128}>128</option>
@@ -84,17 +86,17 @@ export default function QrCodeGenerator() {
         </div>
         <button onClick={generate}
           class="px-4 py-2 bg-zen-500 text-white rounded-lg text-sm font-medium hover:bg-zen-600 transition-colors">
-          生成
+          {t.ui.generate}
         </button>
       </div>
       <div class="flex gap-4">
         <div>
-          <label class="block text-xs text-gray-400 mb-1">前景色</label>
+          <label class="block text-xs text-gray-400 mb-1">{t.ui.fgColor}</label>
           <input type="color" value={fgColor} onInput={(e) => setFgColor((e.target as HTMLInputElement).value)}
             class="w-10 h-10 rounded cursor-pointer border-0" />
         </div>
         <div>
-          <label class="block text-xs text-gray-400 mb-1">背景色</label>
+          <label class="block text-xs text-gray-400 mb-1">{t.ui.bgColor}</label>
           <input type="color" value={bgColor} onInput={(e) => setBgColor((e.target as HTMLInputElement).value)}
             class="w-10 h-10 rounded cursor-pointer border-0" />
         </div>
@@ -104,7 +106,7 @@ export default function QrCodeGenerator() {
       {qrDataUrl && (
         <div class="space-y-2">
           <img src={qrDataUrl} alt="QR Code" class="border border-gray-100 rounded-lg max-w-full" />
-          <button onClick={download} class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200">下载 PNG</button>
+          <button onClick={download} class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200">{t.ui.downloadPng}</button>
         </div>
       )}
     </div>

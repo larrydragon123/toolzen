@@ -1,4 +1,5 @@
 import { useState } from 'preact/hooks';
+import { useLanguage } from '../hooks/useLanguage';
 
 // Simplified Chinese character mapping - key common characters
 // Using a simplified approach with the most common 500+ characters that differ
@@ -66,18 +67,19 @@ function numFormalToSimple(text: string): string {
 }
 
 export default function CaseConverter() {
+  const { t } = useLanguage();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
 
   const actions = [
-    { label: '英文大写', fn: () => setOutput(input.toUpperCase()) },
-    { label: '英文小写', fn: () => setOutput(input.toLowerCase()) },
-    { label: '首字母大写', fn: () => setOutput(input.replace(/\b\w/g, c => c.toUpperCase())) },
-    { label: '简体→繁体', fn: () => setOutput(s2t(input)) },
-    { label: '繁体→简体', fn: () => setOutput(t2s(input)) },
-    { label: '中文小写→大写', fn: () => setOutput(numSimpleToFormal(input)) },
-    { label: '中文大写→小写', fn: () => setOutput(numFormalToSimple(input)) },
-    { label: '反转大小写', fn: () => setOutput(input.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('')) },
+    { label: t.ui.upperCase, fn: () => setOutput(input.toUpperCase()) },
+    { label: t.ui.lowerCase, fn: () => setOutput(input.toLowerCase()) },
+    { label: t.ui.titleCase, fn: () => setOutput(input.replace(/\b\w/g, c => c.toUpperCase())) },
+    { label: t.ui.s2t, fn: () => setOutput(s2t(input)) },
+    { label: t.ui.t2s, fn: () => setOutput(t2s(input)) },
+    { label: t.ui.numS2F, fn: () => setOutput(numSimpleToFormal(input)) },
+    { label: t.ui.numF2S, fn: () => setOutput(numFormalToSimple(input)) },
+    { label: t.ui.invertCase, fn: () => setOutput(input.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('')) },
   ];
 
   const copy = () => { navigator.clipboard.writeText(output); };
@@ -88,14 +90,14 @@ export default function CaseConverter() {
         {actions.map(a => (
           <button onClick={a.fn} class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-zen-50 hover:text-zen-600 transition-colors">{a.label}</button>
         ))}
-        <button onClick={copy} class="px-3 py-2 bg-zen-500 text-white rounded-lg text-sm font-medium hover:bg-zen-600 transition-colors ml-auto">Copy</button>
+        <button onClick={copy} class="px-3 py-2 bg-zen-500 text-white rounded-lg text-sm font-medium hover:bg-zen-600 transition-colors ml-auto">{t.ui.copy}</button>
       </div>
       <textarea value={input} onInput={(e) => setInput((e.target as HTMLTextAreaElement).value)}
-        rows={6} placeholder="输入文本..."
+        rows={6} placeholder={t.ui.enterText}
         class="w-full p-3 border border-gray-200 rounded-lg text-sm focus:border-zen-500 outline-none resize-y" />
       <textarea value={output} readOnly rows={6}
         class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm resize-y"
-        placeholder="转换结果..." />
+        placeholder={t.ui.result} />
     </div>
   );
 }

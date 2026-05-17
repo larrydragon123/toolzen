@@ -1,11 +1,9 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
 import { TOOLS } from '../utils/tools';
-
-const catNames: Record<string, string> = {
-  dev: '开发者工具', text: '文本工具', image: '图片工具', crypto: '编码加密', calculators: '计算器',
-};
+import { useLanguage } from '../hooks/useLanguage';
 
 export default function SearchModal() {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -83,7 +81,7 @@ export default function SearchModal() {
                 value={query}
                 onInput={(e) => setQuery((e.target as HTMLInputElement).value)}
                 onKeyDown={handleKey}
-                placeholder="搜索工具..."
+                placeholder={t.nav.searchPlaceholder}
                 class="flex-1 border-0 outline-none text-base text-gray-900 bg-transparent"
               />
               <button
@@ -95,20 +93,20 @@ export default function SearchModal() {
             </div>
             <div class="max-h-80 overflow-y-auto p-2">
               {query.trim() === '' ? (
-                <div class="p-8 text-center text-gray-400 text-sm">输入关键词搜索工具</div>
+                <div class="p-8 text-center text-gray-400 text-sm">{t.nav.searchHint}</div>
               ) : filtered.length === 0 ? (
-                <div class="p-8 text-center text-gray-400 text-sm">未找到匹配的工具</div>
+                <div class="p-8 text-center text-gray-400 text-sm">{t.nav.searchEmpty}</div>
               ) : (
-                filtered.map(t => (
+                filtered.map(tool => (
                   <a
-                    key={t.slug}
-                    href={`/${t.slug}/`}
-                    onClick={(e) => { e.preventDefault(); navigate(t.slug); }}
+                    key={tool.slug}
+                    href={`/${tool.slug}/`}
+                    onClick={(e) => { e.preventDefault(); navigate(tool.slug); }}
                     class="flex items-center gap-3 px-4 py-3 rounded-lg no-underline text-gray-900 hover:bg-zen-50"
                   >
-                    <span class="text-sm flex-1">{t.title}</span>
+                    <span class="text-sm flex-1">{tool.title}</span>
                     <span class="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded">
-                      {catNames[t.category] || t.category}
+                      {t.nav[tool.category as keyof typeof t.nav] || tool.category}
                     </span>
                   </a>
                 ))
