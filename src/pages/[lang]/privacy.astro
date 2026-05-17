@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getDict } from '../../i18n';
+import type { Lang } from '../../i18n';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'zh' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const t = getDict(lang);
+---
+
+<BaseLayout lang={lang} t={t} title={t.seo.privacyTitle} description={t.seo.privacyDesc}>
+  <div class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">{t.privacy.h1}</h1>
+    <div class="prose max-w-none text-gray-600 space-y-4">
+      <p><strong>{t.privacy.updated}</strong></p>
+      <h2 class="text-xl font-semibold text-gray-900">{t.privacy.noCollectTitle}</h2>
+      <p>{t.privacy.noCollect}</p>
+      <h2 class="text-xl font-semibold text-gray-900">{t.privacy.analyticsTitle}</h2>
+      <p>{t.privacy.analytics}</p>
+      <h2 class="text-xl font-semibold text-gray-900">{t.privacy.cookiesTitle}</h2>
+      <p>{t.privacy.cookies}</p>
+      <h2 class="text-xl font-semibold text-gray-900">{t.privacy.contactTitle}</h2>
+      <p>{t.privacy.contact} <a href="mailto:hello@toolzen.com">hello@toolzen.com</a></p>
+    </div>
+  </div>
+</BaseLayout>

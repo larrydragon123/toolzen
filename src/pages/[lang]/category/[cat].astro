@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import ToolCard from '../../../components/ToolCard.astro';
+import { getToolsByCategory, CATEGORIES } from '../../../utils/tools';
+import { getDict } from '../../../i18n';
+import type { Lang } from '../../../i18n';
+
+export function getStaticPaths() {
+  const paths: Array<{ params: { lang: string; cat: string } }> = [];
+  for (const lang of ['zh', 'en']) {
+    for (const cat of CATEGORIES) {
+      paths.push({ params: { lang, cat: cat.slug } });
+    }
+  }
+  return paths;
+}
+
+const { lang: langParam, cat } = Astro.params as { lang: string; cat: string };
+const lang: Lang = langParam === 'en' ? 'en' : 'zh';
+const t = getDict(lang);
+const catData = CATEGORIES.find(c => c.slug === cat)!;
+const tools = getToolsByCategory(cat);
+const catMeta = t.categories[cat];
+const title = `${catMeta.title}${t.seo.categoryPrefix}${catMeta.title}`;
+---
+
+<BaseLayout lang={lang} t={t} title={title} description={catMeta.description}>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb items={[
+      { label: t.breadcrumbHome, href: `/${lang}/` },
+      { label: catMeta.title },
+    ]} lang={lang} />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">{catData.icon} {catMeta.title}</h1>
+    <p class="text-gray-500 mb-8">{catMeta.description}</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {tools.map(tool => (
+        <ToolCard slug={tool.slug} title={t.tools[tool.slug].title} description={t.tools[tool.slug].description} lang={lang} />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

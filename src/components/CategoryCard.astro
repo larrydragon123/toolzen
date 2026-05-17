@@ -1,19 +1,22 @@
 ---
 import { getToolsByCategory } from '../utils/tools';
+import type { Lang, Translations } from '../i18n';
 
 export interface Props {
   slug: string;
   title: string;
   icon: string;
   description: string;
+  lang: Lang;
+  t: Translations;
 }
-const { slug, title, icon, description } = Astro.props;
+const { slug, title, icon, description, lang, t } = Astro.props;
 const count = getToolsByCategory(slug).length;
 ---
 
-<a href={`/category/${slug}/`} class="block p-5 rounded-xl border border-gray-100 hover:border-zen-200 hover:bg-zen-50/30 transition-all no-underline group">
+<a href={`/${lang}/category/${slug}/`} class="block p-5 rounded-xl border border-gray-100 hover:border-zen-200 hover:bg-zen-50/30 transition-all no-underline group">
   <div class="text-2xl mb-2">{icon}</div>
   <h3 class="font-semibold text-gray-900 group-hover:text-zen-500 transition-colors">{title}</h3>
   <p class="text-sm text-gray-500 mt-1">{description}</p>
-  <span class="inline-block mt-2 text-xs text-zen-500 bg-zen-50 px-2 py-0.5 rounded-full">{count} 个工具</span>
+  <span class="inline-block mt-2 text-xs text-zen-500 bg-zen-50 px-2 py-0.5 rounded-full">{t.toolCount(count)}</span>
 </a>

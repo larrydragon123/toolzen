@@ -1,13 +1,24 @@
+---
+import type { Lang, Translations } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  t: Translations;
+}
+
+const { lang, t } = Astro.props;
+---
+
 <footer class="border-t border-gray-100 mt-20">
   <div class="max-w-6xl mx-auto px-4 py-10">
     <div class="flex flex-col md:flex-row justify-between items-center gap-4">
       <div class="text-sm text-gray-500">
-        &copy; 2026 ToolZen. All tools run locally in your browser.
+        {t.footer.copyright}
       </div>
       <nav class="flex gap-6">
-        <a href="/about/" class="text-sm text-gray-500 hover:text-gray-700 no-underline">About</a>
-        <a href="/privacy/" class="text-sm text-gray-500 hover:text-gray-700 no-underline">Privacy</a>
-        <a href="mailto:hello@toolzen.com" class="text-sm text-gray-500 hover:text-gray-700 no-underline">Contact</a>
+        <a href={`/${lang}/about/`} class="text-sm text-gray-500 hover:text-gray-700 no-underline">{t.footer.about}</a>
+        <a href={`/${lang}/privacy/`} class="text-sm text-gray-500 hover:text-gray-700 no-underline">{t.footer.privacy}</a>
+        <a href="mailto:hello@toolzen.com" class="text-sm text-gray-500 hover:text-gray-700 no-underline">{t.footer.contact}</a>
       </nav>
     </div>
   </div>

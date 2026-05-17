@@ -1,9 +1,12 @@
 ---
+import type { Lang } from '../i18n';
+
 export interface Props {
   items: Array<{ label: string; href?: string }>;
+  lang: Lang;
 }
 
-const { items } = Astro.props;
+const { items, lang } = Astro.props;
 const breadcrumbLD = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
