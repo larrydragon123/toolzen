@@ -240,7 +240,7 @@ export const en: TranslationDict = {
     noCollectTitle: "We Don't Collect Your Data",
     noCollect: 'ToolZen does not collect, store, or transmit any of the data you enter into our tools. All processing happens locally in your browser.',
     analyticsTitle: 'Analytics',
-    analytics: 'We use Google Analytics 4 to measure site traffic. This collects anonymized data such as page views and general location (country level). No personally identifiable information is collected.',
+    analytics: 'We use Google Analytics 4 and Baidu Analytics to measure site traffic. This collects anonymized data such as page views and general location (country level). No personally identifiable information is collected.',
     cookiesTitle: 'Cookies',
     cookies: 'We do not use cookies for tracking. Analytics uses anonymous sessions.',
     contactTitle: 'Contact',

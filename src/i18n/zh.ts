@@ -240,7 +240,7 @@ export const zh: TranslationDict = {
     noCollectTitle: '我们不收集您的数据',
     noCollect: 'ToolZen 不会收集、存储或传输您输入到工具中的任何数据。所有处理都在您的浏览器本地完成。',
     analyticsTitle: '数据分析',
-    analytics: '我们使用 Google Analytics 4 来统计网站流量。仅收集匿名的页面浏览和大致地理位置（国家级别）数据，不收集任何个人可识别信息。',
+    analytics: '我们使用 Google Analytics 4 和百度统计来统计网站流量。仅收集匿名的页面浏览和大致地理位置（国家级别）数据，不收集任何个人可识别信息。',
     cookiesTitle: 'Cookie',
     cookies: '我们不使用Cookie进行追踪。统计分析使用匿名会话。',
     contactTitle: '联系我们',
