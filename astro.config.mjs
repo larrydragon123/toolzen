@@ -7,7 +7,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: 'https://toolzen-seven.vercel.app',
+  site: 'https://tool-zen.com',
   output: 'static',
   trailingSlash: 'always'
 });

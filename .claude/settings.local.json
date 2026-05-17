@@ -26,7 +26,11 @@
       "Bash(node -e ' *)",
       "Bash(npm ls *)",
       "Bash(npx vercel *)",
-      "WebFetch(domain:toolzen-dqtah4coy-larrydragon.vercel.app)"
+      "WebFetch(domain:toolzen-dqtah4coy-larrydragon.vercel.app)",
+      "Bash(git log *)",
+      "Bash(gh auth *)",
+      "Bash(gh repo *)",
+      "Bash(git push *)"
     ]
   }
 }

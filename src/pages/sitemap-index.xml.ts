@@ -1,7 +1,7 @@
 import { TOOLS, CATEGORIES } from '../utils/tools';
 
 export async function GET() {
-  const base = 'https://toolzen.com';
+  const base = 'https://tool-zen.com';
   const langs = ['zh', 'en'];
   const urls: Array<{ loc: string; priority: string }> = [];
 
