@@ -24,6 +24,7 @@ export function getOtherLang(lang: Lang): Lang {
 
 export function switchPath(pathname: string): string {
   const parts = pathname.split('/').filter(Boolean);
+  if (parts.length === 0) return '/';
   if (parts[0] === 'zh' || parts[0] === 'en') {
     parts[0] = parts[0] === 'zh' ? 'en' : 'zh';
   }
