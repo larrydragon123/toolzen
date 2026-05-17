@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import RelatedTools from '../../components/RelatedTools.astro';
+import { getTool } from '../../utils/tools';
+import { getDict } from '../../i18n';
+import type { Lang } from '../../i18n';
+import BmiCalculator from '../../islands/BmiCalculator';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'zh' } }, { params: { lang: 'en' } }];
+}
+
+const slug = 'bmi-calculator';
+const lang = Astro.params.lang as Lang;
+const t = getDict(lang);
+const tool = getTool(slug)!;
+const toolMeta = t.tools[slug];
+const catMeta = t.categories[tool.category];
+const title = `${toolMeta.title} | ToolZen`;
+---
+
+<BaseLayout lang={lang} t={t} title={title} description={toolMeta.description}>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb items={[
+      { label: t.breadcrumbHome, href: `/${lang}/` },
+      { label: catMeta.title, href: `/${lang}/category/${tool.category}/` },
+      { label: toolMeta.title },
+    ]} lang={lang} />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">{toolMeta.title}</h1>
+    <p class="text-gray-500 mb-8">{toolMeta.description}</p>
+
+    <BmiCalculator client:load />
+
+    <section class="mt-12 prose max-w-none">
+      <h2 class="text-xl font-semibold text-gray-900">{toolMeta.howToTitle}</h2>
+      <p class="text-gray-600">{toolMeta.howTo}</p>
+
+      <h3 class="text-lg font-semibold text-gray-900 mt-6">FAQ</h3>
+      <div class="space-y-4">
+        {toolMeta.faq.map(item => (
+          <div>
+            <h4 class="font-medium text-gray-800">{item.q}</h4>
+            <p class="text-gray-600">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <RelatedTools current={slug} lang={lang} t={t} />
+  </div>
+
+  <slot name="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: toolMeta.title,
+      description: toolMeta.description,
+      url: `${Astro.site}${lang}/${slug}/`,
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'All',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    })}></script>
+  </slot>
+</BaseLayout>
