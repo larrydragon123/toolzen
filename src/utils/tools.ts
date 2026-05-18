@@ -2,7 +2,7 @@ export interface Tool {
   slug: string;
   title: string;
   description: string;
-  category: 'dev' | 'text' | 'image' | 'crypto' | 'calculators';
+  category: 'dev' | 'text' | 'image' | 'crypto' | 'calculators' | 'life';
   keywords: string[];
   complexity: 'low' | 'medium';
 }
@@ -20,6 +20,7 @@ export const CATEGORIES: Category[] = [
   { slug: 'image', title: '图片工具', icon: '🖼️', description: '图片压缩、二维码生成等图像工具' },
   { slug: 'crypto', title: '编码加密', icon: '🔐', description: 'MD5、SHA哈希、URL编解码工具' },
   { slug: 'calculators', title: '计算器', icon: '🔢', description: '房贷、BMI等实用计算器' },
+  { slug: 'life', title: '生活工具', icon: '🌟', description: '生肖星座、年龄查询等生活实用工具' },
 ];
 
 export const TOOLS: Tool[] = [

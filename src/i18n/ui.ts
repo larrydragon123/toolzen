@@ -20,6 +20,7 @@ export interface NavDict {
   image: string;
   crypto: string;
   calculators: string;
+  life: string;
   searchPlaceholder: string;
   searchHint: string;
   searchEmpty: string;
@@ -84,6 +85,37 @@ export interface UIDict {
   originalText: string; modifiedText: string;
   pickColor: string;
   sourceTimezone: string; targetTimezone: string; convertTime: string;
+  // Password Generator
+  pwLength: string; pwUppercase: string; pwLowercase: string;
+  pwNumbers: string; pwSymbols: string; pwGenerate: string;
+  pwStrength: string; pwVeryWeak: string; pwWeak: string;
+  pwFair: string; pwStrong: string; pwVeryStrong: string;
+  // Timestamp Converter
+  tsCurrent: string; tsToDate: string; tsToTimestamp: string;
+  tsEnterTs: string; tsEnterDate: string; tsConvert: string;
+  tsSeconds: string; tsMilliseconds: string;
+  // Age Calculator
+  ageBirthDate: string; ageCalculate: string; ageYearsOld: string;
+  ageMonthsOld: string; ageDaysOld: string; ageNextBirthday: string;
+  ageDaysUntil: string;
+  // Zodiac Finder
+  zodiacSelect: string; zodiacAnimal: string; zodiacConstellation: string;
+  zodiacShengxiao: string; zodiacXingzuo: string;
+  // Unit Converter
+  unitCategory: string; unitFrom: string; unitTo: string;
+  unitLength: string; unitWeight: string; unitTemperature: string;
+  unitArea: string; unitVolume: string; unitSpeed: string;
+  // Unit names
+  meter: string; kilometer: string; centimeter: string; millimeter: string;
+  inch: string; foot: string; yard: string; mile: string;
+  kilogram: string; gram: string; milligram: string; ton: string;
+  pound: string; ounce: string;
+  celsius: string; fahrenheit: string; kelvin: string;
+  sqMeter: string; sqKilometer: string; sqCentimeter: string;
+  hectare: string; acre: string; sqFoot: string;
+  liter: string; milliliter: string; cubicMeter: string;
+  gallon: string; quart: string; cup: string;
+  kmPerHour: string; mPerSecond: string; mph: string; knot: string;
 }
 
 export interface TranslationDict {
