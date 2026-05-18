@@ -71,5 +71,17 @@ const title = `${toolMeta.title} | ToolZen`;
         acceptedAnswer: { '@type': 'Answer', text: item.a },
       })),
     })}></script>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: toolMeta.howToTitle,
+      description: toolMeta.howTo,
+      step: [
+        { '@type': 'HowToStep', name: lang === 'zh' ? '输入内容' : 'Input', text: lang === 'zh' ? '在输入框中粘贴或输入要处理的内容' : 'Paste or type the content you want to process in the input field' },
+        { '@type': 'HowToStep', name: lang === 'zh' ? '调整参数' : 'Configure', text: lang === 'zh' ? '根据需要调整工具的参数和选项' : 'Adjust the tool parameters and options as needed' },
+        { '@type': 'HowToStep', name: lang === 'zh' ? '执行操作' : 'Execute', text: lang === 'zh' ? '点击执行按钮，工具会自动处理并显示结果' : 'Click the execute button; the tool processes and displays results automatically' },
+        { '@type': 'HowToStep', name: lang === 'zh' ? '复制结果' : 'Copy', text: lang === 'zh' ? '点击复制按钮一键复制处理结果' : 'Click the copy button to copy the result with one click' },
+      ],
+    })}></script>
   </slot>
 </BaseLayout>
