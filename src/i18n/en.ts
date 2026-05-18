@@ -275,6 +275,18 @@ export const en: TranslationDict = {
         { q: 'Are timestamps affected by timezone?', a: 'Unix timestamps are UTC-based and timezone-independent. When converting to a datetime, the tool displays in your browser\'s local timezone.' },
       ],
     },
+    'unit-converter': {
+      title: 'Unit Converter',
+      description: 'Online unit converter. Real-time conversion for length, weight, temperature, area, volume, and speed. All computation happens in your browser.',
+      keywords: ['unit converter', 'length converter', 'weight converter', 'temperature converter', 'area converter', 'volume converter', 'speed converter'],
+      howToTitle: 'How to Use Unit Converter',
+      howTo: 'Select a category (Length/Weight/Temperature/Area/Volume/Speed), enter a value, choose source and target units, and see the result in real-time. Supports metric, imperial, and Chinese units.',
+      faq: [
+        { q: 'Which unit categories are supported?', a: '6 categories: Length (8 units including meter, mile), Weight (6 units including kg, lb), Temperature (°C, °F, K), Area (6 units including m², acre), Volume (6 units including L, gallon), Speed (4 units including km/h, mph).' },
+        { q: 'How accurate are the conversions?', a: 'Based on international standard conversion factors, accurate enough for everyday use. For scientific or precision engineering, use specialized tools.' },
+        { q: 'What is the temperature conversion formula?', a: '°F = °C × 9/5 + 32, K = °C + 273.15. The tool handles these non-linear conversions automatically.' },
+      ],
+    },
   },
   about: {
     h1: 'About ToolZen',

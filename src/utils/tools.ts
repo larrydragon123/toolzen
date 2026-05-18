@@ -184,6 +184,14 @@ export const TOOLS: Tool[] = [
     keywords: ['生肖查询', '星座查询', '属相', '生日查生肖', '十二星座', '十二生肖'],
     complexity: 'low',
   },
+  {
+    slug: 'unit-converter',
+    title: '单位换算',
+    description: '在线单位换算工具。支持长度、重量、温度、面积、体积、速度等常用单位实时转换，所有计算在浏览器端完成。',
+    category: 'calculators',
+    keywords: ['单位换算', '长度换算', '重量换算', '温度换算', '面积换算', '体积换算', '速度换算', '在线换算器'],
+    complexity: 'medium',
+  },
 ];
 
 export function getTool(slug: string): Tool | undefined {
