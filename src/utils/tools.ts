@@ -176,6 +176,14 @@ export const TOOLS: Tool[] = [
     keywords: ['年龄计算器', '在线年龄', '周岁计算', '出生日期计算', '年龄查询', '生日倒计时'],
     complexity: 'low',
   },
+  {
+    slug: 'zodiac-finder',
+    title: '生肖星座查询',
+    description: '在线生肖星座查询工具。输入出生日期，即可查询对应的生肖属相和西方星座，所有计算在浏览器端完成。',
+    category: 'life',
+    keywords: ['生肖查询', '星座查询', '属相', '生日查生肖', '十二星座', '十二生肖'],
+    complexity: 'low',
+  },
 ];
 
 export function getTool(slug: string): Tool | undefined {

@@ -251,6 +251,18 @@ export const en: TranslationDict = {
         { q: 'Can I calculate age for a future date?', a: 'Selecting a future date will show "Not yet born." The tool is designed for calculating current age.' },
       ],
     },
+    'zodiac-finder': {
+      title: 'Zodiac & Constellation Finder',
+      description: 'Online Chinese zodiac and Western constellation finder. Enter your birth date to discover your zodiac animal and star sign. All computation in your browser.',
+      keywords: ['Chinese zodiac', 'zodiac sign', 'constellation finder', 'birth zodiac', 'western zodiac'],
+      howToTitle: 'How to Use Zodiac & Constellation Finder',
+      howTo: 'Select your birth date (Gregorian calendar). The tool automatically determines your Chinese zodiac animal (based on the Lichun solar term ~Feb 4) and Western constellation (based on Gregorian date ranges). All queries happen locally in your browser.',
+      faq: [
+        { q: 'How is the Chinese zodiac calculated?', a: 'The Chinese zodiac follows a 12-year lunar cycle. This tool uses the Lichun solar term (around Feb 4) as the zodiac year boundary. Note: the zodiac does not switch on Jan 1 or Chinese New Year, but at Lichun.' },
+        { q: 'What are the constellation date ranges?', a: 'Aries(3.21-4.19), Taurus(4.20-5.20), Gemini(5.21-6.21), Cancer(6.22-7.22), Leo(7.23-8.22), Virgo(8.23-9.22), Libra(9.23-10.23), Scorpio(10.24-11.22), Sagittarius(11.23-12.21), Capricorn(12.22-1.19), Aquarius(1.20-2.18), Pisces(2.19-3.20).' },
+        { q: 'Why does my zodiac sign differ from what I expected?', a: 'If you were born in January or February, the zodiac boundary (Lichun) may shift by 1 day each year. For confirmation, consult the specific year\'s lunar calendar.' },
+      ],
+    },
     'timestamp-converter': {
       title: 'Unix Timestamp Converter',
       description: 'Online Unix timestamp to datetime converter. Real-time current timestamp display with second and millisecond precision. All computation in your browser.',
