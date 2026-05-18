@@ -1,104 +1,127 @@
 # ToolZen — Complete Tool Reference
 
-> Free online tools — privacy-first, no upload needed. All processing happens in your browser.
+> 21 free online tools. Privacy-first, no upload needed.
+> All processing happens in your browser (no backend).
 > Available in Chinese (zh) and English (en). URLs follow /{lang}/{slug}/ pattern.
-> Total: 21 tools across 6 categories.
+> Categories: dev(6), text(3), image(2), crypto(3), calculators(6), life(1)
 
 ## Developer Tools
 
 ### JSON Formatter
-Online JSON formatting, validation, and compression tool. Supports syntax highlighting and error detection.
+Formats, validates, and compresses JSON data with real-time syntax highlighting.
+Use for: debugging API responses, validating config files, minifying JSON for production.
 URL: https://tool-zen.com/zh/json-formatter/
 
 ### Base64 Encoder/Decoder
-Online Base64 encoding and decoding tool. Supports text-to-Base64 conversion.
+Encodes text to Base64 and decodes Base64 back. Full Unicode support.
+Use for: embedding images as Data URIs, encoding binary data for text protocols, API payload encoding.
 URL: https://tool-zen.com/zh/base64/
 
 ### UUID Generator
-Online UUID v4 and ULID generator. Supports batch generation and one-click copy.
+Generates UUID v4 identifiers using crypto.randomUUID(). Batch generation.
+Use for: database primary keys, unique tokens, distributed system IDs, session identifiers.
 URL: https://tool-zen.com/zh/uuid-generator/
 
 ### RegEx Tester
-Online regular expression testing tool. Real-time match highlighting with common pattern library.
+Tests regular expressions against sample text with real-time match highlighting.
+Use for: debugging regex patterns, verifying capture groups, testing edge cases before coding.
 URL: https://tool-zen.com/zh/regex-tester/
 
 ### Color Picker
-Online color picker and converter. Supports HEX, RGB, and HSL format conversion.
+Converts between HEX, RGB, and HSL color formats. Includes palette and eyedropper.
+Use for: web and UI design, CSS color selection, brand color extraction, accessibility contrast checking.
 URL: https://tool-zen.com/zh/color-picker/
 
 ### Unix Timestamp Converter
-Online Unix timestamp to datetime converter. Real-time current timestamp with second and millisecond precision.
+Converts between Unix timestamps and human-readable dates. Second and millisecond precision.
+Use for: debugging time-related bugs, converting log timestamps, date arithmetic in programming.
 URL: https://tool-zen.com/zh/timestamp-converter/
 
 ## Text Tools
 
 ### Text Diff Checker
-Online text diff comparison tool. Side-by-side and unified views. Standard diff algorithm.
+Compares two texts line-by-line using standard diff algorithm. Side-by-side and unified views.
+Use for: code review, document version comparison, tracking configuration file changes.
 URL: https://tool-zen.com/zh/text-diff/
 
 ### Word Counter
-Online word and character counting tool. Real-time stats for characters, words, lines, and paragraphs.
+Counts characters, words, lines, paragraphs, and bytes in real-time. Chinese text aware.
+Use for: writing with word limits, SEO meta description length checking, translation cost estimation.
 URL: https://tool-zen.com/zh/word-counter/
 
 ### Case Converter
-Online text case and script converter. Supports upper/lowercase, title case, simplified/traditional Chinese.
+Converts text between uppercase, lowercase, title case, simplified/traditional Chinese, Chinese numeral forms.
+Use for: formatting titles and headings, preparing content for different Chinese regions, invoice number conversion.
 URL: https://tool-zen.com/zh/case-converter/
 
 ## Image Tools
 
 ### QR Code Generator
-Free online QR code generator. Supports URL, text, custom colors and size. Download as PNG.
+Generates QR codes from URLs, text, or contact info. Customizable colors and sizes. PNG download.
+Use for: sharing links, Wi-Fi credentials, business cards, marketing materials, event tickets.
 URL: https://tool-zen.com/zh/qr-code/
 
 ### Image Compressor
-Online image compression tool. Supports PNG, JPEG, and WebP formats. All processing local.
+Compresses PNG, JPEG, and WebP images with adjustable quality. All processing local.
+Use for: optimizing web images for faster page loads, reducing bandwidth usage, preparing images for email.
 URL: https://tool-zen.com/zh/image-compress/
 
 ## Crypto & Encoding
 
 ### MD5 / SHA Hash Generator
-Online MD5, SHA-1, and SHA-256 hash generator. Supports text and file hashing.
+Computes MD5, SHA-1, SHA-256 hashes for text strings and files. Local computation.
+Use for: file integrity verification, checksums, data deduplication, legacy password hashing (SHA-256 recommended).
 URL: https://tool-zen.com/zh/md5-hash/
 
 ### URL Encoder/Decoder
-Online URL encoding and decoding tool. Quick convert special characters via encodeURI and decodeURI.
+Encodes and decodes URL special characters using encodeURI/decodeURI.
+Use for: handling URL parameters with special characters, encoding Chinese text in URLs, debugging query strings.
 URL: https://tool-zen.com/zh/url-encode/
 
 ### Password Generator
-Online random password generator. Custom length and character types. Uses crypto.getRandomValues().
+Generates cryptographically secure random passwords using crypto.getRandomValues(). Customizable length (4-64) and character types.
+Use for: creating strong account passwords, generating API keys, creating secure tokens and secrets.
 URL: https://tool-zen.com/zh/password-generator/
 
 ## Calculators
 
 ### Mortgage Calculator
-Online mortgage calculator. Equal payment and equal principal methods. Detailed amortization schedule.
+Calculates monthly payments and total interest. Supports equal payment and equal principal methods. Detailed amortization schedule.
+Use for: home loan planning, comparing bank loan offers, early repayment analysis, buy-vs-rent calculations.
 URL: https://tool-zen.com/zh/mortgage-calculator/
 
 ### BMI Calculator
-Online BMI calculator. Enter height and weight to calculate BMI and health status (WHO standards).
+Calculates Body Mass Index with WHO health status classification (underweight/normal/overweight/obese).
+Use for: personal health tracking, weight management goal setting, fitness program planning.
 URL: https://tool-zen.com/zh/bmi-calculator/
 
 ### Date Calculator
-Online date calculator. Visual calendar selection for day counting, workdays, and date math.
+Calculates days between dates, workdays (excluding weekends), and date addition/subtraction.
+Use for: project deadline planning, contract duration calculation, age and anniversary counting.
 URL: https://tool-zen.com/zh/date-calculator/
 
 ### Timezone Converter
-Online timezone converter. Display current time across multiple timezones simultaneously.
+Converts time between IANA timezones with daylight saving time awareness. Shows multiple timezones.
+Use for: scheduling international meetings, travel planning across time zones, remote team coordination.
 URL: https://tool-zen.com/zh/timezone-converter/
 
 ### Age Calculator
-Online age calculator. Precisely calculates age in years, months, and days with next birthday countdown.
+Calculates precise age in years, months, and days from birth date. Shows next birthday countdown.
+Use for: age verification forms, birthday party planning, calculating exact age for official documents.
 URL: https://tool-zen.com/zh/age-calculator/
 
 ### Unit Converter
-Online unit converter. 6 categories: length, weight, temperature, area, volume, speed. 34 units total.
+Real-time conversion between 34 units across 6 categories: length, weight, temperature, area, volume, speed.
+Use for: cooking measurements, travel unit conversion, engineering calculations, education and homework.
 URL: https://tool-zen.com/zh/unit-converter/
 
 ## Life Tools
 
 ### Zodiac & Constellation Finder
-Online Chinese zodiac and Western constellation finder. Enter birth date to discover your signs.
+Finds Chinese zodiac animal (12-animal cycle) and Western constellation (12 star signs) from birth date.
+Use for: personal interest and self-discovery, cultural exploration, gift and compatibility ideas.
 URL: https://tool-zen.com/zh/zodiac-finder/
 
 ## About ToolZen
-ToolZen is a collection of free online tools. "Zen" represents simplicity — good tools should be simple, clean, and unobtrusive. Unlike many similar sites, all ToolZen tools run locally in your browser. Your data is never uploaded to a server because we have no backend servers at all. We aim to be the go-to online toolbox for developers, designers, and everyday users.
+
+ToolZen is a collection of free online tools focused on privacy and simplicity. Unlike many similar sites, all processing happens locally in the user's browser. No data ever leaves the user's device — ToolZen has no backend servers. The site is built with Astro 6, Preact, and Tailwind CSS 4, deployed on Cloudflare Pages. Available in Chinese and English at https://tool-zen.com.
