@@ -5,9 +5,11 @@ import type { Lang, Translations } from '../i18n';
 interface Props {
   lang: Lang;
   t: Translations;
+  otherLang: Lang;
+  otherPath: string;
 }
 
-const { lang, t } = Astro.props;
+const { lang, t, otherLang, otherPath } = Astro.props;
 
 const navItems = [
   { label: t.nav.dev, href: `/${lang}/category/dev/` },
@@ -34,6 +36,11 @@ const navItems = [
       ))}
     </nav>
 
-    <SearchModal client:load />
+    <div class="flex items-center gap-2">
+      <a href={otherPath} class="px-2.5 py-1 text-xs font-medium text-gray-500 hover:text-zen-500 bg-gray-100 hover:bg-zen-50 rounded-md transition-colors no-underline">
+        {otherLang === 'zh' ? '中文' : 'EN'}
+      </a>
+      <SearchModal client:load />
+    </div>
   </div>
 </header>

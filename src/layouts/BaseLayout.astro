@@ -36,8 +36,11 @@ const otherPath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={image || '/og-default.png'} />
+    <meta property="og:url" content={new URL(currentPath, Astro.site).href} />
+    <meta property="og:image" content={image || '/og-default.svg'} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
 
     <slot name="head" />
 
@@ -62,7 +65,7 @@ const otherPath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
     </script>
   </head>
   <body class="bg-white text-gray-900 antialiased min-h-screen flex flex-col">
-    <Header lang={lang} t={t} />
+    <Header lang={lang} t={t} otherLang={otherLang} otherPath={otherPath} />
     <main class="flex-1">
       <slot />
     </main>
