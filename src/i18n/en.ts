@@ -303,7 +303,7 @@ export const en: TranslationDict = {
     // Age
     ageBirthDate: 'Birth Date', ageCalculate: 'Calculate Age',
     ageYearsOld: 'years', ageMonthsOld: 'months', ageDaysOld: 'days',
-    ageNextBirthday: 'Next Birthday', ageDaysUntil: '',
+    ageNextBirthday: 'Next Birthday', ageDaysUntil: 'in',
     // Zodiac
     zodiacSelect: 'Select Birth Date', zodiacAnimal: 'Zodiac Animal',
     zodiacConstellation: 'Constellation', zodiacShengxiao: 'Chinese Zodiac',
