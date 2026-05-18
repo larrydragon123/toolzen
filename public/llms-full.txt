@@ -1,0 +1,104 @@
+# ToolZen — Complete Tool Reference
+
+> Free online tools — privacy-first, no upload needed. All processing happens in your browser.
+> Available in Chinese (zh) and English (en). URLs follow /{lang}/{slug}/ pattern.
+> Total: 21 tools across 6 categories.
+
+## Developer Tools
+
+### JSON Formatter
+Online JSON formatting, validation, and compression tool. Supports syntax highlighting and error detection.
+URL: https://tool-zen.com/zh/json-formatter/
+
+### Base64 Encoder/Decoder
+Online Base64 encoding and decoding tool. Supports text-to-Base64 conversion.
+URL: https://tool-zen.com/zh/base64/
+
+### UUID Generator
+Online UUID v4 and ULID generator. Supports batch generation and one-click copy.
+URL: https://tool-zen.com/zh/uuid-generator/
+
+### RegEx Tester
+Online regular expression testing tool. Real-time match highlighting with common pattern library.
+URL: https://tool-zen.com/zh/regex-tester/
+
+### Color Picker
+Online color picker and converter. Supports HEX, RGB, and HSL format conversion.
+URL: https://tool-zen.com/zh/color-picker/
+
+### Unix Timestamp Converter
+Online Unix timestamp to datetime converter. Real-time current timestamp with second and millisecond precision.
+URL: https://tool-zen.com/zh/timestamp-converter/
+
+## Text Tools
+
+### Text Diff Checker
+Online text diff comparison tool. Side-by-side and unified views. Standard diff algorithm.
+URL: https://tool-zen.com/zh/text-diff/
+
+### Word Counter
+Online word and character counting tool. Real-time stats for characters, words, lines, and paragraphs.
+URL: https://tool-zen.com/zh/word-counter/
+
+### Case Converter
+Online text case and script converter. Supports upper/lowercase, title case, simplified/traditional Chinese.
+URL: https://tool-zen.com/zh/case-converter/
+
+## Image Tools
+
+### QR Code Generator
+Free online QR code generator. Supports URL, text, custom colors and size. Download as PNG.
+URL: https://tool-zen.com/zh/qr-code/
+
+### Image Compressor
+Online image compression tool. Supports PNG, JPEG, and WebP formats. All processing local.
+URL: https://tool-zen.com/zh/image-compress/
+
+## Crypto & Encoding
+
+### MD5 / SHA Hash Generator
+Online MD5, SHA-1, and SHA-256 hash generator. Supports text and file hashing.
+URL: https://tool-zen.com/zh/md5-hash/
+
+### URL Encoder/Decoder
+Online URL encoding and decoding tool. Quick convert special characters via encodeURI and decodeURI.
+URL: https://tool-zen.com/zh/url-encode/
+
+### Password Generator
+Online random password generator. Custom length and character types. Uses crypto.getRandomValues().
+URL: https://tool-zen.com/zh/password-generator/
+
+## Calculators
+
+### Mortgage Calculator
+Online mortgage calculator. Equal payment and equal principal methods. Detailed amortization schedule.
+URL: https://tool-zen.com/zh/mortgage-calculator/
+
+### BMI Calculator
+Online BMI calculator. Enter height and weight to calculate BMI and health status (WHO standards).
+URL: https://tool-zen.com/zh/bmi-calculator/
+
+### Date Calculator
+Online date calculator. Visual calendar selection for day counting, workdays, and date math.
+URL: https://tool-zen.com/zh/date-calculator/
+
+### Timezone Converter
+Online timezone converter. Display current time across multiple timezones simultaneously.
+URL: https://tool-zen.com/zh/timezone-converter/
+
+### Age Calculator
+Online age calculator. Precisely calculates age in years, months, and days with next birthday countdown.
+URL: https://tool-zen.com/zh/age-calculator/
+
+### Unit Converter
+Online unit converter. 6 categories: length, weight, temperature, area, volume, speed. 34 units total.
+URL: https://tool-zen.com/zh/unit-converter/
+
+## Life Tools
+
+### Zodiac & Constellation Finder
+Online Chinese zodiac and Western constellation finder. Enter birth date to discover your signs.
+URL: https://tool-zen.com/zh/zodiac-finder/
+
+## About ToolZen
+ToolZen is a collection of free online tools. "Zen" represents simplicity — good tools should be simple, clean, and unobtrusive. Unlike many similar sites, all ToolZen tools run locally in your browser. Your data is never uploaded to a server because we have no backend servers at all. We aim to be the go-to online toolbox for developers, designers, and everyday users.

@@ -1,3 +1,22 @@
 User-agent: *
 Allow: /
-Sitemap: https://toolzen.com/sitemap-index.xml
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://tool-zen.com/sitemap-index.xml

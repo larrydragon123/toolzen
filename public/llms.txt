@@ -1,0 +1,40 @@
+# ToolZen
+> Free online tools — privacy-first, no upload needed. All processing happens in your browser. Available in Chinese and English.
+
+## Developer Tools
+- JSON Formatter: https://tool-zen.com/zh/json-formatter/ | https://tool-zen.com/en/json-formatter/
+- Base64 Encoder/Decoder: https://tool-zen.com/zh/base64/ | https://tool-zen.com/en/base64/
+- UUID Generator: https://tool-zen.com/zh/uuid-generator/ | https://tool-zen.com/en/uuid-generator/
+- RegEx Tester: https://tool-zen.com/zh/regex-tester/ | https://tool-zen.com/en/regex-tester/
+- Color Picker: https://tool-zen.com/zh/color-picker/ | https://tool-zen.com/en/color-picker/
+- Unix Timestamp Converter: https://tool-zen.com/zh/timestamp-converter/ | https://tool-zen.com/en/timestamp-converter/
+
+## Text Tools
+- Text Diff Checker: https://tool-zen.com/zh/text-diff/ | https://tool-zen.com/en/text-diff/
+- Word Counter: https://tool-zen.com/zh/word-counter/ | https://tool-zen.com/en/word-counter/
+- Case Converter: https://tool-zen.com/zh/case-converter/ | https://tool-zen.com/en/case-converter/
+
+## Image Tools
+- QR Code Generator: https://tool-zen.com/zh/qr-code/ | https://tool-zen.com/en/qr-code/
+- Image Compressor: https://tool-zen.com/zh/image-compress/ | https://tool-zen.com/en/image-compress/
+
+## Crypto & Encoding
+- MD5 / SHA Hash Generator: https://tool-zen.com/zh/md5-hash/ | https://tool-zen.com/en/md5-hash/
+- URL Encoder/Decoder: https://tool-zen.com/zh/url-encode/ | https://tool-zen.com/en/url-encode/
+- Password Generator: https://tool-zen.com/zh/password-generator/ | https://tool-zen.com/en/password-generator/
+
+## Calculators
+- Mortgage Calculator: https://tool-zen.com/zh/mortgage-calculator/ | https://tool-zen.com/en/mortgage-calculator/
+- BMI Calculator: https://tool-zen.com/zh/bmi-calculator/ | https://tool-zen.com/en/bmi-calculator/
+- Date Calculator: https://tool-zen.com/zh/date-calculator/ | https://tool-zen.com/en/date-calculator/
+- Timezone Converter: https://tool-zen.com/zh/timezone-converter/ | https://tool-zen.com/en/timezone-converter/
+- Age Calculator: https://tool-zen.com/zh/age-calculator/ | https://tool-zen.com/en/age-calculator/
+- Unit Converter: https://tool-zen.com/zh/unit-converter/ | https://tool-zen.com/en/unit-converter/
+
+## Life Tools
+- Zodiac & Constellation Finder: https://tool-zen.com/zh/zodiac-finder/ | https://tool-zen.com/en/zodiac-finder/
+
+## Info
+- About: https://tool-zen.com/zh/about/
+- Privacy Policy: https://tool-zen.com/zh/privacy/
+- Full reference: https://tool-zen.com/llms-full.txt
