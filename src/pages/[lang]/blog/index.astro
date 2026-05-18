@@ -42,7 +42,7 @@ const pageDesc = lang === 'zh'
 
     <div class="space-y-6">
       {posts.map(post => (
-        <a href={`/${post.id.replace(/\.md$/, '')}/`} class="block p-6 border border-gray-200 rounded-xl hover:border-zen-200 hover:shadow-sm transition-all no-underline">
+        <a href={`/${lang}/blog/${post.id.replace(/\.md$/, '').split('/').slice(1).join('/')}/`} class="block p-6 border border-gray-200 rounded-xl hover:border-zen-200 hover:shadow-sm transition-all no-underline">
           <div class="flex items-center gap-2 text-xs text-gray-400 mb-2">
             <time datetime={post.data.date.toISOString().split('T')[0]}>
               {post.data.date.toISOString().split('T')[0]}
