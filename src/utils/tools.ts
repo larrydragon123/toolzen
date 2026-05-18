@@ -152,6 +152,14 @@ export const TOOLS: Tool[] = [
     keywords: ['时区转换', '世界时间', '时差计算', 'UTC转换', '国际时间', 'TimeZone'],
     complexity: 'low',
   },
+  {
+    slug: 'password-generator',
+    title: '随机密码生成器',
+    description: '在线随机密码生成工具。自定义长度和字符类型，一键生成高强度密码。所有生成过程在浏览器本地完成。',
+    category: 'crypto',
+    keywords: ['随机密码生成', '密码生成器', '强密码', '密码强度', '在线密码'],
+    complexity: 'low',
+  },
 ];
 
 export function getTool(slug: string): Tool | undefined {

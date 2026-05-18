@@ -227,6 +227,18 @@ export const en: TranslationDict = {
         { q: 'Which timezones are supported?', a: 'All standard IANA timezones are supported, including Beijing Time, Eastern Time, London Time, and other major timezones.' },
       ],
     },
+    'password-generator': {
+      title: 'Password Generator',
+      description: 'Online random password generator. Customize length and character types to generate strong passwords. All generation happens locally in your browser.',
+      keywords: ['password generator', 'strong password', 'random password', 'password strength', 'online password'],
+      howToTitle: 'How to Use Password Generator',
+      howTo: 'Drag the slider to set password length (4-64 characters), check the character types you want (uppercase, lowercase, numbers, symbols), and click "Generate Password" to get a strong random password. One-click copy. All generation happens locally in your browser — passwords never leave your device.',
+      faq: [
+        { q: 'Are the generated passwords secure?', a: 'Uses crypto.getRandomValues() for cryptographically secure random generation. Each character is unpredictable true random, suitable for all types of accounts. The strength bar evaluates based on length and character type count.' },
+        { q: 'Are generated passwords recorded?', a: 'No. All generation happens locally in your browser. Passwords are never stored, transmitted, or recorded. They are cleared when you close the page.' },
+        { q: 'What password length is most secure?', a: 'We recommend at least 12 characters with all four character types (uppercase, lowercase, numbers, symbols). Passwords of 16+ characters with all four types offer the highest strength.' },
+      ],
+    },
   },
   about: {
     h1: 'About ToolZen',
