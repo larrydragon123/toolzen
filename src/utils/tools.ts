@@ -160,6 +160,14 @@ export const TOOLS: Tool[] = [
     keywords: ['随机密码生成', '密码生成器', '强密码', '密码强度', '在线密码'],
     complexity: 'low',
   },
+  {
+    slug: 'timestamp-converter',
+    title: 'Unix 时间戳转换',
+    description: '在线Unix时间戳和日期时间互转工具。实时显示当前时间戳，支持秒和毫秒精度，所有计算在浏览器端完成。',
+    category: 'dev',
+    keywords: ['Unix时间戳', '时间戳转换', '时间戳在线', '日期转时间戳', 'Epoch转换'],
+    complexity: 'low',
+  },
 ];
 
 export function getTool(slug: string): Tool | undefined {

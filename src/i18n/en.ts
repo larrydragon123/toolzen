@@ -239,6 +239,18 @@ export const en: TranslationDict = {
         { q: 'What password length is most secure?', a: 'We recommend at least 12 characters with all four character types (uppercase, lowercase, numbers, symbols). Passwords of 16+ characters with all four types offer the highest strength.' },
       ],
     },
+    'timestamp-converter': {
+      title: 'Unix Timestamp Converter',
+      description: 'Online Unix timestamp to datetime converter. Real-time current timestamp display with second and millisecond precision. All computation in your browser.',
+      keywords: ['unix timestamp', 'epoch converter', 'timestamp to date', 'date to timestamp', 'epoch online'],
+      howToTitle: 'How to Use Unix Timestamp Converter',
+      howTo: 'The current Unix timestamp (seconds and milliseconds) is displayed in real-time at the top, updating every second. Enter a timestamp to convert it to a datetime, or select a datetime to convert to a timestamp. All conversion happens locally in your browser.',
+      faq: [
+        { q: 'What is a Unix timestamp?', a: 'A Unix timestamp is the number of seconds (or milliseconds) elapsed since January 1, 1970 00:00:00 UTC. It is widely used in computer systems as a time representation.' },
+        { q: 'What is the difference between seconds and milliseconds?', a: 'Second-level timestamps are 10 digits; millisecond-level are 13 digits. JavaScript and most modern systems use milliseconds, while traditional Unix/Python uses seconds. This tool automatically handles both.' },
+        { q: 'Are timestamps affected by timezone?', a: 'Unix timestamps are UTC-based and timezone-independent. When converting to a datetime, the tool displays in your browser\'s local timezone.' },
+      ],
+    },
   },
   about: {
     h1: 'About ToolZen',
