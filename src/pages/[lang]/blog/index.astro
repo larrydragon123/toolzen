@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import { getCollection } from 'astro:content';
+import { getDict } from '../../../i18n';
+import type { Lang } from '../../../i18n';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'zh' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const t = getDict(lang);
+const posts = await getCollection('blog', ({ id }) => id.startsWith(`${lang}/`));
+posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const pageTitle = lang === 'zh' ? '博客 | ToolZen' : 'Blog | ToolZen';
+const pageDesc = lang === 'zh'
+  ? 'ToolZen博客 — 在线工具使用指南、技巧分享和实用教程'
+  : 'ToolZen Blog — online tool guides, tips, and practical tutorials';
+---
+
+<BaseLayout lang={lang} t={t} title={pageTitle} description={pageDesc}>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb items={[
+      { label: t.breadcrumbHome, href: `/${lang}/` },
+      { label: lang === 'zh' ? '博客' : 'Blog' },
+    ]} lang={lang} />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">
+      {lang === 'zh' ? '博客' : 'Blog'}
+    </h1>
+    <p class="text-gray-500 mb-8">
+      {lang === 'zh' ? '在线工具使用指南与实用教程' : 'Online tool guides and practical tutorials'}
+    </p>
+
+    {posts.length === 0 && (
+      <p class="text-gray-400 text-center py-12">
+        {lang === 'zh' ? '暂无文章，敬请期待' : 'No articles yet, stay tuned'}
+      </p>
+    )}
+
+    <div class="space-y-6">
+      {posts.map(post => (
+        <a href={`/${post.id.replace(/\.md$/, '')}/`} class="block p-6 border border-gray-200 rounded-xl hover:border-zen-200 hover:shadow-sm transition-all no-underline">
+          <div class="flex items-center gap-2 text-xs text-gray-400 mb-2">
+            <time datetime={post.data.date.toISOString().split('T')[0]}>
+              {post.data.date.toISOString().split('T')[0]}
+            </time>
+            {post.data.tags.map(tag => (
+              <span class="px-2 py-0.5 bg-gray-100 rounded-full">{tag}</span>
+            ))}
+          </div>
+          <h2 class="text-lg font-semibold text-gray-900 mb-1">{post.data.title}</h2>
+          <p class="text-sm text-gray-500">{post.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
