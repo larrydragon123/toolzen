@@ -239,6 +239,18 @@ export const en: TranslationDict = {
         { q: 'What password length is most secure?', a: 'We recommend at least 12 characters with all four character types (uppercase, lowercase, numbers, symbols). Passwords of 16+ characters with all four types offer the highest strength.' },
       ],
     },
+    'age-calculator': {
+      title: 'Age Calculator',
+      description: 'Online age calculator. Precisely calculate age in years, months, and days. Shows next birthday countdown. All computation happens in your browser.',
+      keywords: ['age calculator', 'online age', 'birthday calculator', 'how old am I', 'age in years'],
+      howToTitle: 'How to Use Age Calculator',
+      howTo: 'Select your birth date and click "Calculate Age" to get your exact age in years, months, and days. Also shows the countdown to your next birthday. All calculation happens locally in your browser.',
+      faq: [
+        { q: 'How accurate is the age calculation?', a: 'Accurate to the day. The tool calculates total days from birth date to today, then converts to years, months, and days, accounting for leap years and actual days in each month.' },
+        { q: 'What is the difference between international and Chinese age?', a: 'International age counts actual years since birth. Chinese traditional age (虚岁) counts you as 1 at birth and adds 1 each Lunar New Year. This tool calculates international age.' },
+        { q: 'Can I calculate age for a future date?', a: 'Selecting a future date will show "Not yet born." The tool is designed for calculating current age.' },
+      ],
+    },
     'timestamp-converter': {
       title: 'Unix Timestamp Converter',
       description: 'Online Unix timestamp to datetime converter. Real-time current timestamp display with second and millisecond precision. All computation in your browser.',

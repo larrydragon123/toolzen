@@ -168,6 +168,14 @@ export const TOOLS: Tool[] = [
     keywords: ['Unix时间戳', '时间戳转换', '时间戳在线', '日期转时间戳', 'Epoch转换'],
     complexity: 'low',
   },
+  {
+    slug: 'age-calculator',
+    title: '年龄计算器',
+    description: '在线年龄计算工具。精确计算周岁年龄（年月日），显示下次生日倒计时。所有计算在浏览器端完成。',
+    category: 'calculators',
+    keywords: ['年龄计算器', '在线年龄', '周岁计算', '出生日期计算', '年龄查询', '生日倒计时'],
+    complexity: 'low',
+  },
 ];
 
 export function getTool(slug: string): Tool | undefined {
