@@ -1,0 +1,9 @@
+name = "toolzen"
+compatibility_date = "2026-05-19"
+
+[[kv_namespaces]]
+binding = "SUGGESTIONS_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+[vars]
+ADMIN_PASSWORD = "REPLACE_WITH_YOUR_ADMIN_PASSWORD"

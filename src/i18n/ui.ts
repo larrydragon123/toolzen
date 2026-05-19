@@ -33,6 +33,7 @@ export interface FooterDict {
   copyright: string;
   about: string;
   privacy: string;
+  suggest: string;
   contact: string;
 }
 
@@ -121,6 +122,21 @@ export interface UIDict {
   kmPerHour: string; mPerSecond: string; mph: string; knot: string;
 }
 
+export interface SuggestDict {
+  title: string;
+  subtitle: string;
+  toolName: string;
+  toolNamePlaceholder: string;
+  description: string;
+  descriptionPlaceholder: string;
+  email: string;
+  emailPlaceholder: string;
+  submit: string;
+  submitting: string;
+  success: string;
+  error: string;
+}
+
 export interface TranslationDict {
   site: { name: string; tagline: string };
   home: HomeDict;
@@ -130,6 +146,7 @@ export interface TranslationDict {
   tools: Record<string, ToolMeta>;
   about: { h1: string; p1: string; p2: string; p3: string; contactTitle: string; contact: string };
   privacy: { h1: string; updated: string; noCollectTitle: string; noCollect: string; analyticsTitle: string; analytics: string; cookiesTitle: string; cookies: string; contactTitle: string; contact: string };
+  suggest: SuggestDict;
   seo: SeoDict;
   ui: UIDict;
   relatedTools: string;

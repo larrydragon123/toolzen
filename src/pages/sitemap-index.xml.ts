@@ -12,6 +12,7 @@ export async function GET() {
     urls.push({ loc: `${base}/${lang}/`, priority: '1.0', changefreq: 'daily' });
     urls.push({ loc: `${base}/${lang}/about/`, priority: '0.5', changefreq: 'monthly' });
     urls.push({ loc: `${base}/${lang}/privacy/`, priority: '0.5', changefreq: 'monthly' });
+    urls.push({ loc: `${base}/${lang}/suggest/`, priority: '0.6', changefreq: 'monthly' });
     urls.push({ loc: `${base}/${lang}/blog/`, priority: '0.8', lastmod: new Date().toISOString().split('T')[0], changefreq: 'weekly' });
     for (const tool of TOOLS) {
       urls.push({ loc: `${base}/${lang}/${tool.slug}/`, priority: '0.9', changefreq: 'monthly' });
