@@ -10,6 +10,9 @@ export interface HomeDict {
   privacy: { title: string; desc: string };
   speed: { title: string; desc: string };
   free: { title: string; desc: string };
+  blogTitle: string;
+  blogSubtitle: string;
+  blogViewAll: string;
   faqTitle: string;
   faq: Array<{ q: string; a: string }>;
 }

@@ -16,6 +16,9 @@ export const en: TranslationDict = {
     privacy: { title: 'Privacy First', desc: 'All tools run locally in your browser. Your data never leaves your device.' },
     speed: { title: 'Blazing Fast', desc: 'Pure static pages with global CDN. Instant results, no waiting.' },
     free: { title: 'Completely Free', desc: 'All tools are free forever. No hidden fees, no feature limits.' },
+    blogTitle: 'Latest Articles',
+    blogSubtitle: 'Online tool guides and practical tips',
+    blogViewAll: 'View all articles →',
     faqTitle: 'FAQ',
     faq: [
       { q: 'Are ToolZen tools really free?', a: 'Yes, all tools are free forever. We plan to generate revenue from ads in the future, but will never charge users.' },

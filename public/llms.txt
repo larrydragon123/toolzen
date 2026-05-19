@@ -34,6 +34,20 @@
 ## Life Tools
 - Zodiac & Constellation Finder: https://tool-zen.com/zh/zodiac-finder/ | https://tool-zen.com/en/zodiac-finder/
 
+## Blog — Tool Guides & Tutorials
+- Blog Home (ZH): https://tool-zen.com/zh/blog/
+- Blog Home (EN): https://tool-zen.com/en/blog/
+- Top 10 Developer Tools (ZH): https://tool-zen.com/zh/blog/dev-tools-top10/
+- Top 10 Developer Tools (EN): https://tool-zen.com/en/blog/dev-tools-top10/
+- JSON Formatter Guide (ZH): https://tool-zen.com/zh/blog/json-formatter-guide/
+- JSON Formatter Guide (EN): https://tool-zen.com/en/blog/json-formatter-guide/
+- Image Compression Guide (ZH): https://tool-zen.com/zh/blog/image-compress-guide/
+- Image Compression Guide (EN): https://tool-zen.com/en/blog/image-compress-guide/
+- Mortgage Calculator Guide (ZH): https://tool-zen.com/zh/blog/mortgage-calculator-guide/
+- Mortgage Calculator Guide (EN): https://tool-zen.com/en/blog/mortgage-calculator-guide/
+- Password Security Guide (ZH): https://tool-zen.com/zh/blog/password-security-guide/
+- Password Security Guide (EN): https://tool-zen.com/en/blog/password-security-guide/
+
 ## Info
 - About: https://tool-zen.com/zh/about/
 - Privacy Policy: https://tool-zen.com/zh/privacy/

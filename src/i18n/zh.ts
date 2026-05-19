@@ -16,6 +16,9 @@ export const zh: TranslationDict = {
     privacy: { title: '隐私优先', desc: '所有工具在您的浏览器本地运行，数据绝不会上传到任何服务器。' },
     speed: { title: '极速响应', desc: '纯静态页面，全球CDN加速，输入即输出，无需等待。' },
     free: { title: '完全免费', desc: '所有工具永久免费使用，无隐藏收费，无功能限制。' },
+    blogTitle: '最新文章',
+    blogSubtitle: '在线工具使用指南与实用技巧',
+    blogViewAll: '查看全部文章 →',
     faqTitle: '常见问题',
     faq: [
       { q: 'ToolZen的工具真的免费吗？', a: '是的，所有工具永久免费。我们的收入来自广告（未来），不会向用户收费。' },

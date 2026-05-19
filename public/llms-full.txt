@@ -122,6 +122,31 @@ Finds Chinese zodiac animal (12-animal cycle) and Western constellation (12 star
 Use for: personal interest and self-discovery, cultural exploration, gift and compatibility ideas.
 URL: https://tool-zen.com/zh/zodiac-finder/
 
+## Blog — Tool Guides & Tutorials
+
+The ToolZen blog publishes guides and tutorials for getting the most out of online tools.
+Blog home: https://tool-zen.com/zh/blog/
+
+### Top 10 Online Tools Every Developer Needs
+A curated list of 10 essential online tools for frontend and backend development — JSON formatter, Base64 encoder, regex tester, and more. All free, no installation required.
+URL: https://tool-zen.com/zh/blog/dev-tools-top10/
+
+### How to Use a JSON Formatter — 5 Practical Scenarios
+5 classic use cases for a JSON formatter, from API debugging to config file management. Make reading and debugging JSON painless.
+URL: https://tool-zen.com/zh/blog/json-formatter-guide/
+
+### The Complete Guide to Online Image Compression
+How to dramatically reduce image file size without noticeable quality loss. Compression strategies compared across PNG, JPEG, and WebP formats.
+URL: https://tool-zen.com/zh/blog/image-compress-guide/
+
+### Equal Payment or Equal Principal? Let a Mortgage Calculator Do the Math
+A detailed comparison of equal monthly payment vs. equal principal repayment methods. Use a mortgage calculator to see the total interest and monthly payment for each option.
+URL: https://tool-zen.com/zh/blog/mortgage-calculator-guide/
+
+### Is Your Password Strong Enough? A Guide to Secure Passwords
+What makes a password truly secure? How long should it be? How often should you change it? Includes an online password generator for creating strong random passwords instantly.
+URL: https://tool-zen.com/zh/blog/password-security-guide/
+
 ## About ToolZen
 
 ToolZen is a collection of free online tools focused on privacy and simplicity. Unlike many similar sites, all processing happens locally in the user's browser. No data ever leaves the user's device — ToolZen has no backend servers. The site is built with Astro 6, Preact, and Tailwind CSS 4, deployed on Cloudflare Pages. Available in Chinese and English at https://tool-zen.com.

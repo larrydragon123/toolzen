@@ -1,7 +1,7 @@
 ---
 title: JSON格式化怎么用？5个实用场景
 description: JSON格式化工具的5个经典使用场景，从API调试到配置文件管理，让JSON阅读和调试不再头疼。
-date: 2026-05-19
+date: 2026-05-08
 tags: [JSON, 教程]
 ---
 

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { getDict } from '../../../i18n';
 import type { Lang } from '../../../i18n';
 
@@ -17,15 +17,23 @@ export async function getStaticPaths() {
 
 const { lang, slug } = Astro.params;
 const t = getDict(lang as Lang);
-const id = `${lang}/${slug}.md`;
+const id = `${lang}/${slug}`;
 const posts = await getCollection('blog', ({ id: pid }) => pid === id);
 const post = posts[0];
 
 if (!post) return Astro.redirect(`/${lang}/blog/`);
 
-const { Content } = await post.render();
+const { Content } = await render(post);
 const pageTitle = `${post.data.title} | ToolZen`;
 const pageDesc = post.data.description;
+
+const allPosts = await getCollection('blog', ({ id: pid }) => pid.startsWith(`${lang}/`) && pid !== id);
+const relatedPosts = allPosts
+  .filter(p => p.data.tags.some(tag => post.data.tags.includes(tag)))
+  .slice(0, 3);
+const recentPosts = relatedPosts.length >= 2 ? relatedPosts : allPosts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
 ---
 
 <BaseLayout lang={lang as Lang} t={t} title={pageTitle} description={pageDesc}>
@@ -39,6 +47,8 @@ const pageDesc = post.data.description;
     <article>
       <h1 class="text-3xl font-bold text-gray-900 mb-2">{post.data.title}</h1>
       <div class="flex items-center gap-2 text-sm text-gray-400 mb-8">
+        <span>{post.data.author}</span>
+        <span>·</span>
         <time datetime={post.data.date.toISOString().split('T')[0]}>
           {post.data.date.toISOString().split('T')[0]}
         </time>
@@ -51,11 +61,26 @@ const pageDesc = post.data.description;
       </div>
     </article>
 
-    <div class="mt-12 pt-8 border-t border-gray-100">
-      <a href={`/${lang}/blog/`} class="text-sm text-zen-500 hover:text-zen-600 no-underline">
-        &larr; {lang === 'zh' ? '返回博客列表' : 'Back to blog'}
-      </a>
-    </div>
+    {recentPosts.length > 0 && (
+      <div class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">
+          {lang === 'zh' ? '相关文章' : 'Related Articles'}
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          {recentPosts.map(rp => (
+            <a href={`/${lang}/blog/${rp.id.split('/').slice(1).join('/')}/`} class="block p-4 border border-gray-200 rounded-lg hover:border-zen-200 hover:shadow-sm transition-all no-underline">
+              <time class="text-xs text-gray-400" datetime={rp.data.date.toISOString().split('T')[0]}>
+                {rp.data.date.toISOString().split('T')[0]}
+              </time>
+              <h3 class="font-medium text-gray-900 text-sm mt-1 line-clamp-2">{rp.data.title}</h3>
+            </a>
+          ))}
+        </div>
+        <a href={`/${lang}/blog/`} class="text-sm text-zen-500 hover:text-zen-600 no-underline">
+          &larr; {lang === 'zh' ? '返回博客列表' : 'Back to blog'}
+        </a>
+      </div>
+    )}
   </div>
 
   <slot name="head">
@@ -64,7 +89,9 @@ const pageDesc = post.data.description;
       '@type': 'BlogPosting',
       headline: post.data.title,
       description: post.data.description,
+      author: { '@type': 'Person', name: post.data.author },
       datePublished: post.data.date.toISOString().split('T')[0],
+      dateModified: post.data.date.toISOString().split('T')[0],
     })}></script>
   </slot>
 </BaseLayout>

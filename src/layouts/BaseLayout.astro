@@ -25,13 +25,17 @@ const otherPath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="UOFVIgZElQad5DB9kHrqqSFbjqNrabmSC2E6LGe8Hu8" />
     <meta name="baidu-site-verification" content="codeva-F9IAWHNg1F" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://hm.baidu.com" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="canonical" href={new URL(currentPath, Astro.site).href} />
     <link rel="alternate" hreflang={lang} href={new URL(currentPath, Astro.site).href} />
     <link rel="alternate" hreflang={otherLang} href={new URL(otherPath, Astro.site).href} />
-    <link rel="alternate" hreflang="x-default" href={new URL(`/en/`, Astro.site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL(otherPath, Astro.site).href} />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
