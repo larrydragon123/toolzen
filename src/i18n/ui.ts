@@ -124,6 +124,13 @@ export interface UIDict {
   liter: string; milliliter: string; cubicMeter: string;
   gallon: string; quart: string; cup: string;
   kmPerHour: string; mPerSecond: string; mph: string; knot: string;
+  // PDF tools
+  selectFiles: string; mergeBtn: string; addFiles: string;
+  splitMode: string; splitByRange: string; splitByCount: string;
+  everyPages: string; pagesUnit: string; downloadZip: string;
+  compressLevel: string; basicCompress: string; standardCompress: string; extremeCompress: string;
+  originalSize: string; compressedSize: string; compressionRatio: string;
+  dragToReorder: string; remove: string; processing: string;
 }
 
 export interface SuggestDict {

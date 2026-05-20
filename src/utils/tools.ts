@@ -2,7 +2,7 @@ export interface Tool {
   slug: string;
   title: string;
   description: string;
-  category: 'dev' | 'text' | 'image' | 'crypto' | 'calculators' | 'life';
+  category: 'dev' | 'text' | 'image' | 'crypto' | 'calculators' | 'life' | 'pdf';
   keywords: string[];
   complexity: 'low' | 'medium';
 }
@@ -21,6 +21,7 @@ export const CATEGORIES: Category[] = [
   { slug: 'crypto', title: '编码加密', icon: '🔐', description: 'MD5、SHA哈希、URL编解码工具' },
   { slug: 'calculators', title: '计算器', icon: '🔢', description: '房贷、BMI等实用计算器' },
   { slug: 'life', title: '生活工具', icon: '🌟', description: '生肖星座、年龄查询等生活实用工具' },
+  { slug: 'pdf', title: 'PDF 工具', icon: '📄', description: 'PDF合并、拆分、压缩，所有处理在浏览器端完成' },
 ];
 
 export const TOOLS: Tool[] = [
@@ -191,6 +192,30 @@ export const TOOLS: Tool[] = [
     category: 'calculators',
     keywords: ['单位换算', '长度换算', '重量换算', '温度换算', '面积换算', '体积换算', '速度换算', '在线换算器'],
     complexity: 'medium',
+  },
+  {
+    slug: 'pdf-merge',
+    title: 'PDF 合并',
+    description: '在线PDF合并工具。将多个PDF文件合并为一个，支持拖拽排序，所有处理在浏览器端完成。',
+    category: 'pdf',
+    keywords: ['PDF合并', '合并PDF', '在线PDF合并', 'PDF拼接', 'Merge PDF'],
+    complexity: 'low',
+  },
+  {
+    slug: 'pdf-split',
+    title: 'PDF 拆分',
+    description: '在线PDF拆分工具。按页面范围或每N页拆分PDF，支持预览缩略图，所有处理在浏览器端完成。',
+    category: 'pdf',
+    keywords: ['PDF拆分', '拆分PDF', '在线PDF拆分', 'PDF分割', 'Split PDF'],
+    complexity: 'medium',
+  },
+  {
+    slug: 'pdf-compress',
+    title: 'PDF 压缩',
+    description: '在线PDF压缩工具。减少PDF文件体积，支持多种压缩等级，压缩过程在浏览器本地完成，保护隐私。',
+    category: 'pdf',
+    keywords: ['PDF压缩', '压缩PDF', '在线PDF压缩', 'PDF瘦身', 'Compress PDF'],
+    complexity: 'low',
   },
 ];
 
