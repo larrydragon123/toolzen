@@ -9,7 +9,7 @@ export const zh: TranslationDict = {
   home: {
     hero: '工具之道，',
     heroHighlight: '简即是多',
-    subtitle: '15+ 免费在线工具。隐私优先，无需上传。所有处理在浏览器端完成。',
+    subtitle: '20+ 免费在线工具。隐私优先，无需上传。所有处理在浏览器端完成。',
     popular: '⭐ 热门工具',
     allCategories: '📂 全部分类',
     whyTitle: '为什么选择 ToolZen？',
@@ -356,7 +356,7 @@ export const zh: TranslationDict = {
   },
   seo: {
     homeTitle: 'ToolZen - 免费在线工具 | 隐私优先，无需上传',
-    homeDesc: 'ToolZen提供JSON格式化、Base64编解码、二维码生成、图片压缩等15+免费在线工具。所有工具在浏览器端运行，数据不上传，隐私安全。',
+    homeDesc: 'ToolZen提供JSON格式化、Base64编解码、二维码生成、PDF合并、图片压缩、房贷计算器等20+免费在线工具。所有工具在浏览器端运行，数据不上传，隐私安全。',
     aboutTitle: '关于 ToolZen',
     aboutDesc: 'ToolZen是一组免费在线工具的集合，致力于提供隐私优先、简单易用的浏览器端工具。',
     privacyTitle: '隐私政策 - ToolZen',

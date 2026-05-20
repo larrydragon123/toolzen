@@ -9,7 +9,7 @@ export const en: TranslationDict = {
   home: {
     hero: 'The Zen of Tools, ',
     heroHighlight: 'Less is More',
-    subtitle: '15+ free online tools. Privacy-first, no upload needed. All processing happens in your browser.',
+    subtitle: '20+ free online tools. Privacy-first, no upload needed. All processing happens in your browser.',
     popular: '⭐ Popular Tools',
     allCategories: '📂 All Categories',
     whyTitle: 'Why ToolZen?',
@@ -356,7 +356,7 @@ export const en: TranslationDict = {
   },
   seo: {
     homeTitle: 'ToolZen - Free Online Tools | Privacy First, No Upload',
-    homeDesc: 'ToolZen offers 15+ free online tools including JSON formatter, Base64 encoder/decoder, QR code generator, and image compressor. All tools run in your browser — your data stays private.',
+    homeDesc: 'ToolZen offers 20+ free online tools including JSON formatter, Base64 codec, QR code generator, PDF merge, image compressor, and mortgage calculator. All tools run in your browser — your data stays private.',
     aboutTitle: 'About ToolZen',
     aboutDesc: 'ToolZen is a collection of free online tools committed to providing privacy-first, easy-to-use browser-based utilities.',
     privacyTitle: 'Privacy Policy - ToolZen',
