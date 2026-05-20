@@ -19,6 +19,9 @@ export const zh: TranslationDict = {
     blogTitle: '最新文章',
     blogSubtitle: '在线工具使用指南与实用技巧',
     blogViewAll: '查看全部文章 →',
+    suggestCta: '没找到你需要的工具？',
+    suggestCtaDesc: '告诉我们你还想要什么，我们会尽快添加',
+    suggestCtaButton: '建议新工具 →',
     faqTitle: '常见问题',
     faq: [
       { q: 'ToolZen的工具真的免费吗？', a: '是的，所有工具永久免费。我们的收入来自广告（未来），不会向用户收费。' },
@@ -36,6 +39,7 @@ export const zh: TranslationDict = {
     searchPlaceholder: '搜索工具... (如 JSON、二维码、Base64)',
     searchHint: '输入关键词搜索工具',
     searchEmpty: '未找到匹配的工具',
+    searchSuggest: '建议此工具 →',
   },
   footer: {
     copyright: '© 2026 ToolZen. 所有工具均在您的浏览器本地运行。',

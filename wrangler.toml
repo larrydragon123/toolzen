@@ -3,7 +3,7 @@ compatibility_date = "2026-05-19"
 
 [[kv_namespaces]]
 binding = "SUGGESTIONS_KV"
-id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+id = "9815893679e14506913c026991cf68fb"
 
 [vars]
-ADMIN_PASSWORD = "REPLACE_WITH_YOUR_ADMIN_PASSWORD"
+ADMIN_PASSWORD = "1kwAAwyKt_PPGbIq"

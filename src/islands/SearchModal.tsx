@@ -3,7 +3,7 @@ import { TOOLS } from '../utils/tools';
 import { useLanguage } from '../hooks/useLanguage';
 
 export default function SearchModal() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -93,9 +93,27 @@ export default function SearchModal() {
             </div>
             <div class="max-h-80 overflow-y-auto p-2">
               {query.trim() === '' ? (
-                <div class="p-8 text-center text-gray-400 text-sm">{t.nav.searchHint}</div>
+                <div class="p-6 text-center space-y-3">
+                  <div class="text-gray-400 text-sm">{t.nav.searchHint}</div>
+                  <a
+                    href={`/${lang}/suggest/`}
+                    onClick={() => { setOpen(false); setQuery(''); }}
+                    class="inline-block px-4 py-1.5 text-xs font-medium text-zen-500 hover:text-white bg-zen-50 hover:bg-zen-500 rounded-md transition-colors no-underline"
+                  >
+                    💡 {t.footer.suggest}
+                  </a>
+                </div>
               ) : filtered.length === 0 ? (
-                <div class="p-8 text-center text-gray-400 text-sm">{t.nav.searchEmpty}</div>
+                <div class="p-6 text-center space-y-3">
+                  <div class="text-gray-400 text-sm">{t.nav.searchEmpty}</div>
+                  <a
+                    href={`/${lang}/suggest/`}
+                    onClick={() => { setOpen(false); setQuery(''); }}
+                    class="inline-block px-4 py-1.5 text-xs font-medium text-zen-500 hover:text-white bg-zen-50 hover:bg-zen-500 rounded-md transition-colors no-underline"
+                  >
+                    {t.nav.searchSuggest}
+                  </a>
+                </div>
               ) : (
                 filtered.map(tool => (
                   <a

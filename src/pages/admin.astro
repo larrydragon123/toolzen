@@ -4,123 +4,292 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Admin — Suggestions</title>
+  <title>后台管理 — ToolZen</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
-    .container { max-width: 900px; margin: 0 auto; padding: 32px 16px; }
-    h1 { font-size: 1.5rem; margin-bottom: 24px; color: #1a1a1a; }
-    .login-box { background: white; padding: 32px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); max-width: 400px; margin: 80px auto; }
-    .login-box input { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 12px; }
-    .login-box button { width: 100%; padding: 10px; background: #2563eb; color: white; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
-    .card { background: white; padding: 20px 24px; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 12px; }
-    .card .name { font-weight: 600; font-size: 1rem; color: #1a1a1a; }
-    .card .desc { color: #555; margin-top: 4px; font-size: 0.9rem; line-height: 1.5; }
-    .card .meta { display: flex; gap: 16px; margin-top: 12px; font-size: 0.75rem; color: #999; }
-    .hidden { display: none !important; }
-    .error { color: #dc2626; font-size: 13px; margin-bottom: 8px; }
-    .loading { text-align: center; color: #999; padding: 40px; }
-    .empty { text-align: center; color: #999; padding: 40px; }
-    .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-    .header-row button { padding: 6px 16px; background: #eee; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; cursor: pointer; }
-    .count { font-size: 0.85rem; color: #666; margin-bottom: 16px; }
+    @import "tailwindcss";
+
+    @theme {
+      --color-zen-50: #eff6ff;
+      --color-zen-100: #dbeafe;
+      --color-zen-200: #bfdbfe;
+      --color-zen-500: #2563eb;
+      --color-zen-600: #1d4ed8;
+      --color-zen-700: #1e40af;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f9fafb;
+    }
+
+    .card { background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+    .empty-state { padding: 80px 20px; text-align: center; color: #9ca3af; }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 12px; opacity: .5; }
+
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: #111827; color: #fff; padding: 10px 22px;
+      border-radius: 10px; font-size: .84rem; z-index: 100;
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+      animation: toast-in .25s ease;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .badge { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: .7rem; font-weight: 500; }
+    .badge-pending  { background: #fef3c7; color: #92400e; }
+    .badge-reviewed { background: #dbeafe; color: #1e40af; }
+    .badge-done     { background: #d1fae5; color: #065f46; }
   </style>
 </head>
-<body>
-  <div id="login" class="login-box">
-    <h1 style="text-align:center;margin-bottom:20px;">Admin Login</h1>
-    <input type="password" id="pw" placeholder="Password" />
-    <div id="login-error" class="error hidden">Wrong password</div>
-    <button id="login-btn">Login</button>
+<body class="min-h-screen">
+
+  <!-- ── Navbar ── -->
+  <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 font-bold text-lg text-gray-900 no-underline">
+        <span class="w-7 h-7 bg-zen-500 rounded-lg flex items-center justify-center text-white text-xs">T</span>
+        ToolZen <span class="text-xs font-normal text-gray-400 ml-1">Admin</span>
+      </a>
+      <button id="logout-btn-top" class="text-sm text-gray-500 hover:text-gray-700 bg-transparent border-0 cursor-pointer hidden">
+        退出登录
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Login ── -->
+  <div id="login" class="flex items-center justify-center" style="min-height:calc(100vh - 56px)">
+    <div class="card p-10 w-full max-w-sm mx-4">
+      <div class="text-center mb-8">
+        <div class="text-3xl mb-3">🔐</div>
+        <h1 class="text-lg font-semibold text-gray-900">管理员登录</h1>
+        <p class="text-sm text-gray-400 mt-1">输入密码查看工具建议</p>
+      </div>
+      <input
+        type="password" id="pw"
+        placeholder="管理员密码"
+        autofocus
+        class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm outline-none focus:border-zen-500 focus:ring-2 focus:ring-zen-100 transition mb-3"
+      />
+      <div id="login-error" class="text-red-500 text-xs mb-3 min-h-[18px]"></div>
+      <button id="login-btn" class="w-full py-2.5 bg-zen-500 text-white text-sm font-medium rounded-lg hover:bg-zen-600 transition cursor-pointer border-0">
+        登录
+      </button>
+    </div>
   </div>
 
-  <div id="list" class="container hidden">
-    <div class="header-row">
-      <h1>Tool Suggestions</h1>
-      <button onclick="logout()">Logout</button>
+  <!-- ── Dashboard ── -->
+  <div id="dash" class="hidden max-w-5xl mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h1 class="text-xl font-bold text-gray-900">📋 工具建议</h1>
+        <p class="text-sm text-gray-400 mt-1">用户通过建议表单提交的功能需求</p>
+      </div>
+      <button id="refresh-btn" class="px-4 py-2 text-sm bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition cursor-pointer">
+        刷新
+      </button>
     </div>
-    <div class="count" id="count"></div>
+
+    <div class="flex gap-3 mb-6 flex-wrap" id="stats"></div>
     <div id="content"></div>
   </div>
 
   <script>
-    const loginDiv = document.getElementById('login')!;
-    const listDiv = document.getElementById('list')!;
-    const loginError = document.getElementById('login-error')!;
+    let suggestions = [];
+    let password = sessionStorage.getItem('admin_pw') || '';
 
-    document.getElementById('login-btn')!.addEventListener('click', () => {
-      const pw = (document.getElementById('pw') as HTMLInputElement).value;
-      if (!pw) return;
-      fetchSuggestions(pw);
+    // ── Auth ──
+    document.getElementById('login-btn').addEventListener('click', function() {
+      password = document.getElementById('pw').value.trim();
+      if (password) fetchSuggestions();
     });
 
-    document.getElementById('pw')!.addEventListener('keydown', (e) => {
+    document.getElementById('pw').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
-        const pw = (document.getElementById('pw') as HTMLInputElement).value;
-        if (pw) fetchSuggestions(pw);
+        password = document.getElementById('pw').value.trim();
+        if (password) fetchSuggestions();
       }
     });
 
-    async function fetchSuggestions(password: string) {
-      loginError.classList.add('hidden');
+    document.getElementById('refresh-btn').addEventListener('click', fetchSuggestions);
+    document.getElementById('logout-btn-top').addEventListener('click', logout);
+
+    async function fetchSuggestions() {
+      var errEl = document.getElementById('login-error');
+      errEl.textContent = '';
+      document.getElementById('content').innerHTML = '<div class="empty-state"><div class="icon">⏳</div><p>加载中...</p></div>';
+
       try {
-        const res = await fetch(`/api/suggestions?password=${encodeURIComponent(password)}`);
+        var res = await fetch('/api/suggestions', {
+          headers: { Authorization: 'Bearer ' + password },
+        });
         if (!res.ok) {
-          loginError.classList.remove('hidden');
+          errEl.textContent = '密码错误，请重试';
+          document.getElementById('content').innerHTML = '';
           return;
         }
-        const data = await res.json();
+        var data = await res.json();
         sessionStorage.setItem('admin_pw', password);
-        loginDiv.classList.add('hidden');
-        listDiv.classList.remove('hidden');
-        renderSuggestions(data);
-      } catch {
-        loginError.classList.remove('hidden');
+        document.getElementById('login').classList.add('hidden');
+        document.getElementById('dash').classList.remove('hidden');
+        document.getElementById('logout-btn-top').classList.remove('hidden');
+        suggestions = data.suggestions;
+        render();
+      } catch(e) {
+        errEl.textContent = '网络错误，请检查连接';
+        document.getElementById('content').innerHTML = '';
       }
     }
 
-    function renderSuggestions(data: { count: number; suggestions: Array<{ id: string; toolName: string; description: string; email: string | null; createdAt: string; ip: string }> }) {
-      document.getElementById('count')!.textContent = `${data.count} suggestion${data.count !== 1 ? 's' : ''}`;
-      const content = document.getElementById('content')!;
+    // ── Render ──
+    function render() {
+      var i, s, st, badgeHtml, d, dateStr;
 
-      if (data.suggestions.length === 0) {
-        content.innerHTML = '<div class="empty">No suggestions yet.</div>';
-        return;
+      // Stats
+      var pending = 0, reviewed = 0, done = 0;
+      for (i = 0; i < suggestions.length; i++) {
+        st = suggestions[i].status || 'pending';
+        if (st === 'reviewed') reviewed++;
+        else if (st === 'implemented') done++;
+        else pending++;
       }
+      document.getElementById('stats').innerHTML =
+        '<div class="card px-5 py-3 text-sm text-gray-500">全部 <b class="text-xl text-gray-900 ml-1">' + suggestions.length + '</b></div>' +
+        '<div class="card px-5 py-3 text-sm text-gray-500">待处理 <b class="text-xl text-gray-900 ml-1">' + pending + '</b></div>' +
+        '<div class="card px-5 py-3 text-sm text-gray-500">已查看 <b class="text-xl text-gray-900 ml-1">' + reviewed + '</b></div>' +
+        '<div class="card px-5 py-3 text-sm text-gray-500">已实现 <b class="text-xl text-gray-900 ml-1">' + done + '</b></div>';
 
-      content.innerHTML = data.suggestions.map(s => {
-        const d = new Date(s.createdAt);
-        const dateStr = d.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
-        return `
-          <div class="card">
-            <div class="name">${escapeHtml(s.toolName)}</div>
-            <div class="desc">${escapeHtml(s.description)}</div>
-            <div class="meta">
-              <span>${dateStr}</span>
-              ${s.email ? `<span>${escapeHtml(s.email)}</span>` : '<span>No email</span>'}
-              <span>ID: ${s.id.slice(0, 8)}</span>
-            </div>
-          </div>`;
-      }).join('');
+      // Cards
+      var html = '';
+      if (suggestions.length === 0) {
+        html = '<div class="empty-state"><div class="icon">📭</div><p class="text-lg font-medium text-gray-400 mb-1">暂无建议</p><p class="text-sm text-gray-300">当用户通过建议表单提交功能需求后，将显示在这里</p></div>';
+      } else {
+        for (i = 0; i < suggestions.length; i++) {
+          s = suggestions[i];
+          st = s.status || 'pending';
+          if (st === 'implemented') badgeHtml = '<span class="badge badge-done">已实现</span>';
+          else if (st === 'reviewed') badgeHtml = '<span class="badge badge-reviewed">已查看</span>';
+          else badgeHtml = '<span class="badge badge-pending">待处理</span>';
+
+          d = new Date(s.createdAt);
+          dateStr = d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+
+          html +=
+            '<div class="card p-5 mb-3" style="display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start">' +
+              '<div>' +
+                '<div class="font-semibold text-gray-900 flex items-center gap-2 flex-wrap">' + escHtml(s.toolName) + ' ' + badgeHtml + '</div>' +
+                '<div class="text-gray-600 text-sm mt-2 leading-relaxed" style="word-break:break-word">' + escHtml(s.description) + '</div>' +
+                '<div class="flex gap-4 mt-3 text-xs text-gray-400 flex-wrap">' +
+                  '<span>' + dateStr + '</span>' +
+                  (s.email ? '<span>' + escHtml(s.email) + '</span>' : '') +
+                  '<span>IP ' + escHtml(s.ip) + '</span>' +
+                '</div>' +
+              '</div>' +
+              '<div class="flex flex-col items-end gap-2">' +
+                '<select class="status-select text-xs px-2 py-1 rounded-lg border border-gray-200 bg-white cursor-pointer" data-id="' + escAttr(s.id) + '">' +
+                  '<option value="pending"' + (st==='pending'?' selected':'') + '>待处理</option>' +
+                  '<option value="reviewed"' + (st==='reviewed'?' selected':'') + '>已查看</option>' +
+                  '<option value="implemented"' + (st==='implemented'?' selected':'') + '>已实现</option>' +
+                '</select>' +
+                '<button class="copy-btn border-0 bg-transparent text-xs text-gray-400 hover:text-gray-600 cursor-pointer py-1" data-text="' + escAttr(s.toolName + ' — ' + s.description) + '">复制</button>' +
+                '<button class="del-btn border-0 bg-transparent text-xs text-red-400 hover:text-red-600 cursor-pointer py-1" data-id="' + escAttr(s.id) + '">删除</button>' +
+              '</div>' +
+            '</div>';
+        }
+      }
+      document.getElementById('content').innerHTML = html;
     }
 
-    function escapeHtml(str: string) {
-      const el = document.createElement('span');
+    function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+    // ── Event delegation ──
+    document.getElementById('content').addEventListener('click', function(e) {
+      var t = e.target;
+      var copyBtn = t.closest('.copy-btn');
+      if (copyBtn) { copyText(copyBtn.getAttribute('data-text') || ''); return; }
+      var delBtn = t.closest('.del-btn');
+      if (delBtn) { deleteSuggestion(delBtn.getAttribute('data-id') || ''); }
+    });
+
+    document.getElementById('content').addEventListener('change', function(e) {
+      if (e.target.classList.contains('status-select')) {
+        changeStatus(e.target.getAttribute('data-id') || '', e.target.value);
+      }
+    });
+
+    // ── Actions ──
+    async function changeStatus(id, status) {
+      try {
+        var res = await fetch('/api/suggestions', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + password },
+          body: JSON.stringify({ id: id, status: status }),
+        });
+        if (res.ok) {
+          var item = suggestions.find(function(s) { return s.id === id; });
+          if (item) item.status = status;
+          toast('状态已更新');
+        } else { toast('更新失败'); render(); }
+      } catch(e) { toast('网络错误'); render(); }
+    }
+
+    async function deleteSuggestion(id) {
+      if (!confirm('确定删除这条建议？')) return;
+      try {
+        var res = await fetch('/api/suggestions?id=' + encodeURIComponent(id), {
+          method: 'DELETE',
+          headers: { Authorization: 'Bearer ' + password },
+        });
+        if (res.ok) {
+          suggestions = suggestions.filter(function(s) { return s.id !== id; });
+          render();
+          toast('已删除');
+        } else { toast('删除失败'); }
+      } catch(e) { toast('网络错误'); }
+    }
+
+    function copyText(text) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function() { toast('已复制'); });
+      }
+    }
+
+    function toast(msg) {
+      var el = document.createElement('div');
+      el.className = 'toast';
+      el.textContent = msg;
+      document.body.appendChild(el);
+      setTimeout(function() { el.remove(); }, 2200);
+    }
+
+    function escHtml(str) {
+      var el = document.createElement('span');
       el.textContent = str;
       return el.innerHTML;
     }
 
-    function logout() {
-      sessionStorage.removeItem('admin_pw');
-      loginDiv.classList.remove('hidden');
-      listDiv.classList.add('hidden');
+    function escAttr(str) {
+      return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
-    const savedPw = sessionStorage.getItem('admin_pw');
-    if (savedPw) fetchSuggestions(savedPw);
+    function logout() {
+      sessionStorage.removeItem('admin_pw');
+      password = '';
+      suggestions = [];
+      document.getElementById('login').classList.remove('hidden');
+      document.getElementById('dash').classList.add('hidden');
+      document.getElementById('logout-btn-top').classList.add('hidden');
+      document.getElementById('pw').value = '';
+      document.getElementById('login-error').textContent = '';
+    }
+
+    // Auto-login
+    if (password) fetchSuggestions();
   </script>
 </body>
 </html>

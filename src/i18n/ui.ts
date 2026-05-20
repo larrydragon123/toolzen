@@ -13,6 +13,9 @@ export interface HomeDict {
   blogTitle: string;
   blogSubtitle: string;
   blogViewAll: string;
+  suggestCta: string;
+  suggestCtaDesc: string;
+  suggestCtaButton: string;
   faqTitle: string;
   faq: Array<{ q: string; a: string }>;
 }
@@ -27,6 +30,7 @@ export interface NavDict {
   searchPlaceholder: string;
   searchHint: string;
   searchEmpty: string;
+  searchSuggest: string;
 }
 
 export interface FooterDict {

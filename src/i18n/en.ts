@@ -19,6 +19,9 @@ export const en: TranslationDict = {
     blogTitle: 'Latest Articles',
     blogSubtitle: 'Online tool guides and practical tips',
     blogViewAll: 'View all articles →',
+    suggestCta: "Didn't find what you need?",
+    suggestCtaDesc: 'Tell us what tools you want — we will add them soon',
+    suggestCtaButton: 'Suggest a Tool →',
     faqTitle: 'FAQ',
     faq: [
       { q: 'Are ToolZen tools really free?', a: 'Yes, all tools are free forever. We plan to generate revenue from ads in the future, but will never charge users.' },
@@ -36,6 +39,7 @@ export const en: TranslationDict = {
     searchPlaceholder: 'Search tools... (e.g. JSON, QR, Base64)',
     searchHint: 'Type to search tools',
     searchEmpty: 'No matching tools found',
+    searchSuggest: 'Suggest this tool →',
   },
   footer: {
     copyright: '© 2026 ToolZen. All tools run locally in your browser.',
