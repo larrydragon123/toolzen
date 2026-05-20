@@ -27,6 +27,7 @@ export interface NavDict {
   crypto: string;
   calculators: string;
   life: string;
+  pdf: string;
   searchPlaceholder: string;
   searchHint: string;
   searchEmpty: string;

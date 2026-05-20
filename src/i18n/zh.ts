@@ -36,6 +36,7 @@ export const zh: TranslationDict = {
     crypto: '编码加密',
     calculators: '计算器',
     life: '生活工具',
+    pdf: 'PDF 工具',
     searchPlaceholder: '搜索工具... (如 JSON、二维码、Base64)',
     searchHint: '输入关键词搜索工具',
     searchEmpty: '未找到匹配的工具',

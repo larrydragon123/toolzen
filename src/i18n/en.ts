@@ -36,6 +36,7 @@ export const en: TranslationDict = {
     crypto: 'Crypto & Encoding',
     calculators: 'Calculators',
     life: 'Life Tools',
+    pdf: 'PDF Tools',
     searchPlaceholder: 'Search tools... (e.g. JSON, QR, Base64)',
     searchHint: 'Type to search tools',
     searchEmpty: 'No matching tools found',
