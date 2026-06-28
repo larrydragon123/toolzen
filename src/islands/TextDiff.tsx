@@ -10,8 +10,7 @@ export default function TextDiff() {
   const [mode, setMode] = useState<'words' | 'lines'>('words');
 
   const compare = () => {
-    const fn = mode === 'words' ? diffWords : diffLines;
-    setResult(fn(left, right));
+    setResult(mode === 'words' ? diffWords(left, right) : diffLines(left, right));
   };
 
   return (

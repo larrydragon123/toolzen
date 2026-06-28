@@ -2,12 +2,12 @@
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>后台管理 — ToolZen</title>
+  <title>Admin - ToolZen</title>
   <style>
     @import "tailwindcss";
 
@@ -48,8 +48,6 @@
   </style>
 </head>
 <body class="min-h-screen">
-
-  <!-- ── Navbar ── -->
   <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
     <div class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
       <a href="/" class="flex items-center gap-2 font-bold text-lg text-gray-900 no-underline">
@@ -57,41 +55,40 @@
         ToolZen <span class="text-xs font-normal text-gray-400 ml-1">Admin</span>
       </a>
       <button id="logout-btn-top" class="text-sm text-gray-500 hover:text-gray-700 bg-transparent border-0 cursor-pointer hidden">
-        退出登录
+        Logout
       </button>
     </div>
   </header>
 
-  <!-- ── Login ── -->
   <div id="login" class="flex items-center justify-center" style="min-height:calc(100vh - 56px)">
     <div class="card p-10 w-full max-w-sm mx-4">
       <div class="text-center mb-8">
-        <div class="text-3xl mb-3">🔐</div>
-        <h1 class="text-lg font-semibold text-gray-900">管理员登录</h1>
-        <p class="text-sm text-gray-400 mt-1">输入密码查看工具建议</p>
+        <div class="text-3xl mb-3">Admin</div>
+        <h1 class="text-lg font-semibold text-gray-900">Admin Login</h1>
+        <p class="text-sm text-gray-400 mt-1">Enter password to view tool suggestions</p>
       </div>
       <input
-        type="password" id="pw"
-        placeholder="管理员密码"
+        type="password"
+        id="pw"
+        placeholder="Admin password"
         autofocus
         class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm outline-none focus:border-zen-500 focus:ring-2 focus:ring-zen-100 transition mb-3"
       />
       <div id="login-error" class="text-red-500 text-xs mb-3 min-h-[18px]"></div>
       <button id="login-btn" class="w-full py-2.5 bg-zen-500 text-white text-sm font-medium rounded-lg hover:bg-zen-600 transition cursor-pointer border-0">
-        登录
+        Login
       </button>
     </div>
   </div>
 
-  <!-- ── Dashboard ── -->
   <div id="dash" class="hidden max-w-5xl mx-auto px-4 py-8">
     <div class="flex justify-between items-center mb-6">
       <div>
-        <h1 class="text-xl font-bold text-gray-900">📋 工具建议</h1>
-        <p class="text-sm text-gray-400 mt-1">用户通过建议表单提交的功能需求</p>
+        <h1 class="text-xl font-bold text-gray-900">Tool Suggestions</h1>
+        <p class="text-sm text-gray-400 mt-1">Feature requests submitted through the suggestion form</p>
       </div>
       <button id="refresh-btn" class="px-4 py-2 text-sm bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition cursor-pointer">
-        刷新
+        Refresh
       </button>
     </div>
 
@@ -99,168 +96,189 @@
     <div id="content"></div>
   </div>
 
-  <script>
+  <script is:inline>
     let suggestions = [];
     let password = sessionStorage.getItem('admin_pw') || '';
 
-    // ── Auth ──
-    document.getElementById('login-btn').addEventListener('click', function() {
-      password = document.getElementById('pw').value.trim();
+    const loginEl = document.getElementById('login');
+    const dashEl = document.getElementById('dash');
+    const pwEl = document.getElementById('pw');
+    const loginBtn = document.getElementById('login-btn');
+    const logoutBtn = document.getElementById('logout-btn-top');
+    const refreshBtn = document.getElementById('refresh-btn');
+    const loginErrorEl = document.getElementById('login-error');
+    const statsEl = document.getElementById('stats');
+    const contentEl = document.getElementById('content');
+
+    loginBtn.addEventListener('click', function() {
+      password = pwEl.value.trim();
       if (password) fetchSuggestions();
     });
 
-    document.getElementById('pw').addEventListener('keydown', function(e) {
+    pwEl.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
-        password = document.getElementById('pw').value.trim();
+        password = pwEl.value.trim();
         if (password) fetchSuggestions();
       }
     });
 
-    document.getElementById('refresh-btn').addEventListener('click', fetchSuggestions);
-    document.getElementById('logout-btn-top').addEventListener('click', logout);
+    refreshBtn.addEventListener('click', fetchSuggestions);
+    logoutBtn.addEventListener('click', logout);
 
     async function fetchSuggestions() {
-      var errEl = document.getElementById('login-error');
-      errEl.textContent = '';
-      document.getElementById('content').innerHTML = '<div class="empty-state"><div class="icon">⏳</div><p>加载中...</p></div>';
+      loginErrorEl.textContent = '';
+      contentEl.innerHTML = '<div class="empty-state"><div class="icon">...</div><p>Loading...</p></div>';
 
       try {
-        var res = await fetch('/api/suggestions', {
+        const res = await fetch('/api/suggestions', {
           headers: { Authorization: 'Bearer ' + password },
         });
         if (!res.ok) {
-          errEl.textContent = '密码错误，请重试';
-          document.getElementById('content').innerHTML = '';
+          loginErrorEl.textContent = 'Wrong password. Please try again.';
+          contentEl.innerHTML = '';
           return;
         }
-        var data = await res.json();
+        const data = await res.json();
         sessionStorage.setItem('admin_pw', password);
-        document.getElementById('login').classList.add('hidden');
-        document.getElementById('dash').classList.remove('hidden');
-        document.getElementById('logout-btn-top').classList.remove('hidden');
-        suggestions = data.suggestions;
+        loginEl.classList.add('hidden');
+        dashEl.classList.remove('hidden');
+        logoutBtn.classList.remove('hidden');
+        suggestions = Array.isArray(data.suggestions) ? data.suggestions : [];
         render();
-      } catch(e) {
-        errEl.textContent = '网络错误，请检查连接';
-        document.getElementById('content').innerHTML = '';
+      } catch (e) {
+        loginErrorEl.textContent = 'Network error. Please check the connection.';
+        contentEl.innerHTML = '';
       }
     }
 
-    // ── Render ──
     function render() {
-      var i, s, st, badgeHtml, d, dateStr;
+      let pending = 0;
+      let reviewed = 0;
+      let done = 0;
 
-      // Stats
-      var pending = 0, reviewed = 0, done = 0;
-      for (i = 0; i < suggestions.length; i++) {
-        st = suggestions[i].status || 'pending';
-        if (st === 'reviewed') reviewed++;
-        else if (st === 'implemented') done++;
+      for (const suggestion of suggestions) {
+        const status = suggestion.status || 'pending';
+        if (status === 'reviewed') reviewed++;
+        else if (status === 'implemented') done++;
         else pending++;
       }
-      document.getElementById('stats').innerHTML =
-        '<div class="card px-5 py-3 text-sm text-gray-500">全部 <b class="text-xl text-gray-900 ml-1">' + suggestions.length + '</b></div>' +
-        '<div class="card px-5 py-3 text-sm text-gray-500">待处理 <b class="text-xl text-gray-900 ml-1">' + pending + '</b></div>' +
-        '<div class="card px-5 py-3 text-sm text-gray-500">已查看 <b class="text-xl text-gray-900 ml-1">' + reviewed + '</b></div>' +
-        '<div class="card px-5 py-3 text-sm text-gray-500">已实现 <b class="text-xl text-gray-900 ml-1">' + done + '</b></div>';
 
-      // Cards
-      var html = '';
+      statsEl.innerHTML =
+        '<div class="card px-5 py-3 text-sm text-gray-500">All <b class="text-xl text-gray-900 ml-1">' + suggestions.length + '</b></div>' +
+        '<div class="card px-5 py-3 text-sm text-gray-500">Pending <b class="text-xl text-gray-900 ml-1">' + pending + '</b></div>' +
+        '<div class="card px-5 py-3 text-sm text-gray-500">Reviewed <b class="text-xl text-gray-900 ml-1">' + reviewed + '</b></div>' +
+        '<div class="card px-5 py-3 text-sm text-gray-500">Implemented <b class="text-xl text-gray-900 ml-1">' + done + '</b></div>';
+
       if (suggestions.length === 0) {
-        html = '<div class="empty-state"><div class="icon">📭</div><p class="text-lg font-medium text-gray-400 mb-1">暂无建议</p><p class="text-sm text-gray-300">当用户通过建议表单提交功能需求后，将显示在这里</p></div>';
-      } else {
-        for (i = 0; i < suggestions.length; i++) {
-          s = suggestions[i];
-          st = s.status || 'pending';
-          if (st === 'implemented') badgeHtml = '<span class="badge badge-done">已实现</span>';
-          else if (st === 'reviewed') badgeHtml = '<span class="badge badge-reviewed">已查看</span>';
-          else badgeHtml = '<span class="badge badge-pending">待处理</span>';
-
-          d = new Date(s.createdAt);
-          dateStr = d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
-
-          html +=
-            '<div class="card p-5 mb-3" style="display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start">' +
-              '<div>' +
-                '<div class="font-semibold text-gray-900 flex items-center gap-2 flex-wrap">' + escHtml(s.toolName) + ' ' + badgeHtml + '</div>' +
-                '<div class="text-gray-600 text-sm mt-2 leading-relaxed" style="word-break:break-word">' + escHtml(s.description) + '</div>' +
-                '<div class="flex gap-4 mt-3 text-xs text-gray-400 flex-wrap">' +
-                  '<span>' + dateStr + '</span>' +
-                  (s.email ? '<span>' + escHtml(s.email) + '</span>' : '') +
-                  '<span>IP ' + escHtml(s.ip) + '</span>' +
-                '</div>' +
-              '</div>' +
-              '<div class="flex flex-col items-end gap-2">' +
-                '<select class="status-select text-xs px-2 py-1 rounded-lg border border-gray-200 bg-white cursor-pointer" data-id="' + escAttr(s.id) + '">' +
-                  '<option value="pending"' + (st==='pending'?' selected':'') + '>待处理</option>' +
-                  '<option value="reviewed"' + (st==='reviewed'?' selected':'') + '>已查看</option>' +
-                  '<option value="implemented"' + (st==='implemented'?' selected':'') + '>已实现</option>' +
-                '</select>' +
-                '<button class="copy-btn border-0 bg-transparent text-xs text-gray-400 hover:text-gray-600 cursor-pointer py-1" data-text="' + escAttr(s.toolName + ' — ' + s.description) + '">复制</button>' +
-                '<button class="del-btn border-0 bg-transparent text-xs text-red-400 hover:text-red-600 cursor-pointer py-1" data-id="' + escAttr(s.id) + '">删除</button>' +
-              '</div>' +
-            '</div>';
-        }
+        contentEl.innerHTML = '<div class="empty-state"><div class="icon">Empty</div><p class="text-lg font-medium text-gray-400 mb-1">No suggestions yet</p><p class="text-sm text-gray-300">Suggestions submitted by users will appear here.</p></div>';
+        return;
       }
-      document.getElementById('content').innerHTML = html;
+
+      contentEl.innerHTML = suggestions.map(renderSuggestion).join('');
+    }
+
+    function renderSuggestion(suggestion) {
+      const status = suggestion.status || 'pending';
+      const badgeHtml = status === 'implemented'
+        ? '<span class="badge badge-done">Implemented</span>'
+        : status === 'reviewed'
+          ? '<span class="badge badge-reviewed">Reviewed</span>'
+          : '<span class="badge badge-pending">Pending</span>';
+      const d = new Date(suggestion.createdAt);
+      const dateStr = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+      const copyText = (suggestion.toolName || '') + ' - ' + (suggestion.description || '');
+
+      return '' +
+        '<div class="card p-5 mb-3" style="display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start">' +
+          '<div>' +
+            '<div class="font-semibold text-gray-900 flex items-center gap-2 flex-wrap">' + escHtml(suggestion.toolName || '') + ' ' + badgeHtml + '</div>' +
+            '<div class="text-gray-600 text-sm mt-2 leading-relaxed" style="word-break:break-word">' + escHtml(suggestion.description || '') + '</div>' +
+            '<div class="flex gap-4 mt-3 text-xs text-gray-400 flex-wrap">' +
+              '<span>' + dateStr + '</span>' +
+              (suggestion.email ? '<span>' + escHtml(suggestion.email) + '</span>' : '') +
+              '<span>IP ' + escHtml(suggestion.ip || '') + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="flex flex-col items-end gap-2">' +
+            '<select class="status-select text-xs px-2 py-1 rounded-lg border border-gray-200 bg-white cursor-pointer" data-id="' + escAttr(suggestion.id || '') + '">' +
+              '<option value="pending"' + (status === 'pending' ? ' selected' : '') + '>Pending</option>' +
+              '<option value="reviewed"' + (status === 'reviewed' ? ' selected' : '') + '>Reviewed</option>' +
+              '<option value="implemented"' + (status === 'implemented' ? ' selected' : '') + '>Implemented</option>' +
+            '</select>' +
+            '<button class="copy-btn border-0 bg-transparent text-xs text-gray-400 hover:text-gray-600 cursor-pointer py-1" data-text="' + escAttr(copyText) + '">Copy</button>' +
+            '<button class="del-btn border-0 bg-transparent text-xs text-red-400 hover:text-red-600 cursor-pointer py-1" data-id="' + escAttr(suggestion.id || '') + '">Delete</button>' +
+          '</div>' +
+        '</div>';
     }
 
     function pad(n) { return n < 10 ? '0' + n : String(n); }
 
-    // ── Event delegation ──
-    document.getElementById('content').addEventListener('click', function(e) {
-      var t = e.target;
-      var copyBtn = t.closest('.copy-btn');
-      if (copyBtn) { copyText(copyBtn.getAttribute('data-text') || ''); return; }
-      var delBtn = t.closest('.del-btn');
-      if (delBtn) { deleteSuggestion(delBtn.getAttribute('data-id') || ''); }
+    contentEl.addEventListener('click', function(e) {
+      const target = e.target;
+      const copyBtn = target.closest('.copy-btn');
+      if (copyBtn) {
+        copyText(copyBtn.getAttribute('data-text') || '');
+        return;
+      }
+      const delBtn = target.closest('.del-btn');
+      if (delBtn) deleteSuggestion(delBtn.getAttribute('data-id') || '');
     });
 
-    document.getElementById('content').addEventListener('change', function(e) {
-      if (e.target.classList.contains('status-select')) {
-        changeStatus(e.target.getAttribute('data-id') || '', e.target.value);
+    contentEl.addEventListener('change', function(e) {
+      const target = e.target;
+      if (target.classList.contains('status-select')) {
+        changeStatus(target.getAttribute('data-id') || '', target.value);
       }
     });
 
-    // ── Actions ──
     async function changeStatus(id, status) {
       try {
-        var res = await fetch('/api/suggestions', {
+        const res = await fetch('/api/suggestions', {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + password },
-          body: JSON.stringify({ id: id, status: status }),
+          body: JSON.stringify({ id, status }),
         });
         if (res.ok) {
-          var item = suggestions.find(function(s) { return s.id === id; });
+          const item = suggestions.find(function(suggestion) { return suggestion.id === id; });
           if (item) item.status = status;
-          toast('状态已更新');
-        } else { toast('更新失败'); render(); }
-      } catch(e) { toast('网络错误'); render(); }
+          toast('Status updated');
+        } else {
+          toast('Update failed');
+          render();
+        }
+      } catch (e) {
+        toast('Network error');
+        render();
+      }
     }
 
     async function deleteSuggestion(id) {
-      if (!confirm('确定删除这条建议？')) return;
+      if (!confirm('Delete this suggestion?')) return;
       try {
-        var res = await fetch('/api/suggestions?id=' + encodeURIComponent(id), {
+        const res = await fetch('/api/suggestions?id=' + encodeURIComponent(id), {
           method: 'DELETE',
           headers: { Authorization: 'Bearer ' + password },
         });
         if (res.ok) {
-          suggestions = suggestions.filter(function(s) { return s.id !== id; });
+          suggestions = suggestions.filter(function(suggestion) { return suggestion.id !== id; });
           render();
-          toast('已删除');
-        } else { toast('删除失败'); }
-      } catch(e) { toast('网络错误'); }
+          toast('Deleted');
+        } else {
+          toast('Delete failed');
+        }
+      } catch (e) {
+        toast('Network error');
+      }
     }
 
     function copyText(text) {
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(text).then(function() { toast('已复制'); });
+        navigator.clipboard.writeText(text).then(function() { toast('Copied'); });
       }
     }
 
     function toast(msg) {
-      var el = document.createElement('div');
+      const el = document.createElement('div');
       el.className = 'toast';
       el.textContent = msg;
       document.body.appendChild(el);
@@ -268,8 +286,8 @@
     }
 
     function escHtml(str) {
-      var el = document.createElement('span');
-      el.textContent = str;
+      const el = document.createElement('span');
+      el.textContent = String(str);
       return el.innerHTML;
     }
 
@@ -281,14 +299,13 @@
       sessionStorage.removeItem('admin_pw');
       password = '';
       suggestions = [];
-      document.getElementById('login').classList.remove('hidden');
-      document.getElementById('dash').classList.add('hidden');
-      document.getElementById('logout-btn-top').classList.add('hidden');
-      document.getElementById('pw').value = '';
-      document.getElementById('login-error').textContent = '';
+      loginEl.classList.remove('hidden');
+      dashEl.classList.add('hidden');
+      logoutBtn.classList.add('hidden');
+      pwEl.value = '';
+      loginErrorEl.textContent = '';
     }
 
-    // Auto-login
     if (password) fetchSuggestions();
   </script>
 </body>
