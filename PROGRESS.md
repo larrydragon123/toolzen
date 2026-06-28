@@ -4,6 +4,44 @@
 
 ---
 
+## 2026-06-28：网页端工具巡检与已知问题修复
+
+### 背景
+今天对 ToolZen 工具页面进行本地巡检，确认构建、类型检查、工具页访问、坏链和部署状态。巡检发现 `astro check` 红灯、相关工具链接生成 `/undefined/...`、Text Diff 类型错误、Admin 页面脚本/编码问题，以及当前 Codex 环境缺少稳定的浏览器端自动化测试能力。
+
+### 改动
+1. `src/components/RelatedTools.astro`
+   - 接收并传递 `lang`
+   - 使用当前语言字典 `t.tools` 渲染相关工具标题和描述
+   - 修复相关工具链接 `/undefined/...`
+2. `src/islands/TextDiff.tsx`
+   - 按 mode 分支直接调用 `diffWords` / `diffLines`
+   - 消除 diff 包重载签名导致的类型错误
+3. `src/pages/admin.astro`
+   - 重写为有效 UTF-8/ASCII 页面
+   - 保留登录、刷新、状态更新、复制、删除、退出、自动登录功能
+   - 消除历史编码和内联脚本类型问题
+
+### 验证
+- `npm.cmd exec -- astro check`：0 errors，0 warnings，88 hints
+- `npm.cmd run build`：通过，构建 85 个页面
+- `/undefined/` 坏链扫描：0
+- 24 个中文工具页本地预览检查：通过
+- 构建后 35 个 JS 文件 `node --check`：通过
+
+### 提交与部署
+- 修复提交：`c7ea732 fix: repair tool page validation issues`
+- 已推送到 `origin/master`
+- GitHub 远端 `master` 已更新到 `c7ea732`
+- Cloudflare Pages 的 GitHub 自动部署应已触发
+- Wrangler 直传部署因缺少 `CLOUDFLARE_API_TOKEN` 未能执行
+- 线上 `/en/json-formatter/` 和 `/admin/` HTTP 200
+
+### 后续
+- 建议后续安装 Playwright 或浏览器自动化 MCP，覆盖真实网页端交互测试。
+- 如需 Codex 直接部署 Cloudflare Pages，需要配置 `CLOUDFLARE_API_TOKEN`。
+
+---
 ## 2026-05-20：新增 PDF 工具分类 — 合并、拆分、压缩
 
 ### 为什么要做
