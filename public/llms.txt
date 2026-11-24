@@ -11,7 +11,7 @@
 
 ## Text Tools
 - Text Diff Checker: https://tool-zen.com/zh/text-diff/ | https://tool-zen.com/en/text-diff/
-- Word Counter: https://tool-zen.com/zh/word-counter/ | https://tool-zen.com/en/word-counter/
+- Chinese Word Counter & Character Counter: https://tool-zen.com/zh/word-counter/ | https://tool-zen.com/en/word-counter/
 - Case Converter: https://tool-zen.com/zh/case-converter/ | https://tool-zen.com/en/case-converter/
 
 ## Image Tools

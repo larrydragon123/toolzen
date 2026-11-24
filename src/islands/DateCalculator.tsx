@@ -1,5 +1,8 @@
 import { useState } from 'preact/hooks';
 import { useLanguage } from '../hooks/useLanguage';
+import { toolAnalytics } from '../utils/toolAnalytics';
+
+const track = toolAnalytics('date-calculator');
 
 function countWorkdays(start: Date, end: Date): number {
   let count = 0;
@@ -24,21 +27,32 @@ export default function DateCalculator() {
   const calcDiff = () => {
     const start = new Date(startDate);
     const end = new Date(endDate);
-    if (end < start) return;
+    if (!Number.isFinite(start.getTime()) || !Number.isFinite(end.getTime()) || end < start) {
+      setResult(null);
+      return;
+    }
+    track('tool_start', 'date_difference');
     const diffMs = end.getTime() - start.getTime();
     const total = Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1; // inclusive
     const workdays = countWorkdays(start, end);
     setResult({ total, workdays, weekends: total - workdays, endDate: '' });
+    track('tool_complete', 'date_difference');
   };
 
   const calcAdd = () => {
     const start = new Date(startDate);
+    if (!Number.isFinite(start.getTime()) || !Number.isInteger(addDays) || addDays < 0 || addDays > 36500) {
+      setResult(null);
+      return;
+    }
+    track('tool_start', 'add_days');
     const end = new Date(start);
     end.setDate(end.getDate() + addDays);
     const endStr = end.toISOString().slice(0, 10);
     const workdays = countWorkdays(new Date(startDate), end);
     const total = addDays + 1;
     setResult({ total, workdays, weekends: total - workdays, endDate: endStr });
+    track('tool_complete', 'add_days');
   };
 
   const weekDayNames = t.ui.weekDayNames;

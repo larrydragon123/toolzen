@@ -1,5 +1,8 @@
 import { useState } from 'preact/hooks';
 import { useLanguage } from '../hooks/useLanguage';
+import { toolAnalytics } from '../utils/toolAnalytics';
+
+const track = toolAnalytics('zodiac-finder');
 
 interface ZodiacInfo {
   animal: string; animalZh: string; emoji: string;
@@ -59,13 +62,14 @@ export default function ZodiacFinder() {
   const [date, setDate] = useState('');
   const [result, setResult] = useState<ZodiacInfo | null>(null);
 
-  const find = () => {
-    if (!date) return;
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = d.getMonth() + 1;
-    const day = d.getDate();
-
+  const find = (value: string) => {
+    setDate(value);
+    if (!value) {
+      setResult(null);
+      return;
+    }
+    const [year, month, day] = value.split('-').map(Number);
+    track('tool_start', 'lookup');
     const sxYear = getShengxiaoYear(year, month, day);
     const idx = ((sxYear - 4) % 12 + 12) % 12;
     const sx = SHENGXIAO[idx];
@@ -76,6 +80,7 @@ export default function ZodiacFinder() {
       constellation: con.name, constZh: con.zh, symbol: con.symbol,
       desc: `属${sx.animalZh}，${con.zh}${con.symbol}`,
     });
+    track('tool_complete', 'lookup');
   };
 
   return (
@@ -83,7 +88,7 @@ export default function ZodiacFinder() {
       <div>
         <label class="block text-sm text-gray-500 mb-1">{t.ui.zodiacSelect}</label>
         <input type="date" value={date}
-          onInput={(e) => { setDate((e.target as HTMLInputElement).value); find(); }}
+          onInput={(e) => find(e.currentTarget.value)}
           class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:border-zen-500 outline-none" />
       </div>
 

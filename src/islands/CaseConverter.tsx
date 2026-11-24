@@ -1,5 +1,8 @@
 import { useState } from 'preact/hooks';
 import { useLanguage } from '../hooks/useLanguage';
+import { toolAnalytics } from '../utils/toolAnalytics';
+
+const track = toolAnalytics('case-converter');
 
 // Simplified Chinese character mapping - key common characters
 // Using a simplified approach with the most common 500+ characters that differ
@@ -72,23 +75,42 @@ export default function CaseConverter() {
   const [output, setOutput] = useState('');
 
   const actions = [
-    { label: t.ui.upperCase, fn: () => setOutput(input.toUpperCase()) },
-    { label: t.ui.lowerCase, fn: () => setOutput(input.toLowerCase()) },
-    { label: t.ui.titleCase, fn: () => setOutput(input.replace(/\b\w/g, c => c.toUpperCase())) },
-    { label: t.ui.s2t, fn: () => setOutput(s2t(input)) },
-    { label: t.ui.t2s, fn: () => setOutput(t2s(input)) },
-    { label: t.ui.numS2F, fn: () => setOutput(numSimpleToFormal(input)) },
-    { label: t.ui.numF2S, fn: () => setOutput(numFormalToSimple(input)) },
-    { label: t.ui.invertCase, fn: () => setOutput(input.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('')) },
+    { id: 'upperCase', label: t.ui.upperCase, convert: () => input.toUpperCase() },
+    { id: 'lowerCase', label: t.ui.lowerCase, convert: () => input.toLowerCase() },
+    { id: 'titleCase', label: t.ui.titleCase, convert: () => input.replace(/\b\w/g, c => c.toUpperCase()) },
+    { id: 's2t', label: t.ui.s2t, convert: () => s2t(input) },
+    { id: 't2s', label: t.ui.t2s, convert: () => t2s(input) },
+    { id: 'numS2F', label: t.ui.numS2F, convert: () => numSimpleToFormal(input) },
+    { id: 'numF2S', label: t.ui.numF2S, convert: () => numFormalToSimple(input) },
+    { id: 'invertCase', label: t.ui.invertCase, convert: () => input.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('') },
   ];
 
-  const copy = () => { navigator.clipboard.writeText(output); };
+  const convert = (action: typeof actions[number]) => {
+    if (!input.trim()) {
+      setOutput('');
+      return;
+    }
+    track('tool_start', action.id);
+    const converted = action.convert();
+    setOutput(converted);
+    track('tool_complete', action.id);
+  };
+
+  const copy = async () => {
+    if (!output) return;
+    try {
+      await navigator.clipboard.writeText(output);
+      track('result_copy', 'copy');
+    } catch {
+      track('tool_error', 'copy', { error_type: 'clipboard_unavailable' });
+    }
+  };
 
   return (
     <div class="space-y-4">
       <div class="flex gap-2 flex-wrap">
         {actions.map(a => (
-          <button onClick={a.fn} class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-zen-50 hover:text-zen-600 transition-colors">{a.label}</button>
+          <button onClick={() => convert(a)} class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-zen-50 hover:text-zen-600 transition-colors">{a.label}</button>
         ))}
         <button onClick={copy} class="px-3 py-2 bg-zen-500 text-white rounded-lg text-sm font-medium hover:bg-zen-600 transition-colors ml-auto">{t.ui.copy}</button>
       </div>

@@ -44,10 +44,10 @@ Compares two texts line-by-line using standard diff algorithm. Side-by-side and 
 Use for: code review, document version comparison, tracking configuration file changes.
 URL: https://tool-zen.com/zh/text-diff/
 
-### Word Counter
-Counts characters, words, lines, paragraphs, and bytes in real-time. Chinese text aware.
-Use for: writing with word limits, SEO meta description length checking, translation cost estimation.
-URL: https://tool-zen.com/zh/word-counter/
+### Chinese Word Counter & Character Counter
+Counts Han characters, estimates Chinese words with browser-based word segmentation, and counts Latin-script words in mixed text. Also reports total words, Unicode code points, lines and UTF-8 bytes.
+Use for: Chinese character limits, mixed Chinese and English word counts, and comparing character counts with word estimates.
+URL: https://tool-zen.com/en/word-counter/ | https://tool-zen.com/zh/word-counter/
 
 ### Case Converter
 Converts text between uppercase, lowercase, title case, simplified/traditional Chinese, Chinese numeral forms.

@@ -1,5 +1,8 @@
 import { useState, useRef } from 'preact/hooks';
 import { PDFDocument } from 'pdf-lib';
+import { toolAnalytics } from '../utils/toolAnalytics';
+
+const track = toolAnalytics('pdf-compress');
 
 function formatSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -32,7 +35,7 @@ export default function PdfCompress() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelected = (files: FileList | null) => {
-    if (!files || files.length === 0) return;
+    if (processing || !files?.length) return;
     const f = files[0];
     if (f.type === 'application/pdf' || f.name.toLowerCase().endsWith('.pdf')) {
       setFile(f);
@@ -43,15 +46,19 @@ export default function PdfCompress() {
   };
 
   const handleCompress = async () => {
-    if (!file) return;
+    if (!file || processing) return;
+    track('tool_start', level);
     setProcessing(true);
     setError('');
     setCompressed(null);
     try {
       const result = await compressPDF(file, level);
       setCompressed(result);
+      const sizeChange = result.length < file.size ? 'smaller' : result.length > file.size ? 'larger' : 'same';
+      track('tool_complete', level, { size_change: sizeChange });
     } catch (err) {
       console.error('Compression failed:', err);
+      track('tool_error', level, { error_type: 'pdf_processing' });
       setError('Failed to compress PDF. The file may be corrupted or encrypted.');
     } finally {
       setProcessing(false);
@@ -67,6 +74,7 @@ export default function PdfCompress() {
     const baseName = file.name.replace(/\.pdf$/i, '');
     a.download = `${baseName}_compressed.pdf`;
     a.click();
+    track('download_click', level);
     URL.revokeObjectURL(url);
   };
 
@@ -92,7 +100,7 @@ export default function PdfCompress() {
   };
 
   const handleFileInputClick = () => {
-    fileInputRef.current?.click();
+    if (!processing) fileInputRef.current?.click();
   };
 
   return (
@@ -107,6 +115,7 @@ export default function PdfCompress() {
         <input
           ref={fileInputRef}
           type="file"
+          disabled={processing}
           accept=".pdf"
           onChange={(e) => handleFileSelected((e.target as HTMLInputElement).files)}
           class="hidden"
@@ -151,6 +160,7 @@ export default function PdfCompress() {
                     name="compressLevel"
                     value={l.value}
                     checked={level === l.value}
+                    disabled={processing}
                     onChange={() => { setLevel(l.value); setCompressed(null); setError(''); }}
                     class="sr-only"
                   />

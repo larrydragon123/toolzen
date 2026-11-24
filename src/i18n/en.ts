@@ -128,14 +128,16 @@ export const en: TranslationDict = {
       ],
     },
     'word-counter': {
-      title: 'Word Counter',
-      description: 'Online word and character counting tool. Real-time stats for characters, words, lines, and paragraphs. Supports mixed Chinese and English text.',
-      keywords: ['word counter', 'character count', 'online word count', 'text statistics'],
-      howToTitle: 'How to Use Word Counter',
-      howTo: 'Type or paste text into the text area to see real-time statistics including character count, word count, line count, and byte size.',
+      title: 'Chinese Word Counter & Character Counter',
+      description: 'Count Chinese characters, estimate Chinese words, and count English words in mixed text. See live totals for simplified or traditional Chinese in your browser.',
+      keywords: ['Chinese word counter', 'Chinese character counter', 'word count Chinese', 'English word count'],
+      howToTitle: 'How to count Chinese words and characters',
+      howTo: 'Paste your text into the box. Read Han characters for a Chinese character limit, or Chinese words (estimate) for a dictionary-based word count. The totals update while you type.',
       faq: [
-        { q: 'How are Chinese characters counted?', a: 'Chinese characters are counted individually as characters. For word count, each Chinese character is counted as one character but not included in English word count.' },
-        { q: 'Is my data safe?', a: 'All counting happens locally in your browser. Text content is never uploaded to any server.' },
+        { q: 'Why are the Chinese character and word counts different?', a: 'A word can contain several Han characters. For example, 你好世界 contains four Han characters. A segmenter can split it into two words, 你好 and 世界. ToolZen uses the Chinese word segmenter in your browser, so some word boundaries vary by browser and dictionary.' },
+        { q: 'How does the counter handle English, punctuation and numbers?', a: 'In 你好，世界！Hello there, the Han count is 4 and the Latin-script word count is 2. Punctuation and spaces contribute to the overall character count. The total word count includes word-like number segments. The Latin-script count includes English and other languages written in the Latin alphabet.' },
+        { q: 'What counts as a character?', a: 'The character total counts Unicode code points, including spaces and punctuation. A supplementary Han character such as 𠮷 counts once. Combined emoji can contain several code points. The byte total measures UTF-8 size.' },
+        { q: 'Is my text uploaded?', a: 'Counting runs in your browser. Usage events record when counting starts and produces a result. Your text and the resulting counts stay on your device.' },
       ],
     },
     'regex-tester': {
