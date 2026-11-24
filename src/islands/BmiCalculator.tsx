@@ -1,3 +1,4 @@
+import { useLiveToolAnalytics } from '../hooks/useLiveToolAnalytics';
 import { useState } from 'preact/hooks';
 import { useLanguage } from '../hooks/useLanguage';
 
@@ -17,9 +18,10 @@ export default function BmiCalculator() {
   };
 
   const result = getResult();
+  const markEdit = useLiveToolAnalytics('bmi-calculator', 'calculate', height > 0 && weight > 0 && Number.isFinite(bmi));
 
   return (
-    <div class="space-y-4">
+    <div onInputCapture={markEdit} class="space-y-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label class="block text-sm text-gray-500 mb-1">{t.ui.height}</label>

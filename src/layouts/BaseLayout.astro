@@ -53,6 +53,14 @@ const defaultPath = suffix === '/' || suffix === '/blog/' ? suffix : '/en' + suf
     <!-- Google Analytics 4 (国际用户) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W1X2RY2QY7"></script>
     <script is:inline>
+      // Search links carry only the entry point. Keep the final URL clean before analytics starts.
+      const searchEntry = /^#tz-search-(home|header)$/.exec(location.hash);
+      if (searchEntry) {
+        if (document.referrer && new URL(document.referrer).origin === location.origin) {
+          window.toolSearchSurface = searchEntry[1];
+        }
+        history.replaceState(history.state, '', location.pathname + location.search);
+      }
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());

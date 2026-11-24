@@ -1,12 +1,23 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState } from 'preact/hooks';
+
+const track = toolAnalytics('url-encode');
 
 export default function UrlEncoder() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
 
-  const encode = () => setOutput(encodeURIComponent(input));
+  const encode = () => {
+    track('tool_start', 'encode');
+    setOutput(encodeURIComponent(input));
+    if (input) track('tool_complete', 'encode');
+  };
   const decode = () => {
-    try { setOutput(decodeURIComponent(input)); }
+    track('tool_start', 'decode');
+    try {
+      setOutput(decodeURIComponent(input));
+      if (input) track('tool_complete', 'decode');
+    }
     catch { setOutput('Invalid URL-encoded input'); }
   };
   const copy = () => navigator.clipboard.writeText(output);

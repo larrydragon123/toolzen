@@ -1,7 +1,10 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState } from 'preact/hooks';
 import { diffWords, diffLines } from 'diff';
 
 type DiffResult = { value: string; added?: boolean; removed?: boolean }[];
+
+const track = toolAnalytics('text-diff');
 
 export default function TextDiff() {
   const [left, setLeft] = useState('');
@@ -10,7 +13,9 @@ export default function TextDiff() {
   const [mode, setMode] = useState<'words' | 'lines'>('words');
 
   const compare = () => {
+    track('tool_start', 'compare');
     setResult(mode === 'words' ? diffWords(left, right) : diffLines(left, right));
+    if (left || right) track('tool_complete', 'compare');
   };
 
   return (

@@ -1,5 +1,8 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState, useEffect } from 'preact/hooks';
 import { useLanguage } from '../hooks/useLanguage';
+
+const track = toolAnalytics('timestamp-converter');
 
 export default function TimestampConverter() {
   const { t } = useLanguage();
@@ -15,17 +18,22 @@ export default function TimestampConverter() {
   }, []);
 
   const convertTsToDate = () => {
+    track('tool_start', 'timestamp_to_date');
     const ts = parseInt(tsInput);
     if (isNaN(ts)) { setTsResult('Invalid'); return; }
     const ms = ts > 9999999999 ? ts : ts * 1000;
-    setTsResult(new Date(ms).toLocaleString());
+    const date = new Date(ms);
+    setTsResult(date.toLocaleString());
+    if (Number.isFinite(date.getTime())) track('tool_complete', 'timestamp_to_date');
   };
 
   const convertDateToTs = () => {
+    track('tool_start', 'date_to_timestamp');
     if (!dateInput) return;
     const d = new Date(dateInput);
     const sec = Math.floor(d.getTime() / 1000);
     setDateResult(sec.toString());
+    if (Number.isFinite(sec)) track('tool_complete', 'date_to_timestamp');
   };
 
   const copyNow = () => navigator.clipboard.writeText(now.toString());

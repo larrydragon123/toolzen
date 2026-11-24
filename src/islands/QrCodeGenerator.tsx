@@ -1,6 +1,9 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState, useRef } from 'preact/hooks';
 import qrcode from 'qrcode-generator';
 import { useLanguage } from '../hooks/useLanguage';
+
+const track = toolAnalytics('qr-code');
 
 export default function QrCodeGenerator() {
   const { t } = useLanguage();
@@ -19,6 +22,7 @@ export default function QrCodeGenerator() {
       return;
     }
     setError('');
+    track('tool_start', 'generate');
     try {
       const qr = qrcode(0, 'M');
       qr.addData(val);
@@ -53,6 +57,7 @@ export default function QrCodeGenerator() {
       }
 
       setQrDataUrl(canvas.toDataURL('image/png'));
+      if (moduleSize > 0) track('tool_complete', 'generate');
     } catch (e: any) {
       setError(t.ui.generateFailed + ': ' + (e?.message || ''));
     }

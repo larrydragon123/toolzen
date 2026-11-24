@@ -1,4 +1,7 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState } from 'preact/hooks';
+
+const track = toolAnalytics('md5-hash');
 
 export default function HashGenerator() {
   const [input, setInput] = useState('');
@@ -13,9 +16,10 @@ export default function HashGenerator() {
     setResults(prev => ({ ...prev, [algo]: hashHex }));
   };
 
-  const hashAll = () => {
-    hash('SHA-256');
-    hash('SHA-1');
+  const hashAll = async () => {
+    track('tool_start', 'hash');
+    await Promise.all([hash('SHA-256'), hash('SHA-1')]);
+    track('tool_complete', 'hash');
   };
 
   return (

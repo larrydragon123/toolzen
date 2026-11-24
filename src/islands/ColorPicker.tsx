@@ -1,3 +1,4 @@
+import { useLiveToolAnalytics } from '../hooks/useLiveToolAnalytics';
 import { useState } from 'preact/hooks';
 
 function hexToRgb(hex: string) {
@@ -30,6 +31,7 @@ export default function ColorPicker() {
 
   const rgb = hexToRgb(hex);
   const hsl = hexToHsl(hex);
+  const markEdit = useLiveToolAnalytics('color-picker', 'convert', /^#[0-9a-f]{6}$/i.test(hex));
 
   const copy = (text: string, label: string) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -39,7 +41,7 @@ export default function ColorPicker() {
   };
 
   return (
-    <div class="space-y-4">
+    <div onInputCapture={markEdit} class="space-y-4">
       <div class="flex gap-4 items-start flex-wrap">
         <div>
           <input type="color" value={hex} onInput={(e) => setHex((e.target as HTMLInputElement).value)}

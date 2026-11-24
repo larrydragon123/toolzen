@@ -1,4 +1,7 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState } from 'preact/hooks';
+
+const track = toolAnalytics('regex-tester');
 
 export default function RegexTester() {
   const [pattern, setPattern] = useState('');
@@ -8,12 +11,14 @@ export default function RegexTester() {
   const [error, setError] = useState('');
 
   const test = () => {
+    track('tool_start', 'match');
     setError('');
     setMatches([]);
     try {
       const re = new RegExp(pattern, flags);
       const result = text.match(re);
       setMatches(result || []);
+      if (pattern && text) track('tool_complete', 'match');
       if (!result) setError('No matches found');
     } catch (e) {
       setError((e as Error).message);

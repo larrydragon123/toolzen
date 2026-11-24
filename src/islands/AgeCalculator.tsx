@@ -1,5 +1,8 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState } from 'preact/hooks';
 import { useLanguage } from '../hooks/useLanguage';
+
+const track = toolAnalytics('age-calculator');
 
 export default function AgeCalculator() {
   const { t } = useLanguage();
@@ -8,6 +11,7 @@ export default function AgeCalculator() {
   const [error, setError] = useState('');
 
   const calculate = () => {
+    track('tool_start', 'calculate');
     setError('');
     if (!birth) { setError('Please select a birth date'); return; }
     const b = new Date(birth);
@@ -30,6 +34,7 @@ export default function AgeCalculator() {
     const daysUntil = Math.ceil((nextBday.getTime() - now.getTime()) / 86400000);
 
     setResult({ y: years, m: months, d: days, nextBirthday: daysUntil });
+    track('tool_complete', 'calculate');
   };
 
   return (

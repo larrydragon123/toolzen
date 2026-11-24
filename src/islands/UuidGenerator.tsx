@@ -1,13 +1,18 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState } from 'preact/hooks';
+
+const track = toolAnalytics('uuid-generator');
 
 export default function UuidGenerator() {
   const [uuids, setUuids] = useState<string[]>([]);
   const [count, setCount] = useState(1);
 
   const generate = () => {
+    track('tool_start', 'generate');
     const arr: string[] = [];
     for (let i = 0; i < count; i++) arr.push(crypto.randomUUID());
     setUuids(arr);
+    if (arr.length > 0) track('tool_complete', 'generate');
   };
 
   const copyAll = () => navigator.clipboard.writeText(uuids.join('\n'));

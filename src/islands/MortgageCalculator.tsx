@@ -1,3 +1,4 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState } from 'preact/hooks';
 import { useLanguage } from '../hooks/useLanguage';
 
@@ -8,6 +9,8 @@ interface Result {
   schedule: Array<{ month: number; payment: number; principal: number; interest: number; balance: number }>;
 }
 
+const track = toolAnalytics('mortgage-calculator');
+
 export default function MortgageCalculator() {
   const { t } = useLanguage();
   const [amount, setAmount] = useState(1000000);
@@ -17,6 +20,7 @@ export default function MortgageCalculator() {
   const [result, setResult] = useState<Result | null>(null);
 
   const calculate = () => {
+    track('tool_start', 'calculate');
     const monthlyRate = rate / 100 / 12;
     const months = years * 12;
     let schedule: Result['schedule'] = [];
@@ -48,6 +52,7 @@ export default function MortgageCalculator() {
     }
     totalInterest = totalPayment - amount;
     setResult({ monthly, totalPayment, totalInterest, schedule });
+    if (amount > 0 && years > 0 && rate >= 0 && Number.isFinite(totalPayment)) track('tool_complete', 'calculate');
   };
 
   const formatMoney = (n: number) => '￥' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');

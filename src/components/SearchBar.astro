@@ -1,51 +1,96 @@
 ---
+import { getDict, type Lang } from '../i18n';
 import { TOOLS } from '../utils/tools';
-import type { Lang, Translations } from '../i18n';
 
-interface Props {
-  lang: Lang;
-  t: Translations;
-}
-
-const { lang, t } = Astro.props;
+interface Props { lang: Lang; surface: 'home' | 'header' }
+const { lang, surface } = Astro.props;
+const t = getDict(lang);
+const other = getDict(lang === 'en' ? 'zh' : 'en');
+const aliases: Record<string, string[]> = {
+  'date-calculator': ['两个日期相差几天'],
+  'pdf-compress': ['PDF 变小'],
+  'word-counter': ['Chinese word count'],
+};
+const id = surface === 'home' ? 'tool-search' : 'header-tool-search';
 ---
-
-<div id="search" class="relative max-w-2xl mx-auto">
-  <input
-    type="text"
-    id="tool-search"
-    placeholder={t.nav.searchPlaceholder}
-    class="w-full px-4 py-3 pl-10 rounded-xl border border-gray-200 focus:border-zen-500 focus:ring-2 focus:ring-zen-100 outline-none transition-all text-gray-900"
-  />
-  <svg class="absolute left-3 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-  </svg>
-
-  <div id="search-suggest" class="hidden mt-3 p-4 bg-zen-50 border border-zen-100 rounded-xl text-center">
-    <p class="text-sm text-gray-500 mb-2">{t.nav.searchEmpty}</p>
-    <a href={`/${lang}/suggest/`} class="inline-block px-4 py-1.5 text-sm font-medium text-zen-500 hover:text-white bg-white hover:bg-zen-500 border border-zen-200 rounded-lg transition-colors no-underline">
-      {t.nav.searchSuggest}
-    </a>
+<tool-search-box data-surface={surface} data-lang={lang} class="block text-left w-full max-w-2xl mx-auto">
+  <input id={id} type="search" enterkeyhint="go" autocomplete="off" placeholder={t.nav.searchPlaceholder}
+    aria-label={t.nav.searchPlaceholder} aria-controls={id + '-results'}
+    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-zen-500 focus:ring-2 focus:ring-zen-100 outline-none text-gray-900" />
+  <div id={id + '-results'} hidden class="mt-2 max-h-64 overflow-y-auto rounded-xl border border-gray-200 bg-white p-2">
+    {TOOLS.map(({ slug }) => (
+      <a hidden href={`/${lang}/${slug}/`} data-slug={slug} data-alt={other.tools[slug].title}
+        data-terms={[...t.tools[slug].keywords, ...other.tools[slug].keywords, ...(aliases[slug] ?? [])].join('|')}
+        class="block px-3 py-2 rounded-lg text-gray-900 hover:bg-zen-50 focus:bg-zen-50 no-underline">
+        {t.tools[slug].title}
+      </a>
+    ))}
+    <p hidden role="status" class="p-2 text-sm text-gray-600">{t.nav.searchEmpty} <a href={`/${lang}/suggest/`}>{t.nav.searchSuggest}</a></p>
   </div>
-</div>
+</tool-search-box>
 
 <script>
-  const input = document.getElementById('tool-search') as HTMLInputElement;
-  const suggest = document.getElementById('search-suggest')!;
-  input?.addEventListener('input', () => {
-    const q = input.value.toLowerCase().trim();
-    const cards = document.querySelectorAll('[data-tool-card]');
-    let visibleCount = 0;
-    cards.forEach(card => {
-      const name = (card.getAttribute('data-tool-card') || '').toLowerCase();
-      const match = name.includes(q);
-      (card as HTMLElement).style.display = match ? '' : 'none';
-      if (match) visibleCount++;
-    });
-    if (q && visibleCount === 0) {
-      suggest.classList.remove('hidden');
-    } else {
-      suggest.classList.add('hidden');
+  import { emitSearch, type SearchSurface } from '../utils/toolAnalytics';
+  // Whitespace and hyphens are optional across scripts, e.g. “pdf压缩” and “PDF Compress”.
+  const normalize = (s: string) => s.normalize('NFKC').toLowerCase().replace(/[\s_-]+/g, '');
+  class ToolSearchBox extends HTMLElement {
+    connectedCallback() {
+      const input = this.querySelector('input')!;
+      const list = this.querySelector('div')!;
+      const empty = this.querySelector('p')!;
+      const surface = this.dataset.surface as SearchSurface;
+      const page_language = this.dataset.lang!;
+      const entries = Array.from(list.querySelectorAll<HTMLAnchorElement>('a[data-slug]'), link => ({
+        link, names: [link.dataset.slug!, link.textContent.trim(), link.dataset.alt!].map(normalize),
+        terms: link.dataset.terms!.split('|').map(normalize),
+      }));
+      let query = '', recorded = '', count = 0, timer = 0;
+      function record() {
+        if (!query || query === recorded) return;
+        emitSearch('tool_search', { search_surface: surface, page_language, result_count: count });
+        recorded = query;
+      }
+      function refresh() {
+        clearTimeout(timer);
+        const next = normalize(input.value);
+        if (next !== query) recorded = '';
+        query = next;
+        const matches = entries.map(entry => {
+          const rank = !query ? 0 : entry.names.includes(query) ? 3 :
+            entry.names.some(s => s.includes(query)) ? 2 : Number(entry.terms.some(s => s.includes(query)));
+          return { ...entry, rank };
+        }).sort((a, b) => b.rank - a.rank);
+        count = matches.filter(entry => entry.rank > 0).length;
+        for (const { link, rank } of matches) {
+          link.hidden = !rank;
+          if (rank) list.insertBefore(link, empty);
+        }
+        list.hidden = !query;
+        empty.hidden = !query || count > 0;
+        if (query) timer = window.setTimeout(record, 550);
+      }
+      input.addEventListener('input', (e) => { if (!(e as InputEvent).isComposing) refresh(); });
+      input.addEventListener('compositionend', refresh);
+      input.addEventListener('keydown', e => {
+        if (e.isComposing || e.keyCode === 229) return;
+        const first = list.querySelector<HTMLAnchorElement>('a[data-slug]:not([hidden])');
+        if (e.key === 'Enter') { e.preventDefault(); record(); first?.click(); }
+        if (e.key === 'ArrowDown' && first) { e.preventDefault(); first.focus(); }
+      });
+      const select = (e: MouseEvent) => {
+        if (e.type === 'auxclick' && e.button !== 1) return;
+        const link = (e.target as Element).closest<HTMLAnchorElement>('a[data-slug]');
+        if (!link) return;
+        record();
+        emitSearch('search_result_select', { search_surface: surface, page_language, tool_slug: link.dataset.slug! });
+        link.hash = 'tz-search-' + surface;
+        window.setTimeout(() => { link.hash = ''; }, 0);
+      };
+      list.addEventListener('click', select);
+      list.addEventListener('auxclick', select);
+      this.closest('dialog')?.addEventListener('close', () => { input.value = ''; refresh(); });
     }
-  });
+  }
+  customElements.define('tool-search-box', ToolSearchBox);
 </script>
+<style>tool-search-box [hidden] { display: none; }</style>

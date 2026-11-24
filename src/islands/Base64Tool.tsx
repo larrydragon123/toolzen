@@ -1,12 +1,23 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState } from 'preact/hooks';
+
+const track = toolAnalytics('base64');
 
 export default function Base64Tool() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
 
-  const encode = () => setOutput(btoa(unescape(encodeURIComponent(input))));
+  const encode = () => {
+    track('tool_start', 'encode');
+    setOutput(btoa(unescape(encodeURIComponent(input))));
+    if (input) track('tool_complete', 'encode');
+  };
   const decode = () => {
-    try { setOutput(decodeURIComponent(escape(atob(input)))); }
+    track('tool_start', 'decode');
+    try {
+      setOutput(decodeURIComponent(escape(atob(input))));
+      if (input) track('tool_complete', 'decode');
+    }
     catch { setOutput('Invalid Base64 input'); }
   };
   const copy = () => navigator.clipboard.writeText(output);

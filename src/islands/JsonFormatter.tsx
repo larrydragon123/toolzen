@@ -1,4 +1,7 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState } from 'preact/hooks';
+
+const track = toolAnalytics('json-formatter');
 
 export default function JsonFormatter() {
   const [input, setInput] = useState('');
@@ -6,9 +9,11 @@ export default function JsonFormatter() {
   const [error, setError] = useState('');
 
   const format = () => {
+    track('tool_start', 'format');
     try {
       const obj = JSON.parse(input);
       setOutput(JSON.stringify(obj, null, 2));
+      track('tool_complete', 'format');
       setError('');
     } catch (e) {
       setError((e as Error).message);
@@ -17,9 +22,11 @@ export default function JsonFormatter() {
   };
 
   const compress = () => {
+    track('tool_start', 'compress');
     try {
       const obj = JSON.parse(input);
       setOutput(JSON.stringify(obj));
+      track('tool_complete', 'compress');
       setError('');
     } catch (e) {
       setError((e as Error).message);
@@ -28,10 +35,12 @@ export default function JsonFormatter() {
   };
 
   const validate = () => {
+    track('tool_start', 'validate');
     try {
       JSON.parse(input);
       setError('');
       setOutput('✓ Valid JSON');
+      track('tool_complete', 'validate');
     } catch (e) {
       setError((e as Error).message);
       setOutput('');

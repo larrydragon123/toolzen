@@ -1,3 +1,4 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState, useRef } from 'preact/hooks';
 import { PDFDocument } from 'pdf-lib';
 
@@ -35,6 +36,8 @@ function downloadPDF(bytes: Uint8Array, filename: string) {
   a.click();
   URL.revokeObjectURL(url);
 }
+
+const track = toolAnalytics('pdf-merge');
 
 export default function PdfMerge() {
   const [files, setFiles] = useState<PdfFile[]>([]);
@@ -113,10 +116,12 @@ export default function PdfMerge() {
 
   const handleMerge = async () => {
     if (files.length < 2) return;
+    track('tool_start', 'merge');
     setProcessing(true);
     try {
       const result = await mergePDFs(files.map(f => f.file));
       setMerged(result);
+      track('tool_complete', 'merge');
     } catch (e) {
       console.error('Merge failed:', e);
     } finally {

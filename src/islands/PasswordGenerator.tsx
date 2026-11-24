@@ -1,3 +1,4 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState, useCallback } from 'preact/hooks';
 import { useLanguage } from '../hooks/useLanguage';
 
@@ -16,6 +17,8 @@ function getStrength(len: number, types: number): { level: number; key: string }
 
 const COLORS = ['bg-red-500', 'bg-orange-500', 'bg-yellow-500', 'bg-green-400', 'bg-green-600'];
 
+const track = toolAnalytics('password-generator');
+
 export default function PasswordGenerator() {
   const { t } = useLanguage();
   const [len, setLen] = useState(16);
@@ -26,6 +29,7 @@ export default function PasswordGenerator() {
   const [password, setPassword] = useState('');
 
   const generate = useCallback(() => {
+    track('tool_start', 'generate');
     let chars = '';
     if (upper) chars += UPPER;
     if (lower) chars += LOWER;
@@ -38,6 +42,7 @@ export default function PasswordGenerator() {
     let result = '';
     for (let i = 0; i < len; i++) result += chars[arr[i] % chars.length];
     setPassword(result);
+    track('tool_complete', 'generate');
   }, [len, upper, lower, digits, symbols]);
 
   const activeTypes = [+upper, +lower, +digits, +symbols].reduce((a, b) => a + b, 0);

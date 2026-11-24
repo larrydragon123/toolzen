@@ -1,3 +1,4 @@
+import { useLiveToolAnalytics } from '../hooks/useLiveToolAnalytics';
 import { useState, useEffect } from 'preact/hooks';
 
 const TIMEZONES = [
@@ -61,15 +62,17 @@ export default function TimezoneConverter() {
   }, []);
 
   const toggleZone = (offset: string) => {
+    markEdit();
     setSelectedZones(prev =>
       prev.includes(offset) ? prev.filter(z => z !== offset) : [...prev, offset]
     );
   };
 
   const displayTime = useCustom && customTime ? new Date(customTime) : now;
+  const markEdit = useLiveToolAnalytics('timezone-converter', 'convert', selectedZones.length > 0 && Number.isFinite(displayTime.getTime()));
 
   return (
-    <div class="space-y-6">
+    <div onInputCapture={markEdit} class="space-y-6">
       {/* Timezone selector */}
       <div>
         <label class="block text-sm text-gray-500 mb-2">选择时区（点击切换）</label>
@@ -97,7 +100,7 @@ export default function TimezoneConverter() {
           }}
           class="p-2 border border-gray-200 rounded-lg text-sm focus:border-zen-500 outline-none" />
         {useCustom && (
-          <button onClick={() => { setUseCustom(false); setCustomTime(''); }}
+          <button onClick={() => { markEdit(); setUseCustom(false); setCustomTime(''); }}
             class="text-xs text-zen-500 hover:text-zen-600">使用当前时间</button>
         )}
       </div>

@@ -1,3 +1,4 @@
+import { useLiveToolAnalytics } from '../hooks/useLiveToolAnalytics';
 import { useState } from 'preact/hooks';
 import { useLanguage } from '../hooks/useLanguage';
 
@@ -89,16 +90,20 @@ export default function UnitConverter() {
     return parseFloat(result.toFixed(6)).toString();
   };
 
+  const output = convert();
+  const markEdit = useLiveToolAnalytics('unit-converter', 'convert', output !== '' && Number.isFinite(Number(output)));
+
   // Sync selected units when category changes
   const handleCatChange = (newCat: string) => {
     const keys = Object.keys(CATEGORIES[newCat].units);
+    if (cat !== newCat || fromUnit !== keys[0] || toUnit !== keys[1]) markEdit();
     setCat(newCat);
     setFromUnit(keys[0]);
     setToUnit(keys[1] || keys[0]);
   };
 
   return (
-    <div class="space-y-4">
+    <div onInputCapture={markEdit} class="space-y-4">
       <div class="flex flex-wrap gap-1.5">
         {CAT_KEYS.map(k => (
           <button key={k} onClick={() => handleCatChange(k)}
@@ -129,7 +134,7 @@ export default function UnitConverter() {
       <div class="flex gap-2 items-end">
         <div class="flex-1">
           <label class="block text-xs text-gray-500 mb-1">{t.ui.unitTo}</label>
-          <input type="text" value={convert()} readOnly
+          <input type="text" value={output} readOnly
             class="w-full p-2 bg-gray-50 border border-gray-200 rounded-lg text-sm font-mono" />
         </div>
         <div>

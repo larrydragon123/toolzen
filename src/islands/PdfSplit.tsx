@@ -1,3 +1,4 @@
+import { toolAnalytics } from '../utils/toolAnalytics';
 import { useState, useRef, useEffect } from 'preact/hooks';
 import { PDFDocument } from 'pdf-lib';
 import JSZip from 'jszip';
@@ -54,6 +55,8 @@ function computeEveryN(input: string, totalPages: number): number[][] {
   }
   return groups;
 }
+
+const track = toolAnalytics('pdf-split');
 
 export default function PdfSplit() {
   const [file, setFile] = useState<File | null>(null);
@@ -128,6 +131,7 @@ export default function PdfSplit() {
   };
 
   const handleSplit = async () => {
+    track('tool_start', 'split');
     if (!file) return;
 
     let pageIndices: number[][];
@@ -151,6 +155,7 @@ export default function PdfSplit() {
     try {
       const zipBytes = await splitPDF(file, pageIndices);
       setResult(zipBytes);
+      track('tool_complete', 'split');
     } catch (err) {
       console.error('Split failed:', err);
       setError('Failed to split PDF. The file may be corrupted or encrypted.');
