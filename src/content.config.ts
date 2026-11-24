@@ -7,6 +7,7 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.date(),
+    updated: z.date().optional(),
     author: z.string().default('ToolZen Team'),
     tags: z.array(z.string()).default([]),
     image: z.string().optional(),

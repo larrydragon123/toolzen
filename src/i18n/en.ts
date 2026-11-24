@@ -110,9 +110,9 @@ export const en: TranslationDict = {
       description: 'Online image compression tool. Supports PNG, JPEG, and WebP formats. All compression happens locally, protecting your privacy.',
       keywords: ['image compression', 'compress PNG', 'compress JPEG', 'online image compressor', 'free image compression'],
       howToTitle: 'How to Use Image Compressor',
-      howTo: 'Drag and drop or select an image file, adjust the quality slider, and preview the compressed result in real-time. Download the compressed image with one click. All compression happens locally in your browser.',
+      howTo: 'Select your image and output format. Set the JPEG or WebP quality, then click Compress. Compare sizes and preview the result before downloading. Processing happens in your browser.',
       faq: [
-        { q: 'Will compression affect image quality?', a: 'Moderate compression is barely noticeable to the naked eye. You can preview the result before downloading and adjust quality to your needs.' },
+        { q: 'Will compression affect image quality?', a: 'JPEG and WebP can soften small details. Inspect the preview at its display size. PNG preserves pixels and can produce a larger file.' },
         { q: 'Which image formats are supported?', a: 'PNG, JPEG, and WebP formats are supported for compression.' },
       ],
     },

@@ -23,7 +23,7 @@ export async function GET() {
     for (const post of blogPosts) {
       if (post.id.startsWith(`${lang}/`)) {
         const slug = post.id.split('/').slice(1).join('/');
-        const lastmod = post.data.date.toISOString().split('T')[0];
+        const lastmod = (post.data.updated ?? post.data.date).toISOString().split('T')[0];
         urls.push({ loc: `${base}/${lang}/blog/${slug}/`, priority: '0.7', lastmod, changefreq: 'monthly' });
       }
     }

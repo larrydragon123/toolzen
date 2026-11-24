@@ -16,6 +16,8 @@ const { title, description, image, lang, t } = Astro.props;
 const otherLang = getOtherLang(lang);
 const currentPath = Astro.url.pathname;
 const otherPath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
+const suffix = currentPath.slice(lang.length + 1);
+const defaultPath = suffix === '/' || suffix === '/blog/' ? suffix : '/en' + suffix;
 ---
 
 <!doctype html>
@@ -35,7 +37,7 @@ const otherPath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
     <link rel="canonical" href={new URL(currentPath, Astro.site).href} />
     <link rel="alternate" hreflang={lang} href={new URL(currentPath, Astro.site).href} />
     <link rel="alternate" hreflang={otherLang} href={new URL(otherPath, Astro.site).href} />
-    <link rel="alternate" hreflang="x-default" href={new URL(otherPath, Astro.site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL(defaultPath, Astro.site).href} />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

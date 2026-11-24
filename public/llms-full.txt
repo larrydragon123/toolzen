@@ -135,9 +135,10 @@ URL: https://tool-zen.com/zh/blog/dev-tools-top10/
 5 classic use cases for a JSON formatter, from API debugging to config file management. Make reading and debugging JSON painless.
 URL: https://tool-zen.com/zh/blog/json-formatter-guide/
 
-### The Complete Guide to Online Image Compression
-How to dramatically reduce image file size without noticeable quality loss. Compression strategies compared across PNG, JPEG, and WebP formats.
-URL: https://tool-zen.com/zh/blog/image-compress-guide/
+### Image Compression for the Web: JPEG, WebP and PNG Tested
+Measured output sizes from a photograph and a text screenshot, with a downloadable screenshot and a side-by-side detail comparison.
+URL: https://tool-zen.com/en/blog/image-compress-guide/
+Chinese guide: https://tool-zen.com/zh/blog/image-compress-guide/
 
 ### Equal Payment or Equal Principal? Let a Mortgage Calculator Do the Math
 A detailed comparison of equal monthly payment vs. equal principal repayment methods. Use a mortgage calculator to see the total interest and monthly payment for each option.

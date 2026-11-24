@@ -1,7 +1,7 @@
-type Tool = 'case-converter' | 'date-calculator' | 'pdf-compress' | 'word-counter' | 'zodiac-finder';
+type Tool = 'case-converter' | 'date-calculator' | 'image-compress' | 'pdf-compress' | 'word-counter' | 'zodiac-finder';
 type EventName = 'tool_start' | 'tool_complete' | 'tool_error' | 'result_copy' | 'download_click';
 type Details = {
-  error_type?: 'clipboard_unavailable' | 'pdf_processing';
+  error_type?: 'clipboard_unavailable' | 'image_processing' | 'pdf_processing';
   size_change?: 'smaller' | 'same' | 'larger';
 };
 
