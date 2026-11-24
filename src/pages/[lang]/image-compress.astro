@@ -31,6 +31,7 @@ const title = `${toolMeta.title} | ToolZen`;
     <h1 class="text-3xl font-bold text-gray-900 mb-2">{toolMeta.title}</h1>
     <p class="text-gray-500 mb-8">{toolMeta.description}</p>
 
+    <p class="mb-5 text-sm"><a href={`/${lang}/compress-image-to-kb/`}>{lang === 'zh' ? '上传有大小限制？按指定 KB 压缩图片 →' : 'Have an upload limit? Compress an image to a specific size in KB →'}</a></p>
     <ImageCompress lang={lang} client:load />
     {lang === 'en' && (
       <p class="mt-4 text-sm"><a href="/en/blog/image-compress-guide/">Compare JPEG, WebP and PNG sizes for a photo and a screenshot</a></p>

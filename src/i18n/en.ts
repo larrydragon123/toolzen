@@ -116,6 +116,17 @@ export const en: TranslationDict = {
         { q: 'Which image formats are supported?', a: 'PNG, JPEG, and WebP formats are supported for compression.' },
       ],
     },
+    'compress-image-to-kb': {
+      title: 'Compress an Image to a Specific Size in KB',
+      description: 'Fit a photo under 100 KB, 200 KB, 500 KB or a custom upload limit. Keep its dimensions or allow resizing, check the exact byte count and download it locally.',
+      keywords: ['compress image to 100 KB', 'compress image to 200 KB', 'compress image to 500 KB', 'resize photo to KB', 'image file size limit', 'compress JPEG to target size'],
+      howToTitle: 'How do I fit a photo under an upload limit?',
+      howTo: 'Choose an image, enter the upload limit in KB and select “Fit image to limit”. If your application also requires specific pixel dimensions, turn off resizing and check the output width and height before downloading.',
+      faq: [
+        { q: 'How many bytes are in the 200 KB limit?', a: 'This tool uses 1 KB = 1,000 bytes. A 200 KB result is at most 200,000 bytes. If your original already fits, you can download its original contents.' },
+        { q: 'What format will I get?', a: 'Oversized images are exported as a still JPEG. Transparent areas become white. If resizing is enabled, dimensions can decrease proportionally to meet the limit.' },
+      ],
+    },
     'text-diff': {
       title: 'Text Diff Checker',
       description: 'Online text diff comparison tool. Quickly find additions, deletions, and changes between two texts. Supports side-by-side and unified views.',

@@ -17,6 +17,7 @@
 ## Image Tools
 - QR Code Generator: https://tool-zen.com/zh/qr-code/ | https://tool-zen.com/en/qr-code/
 - Image Compressor: https://tool-zen.com/zh/image-compress/ | https://tool-zen.com/en/image-compress/
+- Compress an Image to a Specific Size in KB: https://tool-zen.com/zh/compress-image-to-kb/ | https://tool-zen.com/en/compress-image-to-kb/
 
 ## Crypto & Encoding
 - MD5 / SHA Hash Generator: https://tool-zen.com/zh/md5-hash/ | https://tool-zen.com/en/md5-hash/

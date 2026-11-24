@@ -66,6 +66,14 @@ export const TOOLS: Tool[] = [
     complexity: 'medium',
   },
   {
+    slug: 'compress-image-to-kb',
+    title: '图片压缩到指定大小',
+    description: '设置图片上传大小上限，在浏览器本地生成达标图片。',
+    category: 'image',
+    keywords: ['图片压缩到指定大小', '证件照压缩', '图片压缩到200KB', '图片大小限制'],
+    complexity: 'medium',
+  },
+  {
     slug: 'text-diff',
     title: '文本对比',
     description: '在线文本差异对比工具。快速找出两段文本的增删改内容，支持并排和统一视图。',

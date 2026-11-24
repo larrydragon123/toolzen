@@ -61,6 +61,11 @@ Generates QR codes from URLs, text, or contact info. Customizable colors and siz
 Use for: sharing links, Wi-Fi credentials, business cards, marketing materials, event tickets.
 URL: https://tool-zen.com/zh/qr-code/
 
+### Compress an Image to a Specific Size in KB
+Set an upload limit in KB. Compress JPG, PNG or WebP locally, optionally reduce dimensions, then download the result.
+Chinese: https://tool-zen.com/zh/compress-image-to-kb/
+English: https://tool-zen.com/en/compress-image-to-kb/
+
 ### Image Compressor
 Compresses PNG, JPEG, and WebP images with adjustable quality. All processing local.
 Use for: optimizing web images for faster page loads, reducing bandwidth usage, preparing images for email.
